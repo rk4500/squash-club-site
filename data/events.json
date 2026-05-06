@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "name": "Club Fair",
+    "category": "Intra-College",
+    "date": "2025-08-25",
+    "description": "Kicked off the semester with interactive squash games and outreach activities. Target-hitting challenges and phrase-guessing with headphones attracted huge footfall.",
+    "budget": "₹500",
+    "highlight": "Strong student turnout, effective awareness platform"
+  },
+  {
+    "id": 2,
+    "name": "Team Tryouts",
+    "category": "Intra-College",
+    "date": "2025-08-28",
+    "description": "15 men and 7 women competed over two days in a round-robin format. Final selection: 7 men (5 + 2 reserves) and 6 women (5 + 1 reserve).",
+    "budget": "N/A",
+    "highlight": "22 participants across two days of intense competition"
+  },
+  {
+    "id": 3,
+    "name": "Squash Ladder Tournament — Edition 1",
+    "category": "Intra-College",
+    "date": "2025-09-12",
+    "description": "In collaboration with DotSlash. Knockout format at Arjuna Squash Courts. Established the official FLAME Squash Ladder Leaderboard with top 20 active players.",
+    "budget": "₹1,447 (Income: ₹1,600)",
+    "highlight": "First ever FLAME Squash Ladder established"
+  },
+  {
+    "id": 4,
+    "name": "Interhouse Squash Tournament (Girls)",
+    "category": "Intra-College",
+    "date": "2025-09-19",
+    "description": "All four FLAME houses competed. Chanakya won the women's final against Vivekananda with a confident performance.",
+    "budget": "N/A",
+    "highlight": "Chanakya House — Women's Champions"
+  },
+  {
+    "id": 5,
+    "name": "Interhouse Squash Tournament (Boys)",
+    "category": "Intra-College",
+    "date": "2025-09-19",
+    "description": "High-energy men's division with Kalidas securing victory over Vivekananda in the final.",
+    "budget": "N/A",
+    "highlight": "Kalidas House — Men's Champions"
+  },
+  {
+    "id": 6,
+    "name": "Sports Takeover Stall",
+    "category": "Collaboration",
+    "date": "2025-11-26",
+    "description": "Collaborated with Tennis and Fitness Club for an interactive stall with squash games and student engagement activities.",
+    "budget": "N/A",
+    "highlight": "Multi-club collaboration with great turnout"
+  },
+  {
+    "id": 7,
+    "name": "Interactive Session with Paarth Ambani",
+    "category": "Collaboration",
+    "date": "2025-11-23",
+    "description": "International squash player from Columbia University shared insights on training, match preparation, fitness, and balancing academics with high-level sport.",
+    "budget": "N/A",
+    "highlight": "Columbia University athlete — international insights"
+  },
+  {
+    "id": 8,
+    "name": "FLAME Squash Championship (FSC)",
+    "category": "Inter-College",
+    "date": "2025-12-06",
+    "description": "Marquee inter-college tournament with 70+ registrations from across Maharashtra. Four categories: U-17 Boys, U-17 Girls, Men's, Women's. Sponsors: VYBE Studios & Yodda Trybbe.",
+    "budget": "₹29,079",
+    "highlight": "70+ athletes from across Maharashtra"
+  },
+  {
+    "id": 9,
+    "name": "Winter Carnival Stall",
+    "category": "Collaboration",
+    "date": "2025-12-02",
+    "description": "Collaborated with First-Cut at the Winter Carnival. Squash ball balancing game attracted large crowds in a festive setting.",
+    "budget": "N/A",
+    "highlight": "High footfall, festive engagement"
+  },
+  {
+    "id": 10,
+    "name": "Friendlies — Start Academy",
+    "category": "Inter-College",
+    "date": "2026-01-18",
+    "description": "Round-robin friendly matches with Start Academy. Players tested skills against diverse playing styles.",
+    "budget": "N/A",
+    "highlight": "Cross-institution competitive exposure"
+  },
+  {
+    "id": 11,
+    "name": "Squash Ladder Tournament — Edition 2",
+    "category": "Intra-College",
+    "date": "2026-02-01",
+    "description": "Round-robin format open to all FLAME students. Top 20 players selected for the FLAME Squash Ladder Leaderboard, with challenge matches to move up.",
+    "budget": "₹100 registration",
+    "highlight": "Established updated Ladder Top 20"
+  },
+  {
+    "id": 12,
+    "name": "FirstCut Finale Carnival Stall",
+    "category": "Collaboration",
+    "date": "2026-02-10",
+    "description": "Interactive squash accuracy game — throwing balls into cups at varying distances — drew enthusiastic participation at the FirstCut Finale Carnival.",
+    "budget": "₹500",
+    "highlight": "High engagement, precision & coordination activities"
+  },
+  {
+    "id": 13,
+    "name": "FLAME Racketlon Managers Meet",
+    "category": "Collaboration",
+    "date": "2026-03-02",
+    "description": "Preparatory meet for Racketlon 2026 covering tournament structure, auction rules, roster regulations, and match formats.",
+    "budget": "N/A",
+    "highlight": "Strategic alignment for 8 team managers"
+  },
+  {
+    "id": 14,
+    "name": "FLAME Racketlon Auctions",
+    "category": "Collaboration",
+    "date": "2026-03-04",
+    "description": "8 teams (Raging Rhinos, Phoenix Cavaliers, Vicious Vipers, Valor Stags, Tornado Stallions, Lunar Leopards, Neon Knights, Forest Ravens) bid for players with 50,000 credits each.",
+    "budget": "N/A",
+    "highlight": "Strategic team-building across 8 squads"
+  },
+  {
+    "id": 15,
+    "name": "FLAME Racketlon 2026",
+    "category": "Collaboration",
+    "date": "2026-03-06",
+    "description": "Multi-sport racket tournament across Badminton, Table Tennis, Tennis & Squash. 8 teams, knockout format, 9 match categories. Champions: Neon Knights (₹10,000). Runners-up: Lunar Leopards (₹4,000).",
+    "budget": "₹19,698",
+    "highlight": "🏆 Champions: Neon Knights"
+  },
+  {
+    "id": 16,
+    "name": "AIU Squash Tournament",
+    "category": "Inter-College",
+    "date": "2026-03-09",
+    "description": "FLAME represented at the national university-level AIU Squash Tournament in Mumbai. Both men's and women's teams advanced to Pre-Quarterfinals.",
+    "budget": "₹23,741",
+    "highlight": "National-level representation at AIU"
+  },
+  {
+    "id": 17,
+    "name": "Squash Ladder Tournament — Edition 3",
+    "category": "Intra-College",
+    "date": "2026-03-01",
+    "description": "Final edition for the year. Priyaan, Maanvir, and Dhwani emerged as the top three players.",
+    "budget": "N/A",
+    "highlight": "Top 3: Priyaan, Maanvir, Dhwani"
+  },
+  {
+    "id": 18,
+    "name": "NMIMS Fury Tournament",
+    "category": "Inter-College",
+    "date": "2026-03-14",
+    "description": "Inter-collegiate tournament with players from multiple institutions. Priyaan Thakkar won his category. Japman reached QF, Maanvir reached pre-QF.",
+    "budget": "N/A",
+    "highlight": "🏆 Priyaan Thakkar — Tournament Winner"
+  },
+  {
+    "id": 19,
+    "name": "Friendlies — NDA & Poona Club",
+    "category": "Inter-College",
+    "date": "2026-11-02",
+    "description": "Round-robin friendlies with National Defence Academy and Poona Squash Club. 15–20 participants in a relaxed yet competitive format.",
+    "budget": "N/A",
+    "highlight": "Cross-institution sportsmanship & exposure"
+  },
+  {
+    "id": 20,
+    "name": "Kurukshetra Carnival Stall",
+    "category": "Collaboration",
+    "date": "2026-01-01",
+    "description": "Sack relay and reflex relay games at the Kurukshetra Carnival introduced students to squash skills in a fun, active format.",
+    "budget": "N/A",
+    "highlight": "Agility & reflex training disguised as fun"
+  }
+]

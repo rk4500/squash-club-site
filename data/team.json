@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Priyaan Thakkar",
+    "role": "Co-Head of Events & Team Player",
+    "year": "3rd Year",
+    "gender": "male",
+    "bio": "One of FLAME's most consistent competitors, Priyaan won the NMIMS Fury Tournament and finished 1st on the Squash Ladder (Edition 3). A strategic player with exceptional court coverage and composure under pressure.",
+    "achievements": ["NMIMS Fury Tournament Winner", "Ladder Edition 3 — Rank #1", "AIU Pre-Quarterfinalist"],
+    "photo": ""
+  },
+  {
+    "name": "Maanvir Kamani",
+    "role": "Vice President & Team Player",
+    "year": "2nd Year",
+    "gender": "male",
+    "bio": "A powerful and technically sound player, Maanvir reached the pre-quarterfinals at NMIMS Fury and finished 2nd on the Squash Ladder. Known for his aggressive baseline game and relentless fitness.",
+    "achievements": ["NMIMS Fury — Pre-Quarterfinalist", "Ladder Edition 3 — Rank #2", "AIU Representative"],
+    "photo": ""
+  },
+  {
+    "name": "Avi Sharma",
+    "role": "Head of Outreach & Team Player",
+    "year": "2nd Year",
+    "gender": "male",
+    "bio": "A dynamic all-round player who balances leadership with competitive squash. Avi brings energy to every match and is known for his quick reflexes and attacking style of play.",
+    "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #6"],
+    "photo": ""
+  },
+  {
+    "name": "Japman Singh Bhasin",
+    "role": "Team Player",
+    "year": "2nd Year",
+    "gender": "male",
+    "bio": "A technically gifted player who reached the quarterfinals at the NMIMS Fury Tournament. Japman is known for his precise shot-making and ability to grind out tough matches.",
+    "achievements": ["NMIMS Fury — Quarterfinalist", "AIU Representative", "Ladder Edition 3 — Rank #4"],
+    "photo": ""
+  },
+  {
+    "name": "Shahaan Singh Anand",
+    "role": "Team Player",
+    "year": "3rd Year",
+    "gender": "male",
+    "bio": "A seasoned player with strong court sense and experience. Shahaan is a reliable presence on the team and brings composure to high-pressure inter-college matches.",
+    "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #5"],
+    "photo": ""
+  },
+  {
+    "name": "Dhwani Balchandani",
+    "role": "President & Team Player",
+    "year": "2nd Year",
+    "gender": "female",
+    "bio": "President of the FLAME Squash Club and a top-ranked player, finishing 3rd on the Squash Ladder. Dhwani leads by example both on and off the court, combining competitive excellence with strong club leadership.",
+    "achievements": ["Ladder Edition 3 — Rank #3", "AIU Representative"],
+    "photo": ""
+  },
+  {
+    "name": "Riya Girish",
+    "role": "Head of Social Media & Team Player",
+    "year": "2nd Year",
+    "gender": "female",
+    "bio": "A determined and skillful player who competes with intensity and consistency. Riya balances her role as Social Media Head with strong on-court performances throughout the season.",
+    "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #7"],
+    "photo": ""
+  },
+  {
+    "name": "Adhya Bamrah",
+    "role": "Team Player",
+    "year": "2nd Year",
+    "gender": "female",
+    "bio": "A swift and agile player known for her movement and retrieval skills. Adhya has been a consistent performer in both intra and inter-college competitions throughout the year.",
+    "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #8"],
+    "photo": ""
+  }
+]

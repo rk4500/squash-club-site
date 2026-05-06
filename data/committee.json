@@ -1,0 +1,34 @@
+{
+  "executive": [
+    { "name": "Dhwani Balchandani", "role": "President", "photo": "" },
+    { "name": "Maanvir Kamani", "role": "Vice President", "photo": "" },
+    { "name": "Nidhi Chopra", "role": "Secretary", "photo": "" },
+    { "name": "Rudra Krishna", "role": "Treasurer", "photo": "" },
+    { "name": "Samya Arora", "role": "Head of Public Relations", "photo": "" }
+  ],
+  "heads": [
+    { "name": "Siddharth Balakrishnan", "role": "Head of Logistics", "team": "Logistics", "photo": "" },
+    { "name": "Vikhyat Udhyapay", "role": "Head of Ladder", "team": "Ladder", "photo": "" },
+    { "name": "Gazal Marda", "role": "Head of Data & IT", "team": "Data & IT", "photo": "" },
+    { "name": "Riya Girish", "role": "Head of Social Media", "team": "Social Media", "photo": "" },
+    { "name": "Aman Bhargava", "role": "Head of Documentation", "team": "Documentation", "photo": "" },
+    { "name": "Priyaan Thakkar", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "" },
+    { "name": "Arni Damani", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "" },
+    { "name": "Avi Sharma", "role": "Head of Outreach", "team": "Outreach", "photo": "" }
+  ],
+  "members": [
+    { "name": "Shaurya Jalan", "studentId": "250448", "committee": "Public Relations" },
+    { "name": "Japman Singh Bhasin", "studentId": "250433", "committee": "Public Relations" },
+    { "name": "Adhya Bamrah", "studentId": "250303", "committee": "Public Relations" },
+    { "name": "Akeysha Bothra", "studentId": "250231", "committee": "Events & Planning" },
+    { "name": "Aryan Hegde", "studentId": "250338", "committee": "Events & Planning" },
+    { "name": "Nikunj Garg", "studentId": "250740", "committee": "Events & Planning" },
+    { "name": "Snehal Paul", "studentId": "250620", "committee": "Logistics" },
+    { "name": "Aryan Malhotra", "studentId": "240859", "committee": "Logistics" },
+    { "name": "Akshat Nair", "studentId": "240789", "committee": "Logistics" },
+    { "name": "Kush Kasliwal", "studentId": "240668", "committee": "Logistics" },
+    { "name": "Aarna Lodha", "studentId": "250330", "committee": "Logistics" },
+    { "name": "Samriddhi Garg", "studentId": "250762", "committee": "Outreach" },
+    { "name": "Kashvi Toprani", "studentId": "230671", "committee": "Design" }
+  ]
+}
