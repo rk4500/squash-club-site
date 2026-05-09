@@ -63,7 +63,7 @@ export default function Home() {
               </div>
 
               {/* Logo inline */}
-              <div className="w-16 h-16 relative mb-6 slide-up delay-1">
+              <div className="w-28 h-32 relative mb-6 slide-up delay-1">
                 <Image src="/logo.png" alt="FSC" fill className="object-contain drop-shadow-2xl" priority />
               </div>
 

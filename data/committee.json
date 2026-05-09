@@ -1,7 +1,7 @@
 {
   "executive": [
-    { "name": "Dhwani Balchandani", "role": "President", "photo": "" },
-    { "name": "Maanvir Kamani", "role": "Vice President", "photo": "" },
+    { "name": "Dhwani Balchandani", "role": "President", "photo": "/images/team/1dhwani.png" },
+    { "name": "Maanvir Kamani", "role": "Vice President", "photo": "/images/team/2maanvir.png" },
     { "name": "Nidhi Chopra", "role": "Secretary", "photo": "" },
     { "name": "Rudra Krishna", "role": "Treasurer", "photo": "" },
     { "name": "Samya Arora", "role": "Head of Public Relations", "photo": "" }
@@ -10,11 +10,11 @@
     { "name": "Siddharth Balakrishnan", "role": "Head of Logistics", "team": "Logistics", "photo": "" },
     { "name": "Vikhyat Udhyapay", "role": "Head of Ladder", "team": "Ladder", "photo": "" },
     { "name": "Gazal Marda", "role": "Head of Data & IT", "team": "Data & IT", "photo": "" },
-    { "name": "Riya Girish", "role": "Head of Social Media", "team": "Social Media", "photo": "" },
+    { "name": "Riya Girish", "role": "Head of Social Media", "team": "Social Media", "photo": "/images/team/2riya.png" },
     { "name": "Aman Bhargava", "role": "Head of Documentation", "team": "Documentation", "photo": "" },
-    { "name": "Priyaan Thakkar", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "" },
+    { "name": "Priyaan Thakkar", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "/images/team/1priyaan.png" },
     { "name": "Arni Damani", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "" },
-    { "name": "Avi Sharma", "role": "Head of Outreach", "team": "Outreach", "photo": "" }
+    { "name": "Avi Sharma", "role": "Head of Outreach", "team": "Outreach", "photo": "/images/team/3avi.png" }
   ],
   "members": [
     { "name": "Shaurya Jalan", "studentId": "250448", "committee": "Public Relations" },

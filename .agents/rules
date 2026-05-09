@@ -1,0 +1,5 @@
+# Agent Rules
+
+## Build Command Efficiency
+- **Rule:** Do not run `npm run build` or similar heavy production compilation commands for small, incremental frontend changes (e.g. changing grayscale filter classes, text adjustments, CSS tweaks, minor layout values).
+- **Application:** Only run production builds (`npm run build`) for large, architectural, routing, dependency, or structural changes where static compilation errors are likely.

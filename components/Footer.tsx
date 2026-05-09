@@ -20,7 +20,7 @@ export default function Footer() {
           {/* Brand col */}
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 relative">
+              <div className="w-12 h-14 relative">
                 <Image src="/logo.png" alt="FSC" fill className="object-contain" />
               </div>
               <span className="font-bebas text-xl tracking-[0.2em]">FLAME SQUASH CLUB</span>
