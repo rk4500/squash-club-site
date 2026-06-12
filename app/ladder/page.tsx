@@ -81,32 +81,33 @@ export default function LadderPage() {
       <section className="pb-24 max-w-4xl mx-auto px-6 lg:px-10">
         <div className="border border-white/5 overflow-hidden">
           {/* Header */}
-          <div className="grid grid-cols-[3rem_1fr_3.5rem_3.5rem_2rem] gap-4 px-6 py-3 bg-[#080d17] border-b border-white/5">
+          <div className="grid grid-cols-[3rem_1fr_5rem_2rem] gap-4 px-6 py-3 bg-[#080d17] border-b border-white/5">
             <span className="font-condensed text-[9px] tracking-[0.25em] text-white/20 uppercase">#</span>
             <span className="font-condensed text-[9px] tracking-[0.25em] text-white/20 uppercase">Player</span>
-            <span className="font-condensed text-[9px] tracking-[0.25em] text-white/20 uppercase text-center">W</span>
-            <span className="font-condensed text-[9px] tracking-[0.25em] text-white/20 uppercase text-center">L</span>
+            <span className="font-condensed text-[9px] tracking-[0.25em] text-white/20 uppercase text-center">Record</span>
             <span className="font-condensed text-[9px] tracking-[0.25em] text-white/20 uppercase text-center">↑</span>
           </div>
 
-          {rankings.map((p, i) => (
-            <div
-              key={p.rank}
-              className={`grid grid-cols-[3rem_1fr_3.5rem_3.5rem_2rem] gap-4 px-6 py-4 items-center border-b border-white/3 hover:bg-white/2 transition-colors group
-                ${i === 0 ? 'bg-[#f5a800]/4 border-b border-[#f5a800]/10' : ''}`}
-            >
-              <span className={`font-bebas text-xl leading-none ${
-                i === 0 ? 'text-[#f5a800]' : i === 1 ? 'text-white/30' : i === 2 ? 'text-white/15' : 'text-white/10'
-              }`}>{p.rank}</span>
-              <div>
-                <div className="font-bebas tracking-wider text-white group-hover:text-[#f5a800] transition-colors text-base leading-none">{p.name}</div>
-                <div className="font-condensed text-[9px] tracking-wider text-white/20 mt-1">{p.year}</div>
+          {rankings.map((p, i) => {
+            const record = (p.wins === 0 && p.losses === 0) ? '—' : `${p.wins}–${p.losses}`
+            return (
+              <div
+                key={p.rank}
+                className={`grid grid-cols-[3rem_1fr_5rem_2rem] gap-4 px-6 py-4 items-center border-b border-white/3 hover:bg-white/2 transition-colors group
+                  ${i === 0 ? 'bg-[#f5a800]/4 border-b border-[#f5a800]/10' : ''}`}
+              >
+                <span className={`font-bebas text-xl leading-none ${
+                  i === 0 ? 'text-[#f5a800]' : i === 1 ? 'text-white/30' : i === 2 ? 'text-white/15' : 'text-white/10'
+                }`}>{p.rank}</span>
+                <div>
+                  <div className="font-bebas tracking-wider text-white group-hover:text-[#f5a800] transition-colors text-base leading-none">{p.name}</div>
+                  <div className="font-condensed text-[9px] tracking-wider text-white/20 mt-1">{p.year}</div>
+                </div>
+                <span className={`font-condensed text-sm text-center ${record === '—' ? 'text-white/15' : 'text-white/50'}`}>{record}</span>
+                <div className="flex justify-center"><Trend t={p.trend} /></div>
               </div>
-              <span className="font-condensed text-sm text-emerald-400/70 text-center">{p.wins}</span>
-              <span className="font-condensed text-sm text-red-400/40 text-center">{p.losses}</span>
-              <div className="flex justify-center"><Trend t={p.trend} /></div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Rules */}

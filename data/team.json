@@ -1,38 +1,38 @@
 [
   {
-    "name": "Priyaan Thakkar",
-    "role": "Co-Head of Events & Team Player",
+    "name": "Priyaan Thakker",
+    "role": "Vice President & Team Player",
     "year": "3rd Year",
     "gender": "male",
-    "bio": "Events Co-Head known for superb court coverage and elite composure.",
-    "achievements": ["NMIMS Fury Tournament Winner", "Ladder Edition 3 — Rank #1", "AIU Pre-Quarterfinalist"],
+    "bio": "Club Vice President known for relentless court coverage and elite composure.",
+    "achievements": ["NMIMS Fury Tournament Winner", "Ladder Edition 4 — Rank #1", "AIU Pre-Quarterfinalist"],
     "photo": "/images/team/1priyaan.png"
   },
   {
     "name": "Maanvir Kamani",
-    "role": "Vice President & Team Player",
+    "role": "President & Team Player",
     "year": "2nd Year",
     "gender": "male",
-    "bio": "Club Vice President known for aggressive and dominant baseline play.",
-    "achievements": ["NMIMS Fury — Pre-Quarterfinalist", "Ladder Edition 3 — Rank #2", "AIU Representative"],
+    "bio": "Club President known for aggressive and dominant baseline play.",
+    "achievements": ["NMIMS Fury — Pre-Quarterfinalist", "Ladder Edition 4 — Rank #2", "AIU Representative"],
     "photo": "/images/team/2maanvir.png"
   },
   {
     "name": "Avi Sharma",
-    "role": "Head of Outreach & Team Player",
+    "role": "Head of Public Relations & Team Player",
     "year": "2nd Year",
     "gender": "male",
-    "bio": "Outreach Head combining quick reflexes with an attacking court style.",
-    "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #6"],
+    "bio": "Head of PR combining quick reflexes with an attacking court style.",
+    "achievements": ["AIU Representative", "Ladder Edition 4 — Rank #16"],
     "photo": "/images/team/3avi.png"
   },
   {
-    "name": "Japman Singh Bhasin",
+    "name": "Japmann S. Bhasin",
     "role": "Team Player",
     "year": "2nd Year",
     "gender": "male",
     "bio": "Relentless competitor known for clinical shot-making and high grit.",
-    "achievements": ["NMIMS Fury — Quarterfinalist", "AIU Representative", "Ladder Edition 3 — Rank #4"],
+    "achievements": ["NMIMS Fury — Quarterfinalist", "AIU Representative", "Ladder Edition 4 — Rank #4"],
     "photo": "/images/team/5japmann.png"
   },
   {
@@ -41,16 +41,16 @@
     "year": "3rd Year",
     "gender": "male",
     "bio": "Experienced player bringing calm composure to high-pressure matches.",
-    "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #5"],
+    "achievements": ["AIU Representative", "Ladder Edition 4 — Rank #18"],
     "photo": "/images/team/4shahaan.png"
   },
   {
     "name": "Dhwani Balchandani",
-    "role": "President & Team Player",
+    "role": "Team Player",
     "year": "2nd Year",
     "gender": "female",
-    "bio": "Club President combining elite court skill with inspiring leadership.",
-    "achievements": ["Ladder Edition 3 — Rank #3", "AIU Representative"],
+    "bio": "Elite competitor combining court precision with inspiring leadership.",
+    "achievements": ["Ladder Edition 4 — Rank #3", "AIU Representative"],
     "photo": "/images/team/1dhwani.png"
   },
   {

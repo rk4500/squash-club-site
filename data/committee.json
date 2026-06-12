@@ -1,24 +1,24 @@
 {
   "executive": [
-    { "name": "Dhwani Balchandani", "role": "President", "photo": "/images/team/1dhwani.png" },
-    { "name": "Maanvir Kamani", "role": "Vice President", "photo": "/images/team/2maanvir.png" },
-    { "name": "Nidhi Chopra", "role": "Secretary", "photo": "" },
+    { "name": "Maanvir Kamani", "role": "President", "photo": "/images/team/2maanvir.png" },
+    { "name": "Priyaan Thakker", "role": "Vice President", "photo": "/images/team/1priyaan.png" },
+    { "name": "Vikhyat Upadhyay", "role": "Secretary", "photo": "" },
     { "name": "Rudra Krishna", "role": "Treasurer", "photo": "" },
-    { "name": "Samya Arora", "role": "Head of Public Relations", "photo": "" }
+    { "name": "Avi Sharma", "role": "Head of Public Relations", "photo": "/images/team/3avi.png" }
   ],
   "heads": [
     { "name": "Siddharth Balakrishnan", "role": "Head of Logistics", "team": "Logistics", "photo": "" },
-    { "name": "Vikhyat Udhyapay", "role": "Head of Ladder", "team": "Ladder", "photo": "" },
+    { "name": "Vikhyat Upadhyay", "role": "Head of Ladder", "team": "Ladder", "photo": "" },
     { "name": "Gazal Marda", "role": "Head of Data & IT", "team": "Data & IT", "photo": "" },
     { "name": "Riya Girish", "role": "Head of Social Media", "team": "Social Media", "photo": "/images/team/2riya.png" },
     { "name": "Aman Bhargava", "role": "Head of Documentation", "team": "Documentation", "photo": "" },
-    { "name": "Priyaan Thakkar", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "/images/team/1priyaan.png" },
+    { "name": "Priyaan Thakker", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "/images/team/1priyaan.png" },
     { "name": "Arni Damani", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "" },
     { "name": "Avi Sharma", "role": "Head of Outreach", "team": "Outreach", "photo": "/images/team/3avi.png" }
   ],
   "members": [
     { "name": "Shaurya Jalan", "studentId": "250448", "committee": "Public Relations" },
-    { "name": "Japman Singh Bhasin", "studentId": "250433", "committee": "Public Relations" },
+    { "name": "Japmann S. Bhasin", "studentId": "250433", "committee": "Public Relations" },
     { "name": "Adhya Bamrah", "studentId": "250303", "committee": "Public Relations" },
     { "name": "Akeysha Bothra", "studentId": "250231", "committee": "Events & Planning" },
     { "name": "Aryan Hegde", "studentId": "250338", "committee": "Events & Planning" },
