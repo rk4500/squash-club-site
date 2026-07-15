@@ -1,22 +1,22 @@
 {
   "executive": [
-    { "name": "Maanvir Kamani", "role": "President", "photo": "/images/committee/ec_maanvir.jpeg" },
-    { "name": "Priyaan Thakker", "role": "Vice President", "photo": "/images/committee/ec_priyaan.jpeg" },
-    { "name": "Vikhyat Upadhyay", "role": "Secretary", "photo": "/images/committee/ec_vikhyat.jpeg" },
-    { "name": "Rudra Krishna", "role": "Treasurer", "photo": "/images/committee/ec_rudra.jpeg" },
-    { "name": "Avi Sharma", "role": "Head of Public Relations", "photo": "/images/committee/ec_avi.jpeg" }
+    { "name": "Maanvir Kamani", "role": "President", "photo": "/images/committee/cutouts/ec_maanvir.png" },
+    { "name": "Priyaan Thakker", "role": "Vice President", "photo": "/images/committee/cutouts/ec_priyaan.png" },
+    { "name": "Vikhyat Upadhyay", "role": "Secretary", "photo": "/images/committee/cutouts/ec_vikhyat.png" },
+    { "name": "Rudra Krishna", "role": "Treasurer", "photo": "/images/committee/cutouts/ec_rudra.png" },
+    { "name": "Avi Sharma", "role": "Head of Public Relations", "photo": "/images/committee/cutouts/ec_avi.png" }
   ],
   "heads": [
-    { "name": "Shyamlee Singh", "role": "Head of Documentation", "team": "Documentation", "photo": "/images/committee/cc_shyamlee.jpeg" },
-    { "name": "Akeysha Bothra", "role": "Co-Head of Documentation", "team": "Documentation", "photo": "/images/committee/cc_akeysha.jpeg" },
-    { "name": "Aryaman Panchisia", "role": "Co-Head of Documentation", "team": "Documentation", "photo": "/images/committee/cc_aryaman.jpeg" },
-    { "name": "Aman Bhargava", "role": "Head of Ladder", "team": "Ladder", "photo": "/images/committee/cc_aman.jpeg" },
-    { "name": "Gazal Marda", "role": "Co-Head of Logistics", "team": "Logistics", "photo": "/images/committee/cc_gazal.jpeg" },
-    { "name": "Kanav Chandak", "role": "Co-Head of Logistics", "team": "Logistics", "photo": "/images/committee/cc_kanav.jpeg" },
-    { "name": "Shaurya Jalan", "role": "Co-Head of Social Media", "team": "Social Media", "photo": "/images/committee/cc_shaurya.jpeg" },
-    { "name": "Tanisha Shah", "role": "Co-Head of Social Media", "team": "Social Media", "photo": "/images/committee/cc_tanisha.jpeg" },
-    { "name": "Arni Damani", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "/images/committee/cc_arni.jpeg" },
-    { "name": "Sara Kulkarni", "role": "Co-Head of Design", "team": "Design", "photo": "/images/committee/cc_sara.jpeg" }
+    { "name": "Shyamlee Singh", "role": "Head of Documentation", "team": "Documentation", "photo": "/images/committee/cutouts/cc_shyamlee.png" },
+    { "name": "Akeysha Bothra", "role": "Co-Head of Documentation", "team": "Documentation", "photo": "/images/committee/cutouts/cc_akeysha.png" },
+    { "name": "Aryaman Panchisia", "role": "Co-Head of Documentation", "team": "Documentation", "photo": "/images/committee/cutouts/cc_aryaman.png" },
+    { "name": "Aman Bhargava", "role": "Head of Ladder", "team": "Ladder", "photo": "/images/committee/cutouts/cc_aman.png" },
+    { "name": "Gazal Marda", "role": "Co-Head of Logistics", "team": "Logistics", "photo": "/images/committee/cutouts/cc_gazal.png" },
+    { "name": "Kanav Chandak", "role": "Co-Head of Logistics", "team": "Logistics", "photo": "/images/committee/cutouts/cc_kanav.png" },
+    { "name": "Shaurya Jalan", "role": "Co-Head of Social Media", "team": "Social Media", "photo": "/images/committee/cutouts/cc_shaurya.png" },
+    { "name": "Tanisha Shah", "role": "Co-Head of Social Media", "team": "Social Media", "photo": "/images/committee/cutouts/cc_tanisha.png" },
+    { "name": "Arni Damani", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "/images/committee/cutouts/cc_arni.png" },
+    { "name": "Sara Kulkarni", "role": "Co-Head of Design", "team": "Design", "photo": "/images/committee/cutouts/cc_sara.png" }
   ],
   "members": [
     { "name": "Japmann S. Bhasin", "studentId": "250433", "committee": "Public Relations" },
