@@ -2,9 +2,9 @@
   "lastUpdated": "April 2026",
   "edition": "Edition 4",
   "rankings": [
-    { "rank": 1, "name": "Priyaan Thakker", "year": "3rd Year", "wins": 0, "losses": 0, "trend": "stable" },
-    { "rank": 2, "name": "Maanvir Kamani", "year": "2nd Year", "wins": 0, "losses": 0, "trend": "stable" },
-    { "rank": 3, "name": "Dhwani Balchandani", "year": "2nd Year", "wins": 0, "losses": 0, "trend": "up" },
+    { "rank": 1, "name": "Priyaan Thakker", "year": "3rd Year", "wins": 0, "losses": 0, "trend": "stable", "photo": "/images/team/1priyaan.png" },
+    { "rank": 2, "name": "Maanvir Kamani", "year": "2nd Year", "wins": 0, "losses": 0, "trend": "stable", "photo": "/images/team/2maanvir.png" },
+    { "rank": 3, "name": "Dhwani Balchandani", "year": "2nd Year", "wins": 0, "losses": 0, "trend": "up", "photo": "/images/team/1dhwani.png" },
     { "rank": 4, "name": "Japmann S. Bhasin", "year": "2nd Year", "wins": 0, "losses": 0, "trend": "up" },
     { "rank": 5, "name": "Aman Bhargava", "year": "2nd Year", "wins": 0, "losses": 0, "trend": "up" },
     { "rank": 6, "name": "Rudra Krishna", "year": "2nd Year", "wins": 0, "losses": 0, "trend": "stable" },
