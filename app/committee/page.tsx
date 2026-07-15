@@ -23,6 +23,51 @@ function Monogram({ name, size = 'md' }: { name: string; size?: 'sm' | 'md' | 'l
   )
 }
 
+function CCHeadCard({ member }: { member: { name: string; role: string; team: string; photo?: string } }) {
+  const hasPhoto = !!member.photo
+  return (
+    <div className="group relative flex flex-col bg-[#080d17] border border-white/5 transition-all duration-500 hover:-translate-y-1 hover:border-[#f5a800]/30 overflow-hidden cursor-default">
+      <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f5a800] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-20" />
+
+      <div className="relative w-full aspect-[4/5] bg-[#0c1220] overflow-hidden border-b border-white/5">
+        {hasPhoto ? (
+          <>
+            <div className="absolute inset-0 opacity-[0.04] pointer-events-none group-hover:opacity-[0.1] transition-opacity duration-700" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '12px 12px' }} />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(245,168,0,0.12)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+            <Image
+              src={member.photo!}
+              alt={member.name}
+              fill
+              className="object-contain object-bottom opacity-85 scale-[0.9] translate-y-2 group-hover:scale-[0.95] group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 origin-bottom"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            />
+          </>
+        ) : (
+          <>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="font-bebas text-[80px] leading-none select-none text-[#f5a800]/5 group-hover:text-[#f5a800]/10 transition-all duration-700">
+                {member.name.split(' ').slice(0, 2).map((n) => n[0]).join('')}
+              </span>
+            </div>
+            <div className="absolute inset-0 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity duration-700" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '12px 12px' }} />
+          </>
+        )}
+        <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#080d17] to-transparent z-10 pointer-events-none" />
+      </div>
+
+      <div className="p-4 flex flex-col relative z-20 bg-[#080d17] flex-1">
+        <span className={`inline-flex self-start font-condensed text-[8px] tracking-[0.15em] uppercase px-2 py-0.5 border mb-2 ${teamColor[member.team] ?? 'text-gray-400 border-gray-400/20 bg-gray-400/5'}`}>
+          {member.team}
+        </span>
+        <p className="font-condensed text-[9px] tracking-[0.2em] text-white/30 uppercase mb-0.5">{member.role}</p>
+        <h3 className="font-bebas text-lg tracking-wider text-white leading-tight group-hover:text-[#f5a800] transition-colors duration-300">
+          {member.name}
+        </h3>
+      </div>
+    </div>
+  )
+}
+
 function ECCard({ member }: { member: { name: string; role: string; photo?: string } }) {
   const hasPhoto = !!member.photo
   return (
@@ -127,18 +172,9 @@ export default function CommitteePage() {
           <div className="flex-1 h-px bg-white/5" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
           {committee.heads.map((h) => (
-            <div key={h.name} className="card bar-left p-6 group">
-              <div className="flex items-start justify-between mb-5">
-                <Monogram name={h.name} size="md" />
-                <span className={`font-condensed text-[9px] tracking-[0.15em] uppercase px-2 py-1 border ${teamColor[h.team] ?? 'text-gray-400 border-gray-400/20 bg-gray-400/5'}`}>
-                  {h.team}
-                </span>
-              </div>
-              <p className="font-condensed text-[10px] tracking-[0.2em] text-white/30 uppercase mb-1">{h.role}</p>
-              <h3 className="font-bebas text-base tracking-wider text-white leading-tight group-hover:text-[#f5a800] transition-colors">{h.name}</h3>
-            </div>
+            <CCHeadCard key={`${h.name}-${h.role}`} member={h} />
           ))}
         </div>
       </section>
