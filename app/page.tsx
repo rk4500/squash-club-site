@@ -10,9 +10,9 @@ const stats = [
 ]
 
 const ladder = [
-  { rank: 1, name: 'Priyaan Thakkar', detail: 'NMIMS Winner · Ladder #1', photo: '/images/team/1priyaan.png' },
-  { rank: 2, name: 'Maanvir Kamani', detail: 'Vice President · AIU Rep', photo: '/images/team/2maanvir.png' },
-  { rank: 3, name: 'Dhwani Balchandani', detail: 'President · AIU Rep', photo: '/images/team/1dhwani.png' },
+  { rank: 1, name: 'Priyaan Thakkar', detail: 'NMIMS Winner · Ladder #1', photo: '/images/team/1priyaan.webp' },
+  { rank: 2, name: 'Maanvir Kamani', detail: 'Vice President · AIU Rep', photo: '/images/team/2maanvir.webp' },
+  { rank: 3, name: 'Dhwani Balchandani', detail: 'President · AIU Rep', photo: '/images/team/1dhwani.webp' },
 ]
 
 const highlights = [
