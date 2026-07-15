@@ -1,4 +1,5 @@
 import ladderData from '@/data/ladder.json'
+import Image from 'next/image'
 import { Trophy, TrendingUp, TrendingDown, Minus } from 'lucide-react'
 
 function Trend({ t }: { t: string }) {
@@ -43,37 +44,70 @@ export default function LadderPage() {
 
       {/* ── TOP 3 PODIUM ── */}
       <section className="py-12 max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-3 gap-3 max-w-2xl mx-auto mb-2">
+        <div className="grid grid-cols-3 gap-3 max-w-2xl mx-auto mb-2 items-end">
+
           {/* 2nd */}
-          <div className="border border-white/8 bg-white/2 p-6 text-center flex flex-col items-center justify-end mt-8">
-            <div className="font-bebas text-5xl text-white/20 mb-4">2</div>
-            <div className="w-14 h-14 border border-white/10 bg-white/3 flex items-center justify-center font-bebas text-white/50 text-xl mb-3">
-              {top3[1].name.split(' ').slice(0,2).map(n => n[0]).join('')}
+          <div className="border border-white/8 bg-[#080d17] flex flex-col overflow-hidden mt-28 group cursor-default">
+            <div className="relative w-full aspect-[3/4] bg-[#0c1220] overflow-hidden">
+              <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '12px 12px' }} />
+              {top3[1].photo ? (
+                <Image src={top3[1].photo} alt={top3[1].name} fill className="object-contain object-bottom opacity-80 scale-[0.92] group-hover:scale-[0.97] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 origin-bottom" sizes="20vw" />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-bebas text-5xl text-white/10">{top3[1].name.split(' ').slice(0,2).map(n => n[0]).join('')}</span>
+                </div>
+              )}
+              <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#080d17] to-transparent z-10 pointer-events-none" />
             </div>
-            <div className="font-bebas text-sm tracking-wider text-white/60 leading-tight text-center">{top3[1].name}</div>
-            <div className="font-condensed text-[9px] tracking-wider text-white/20 mt-1">{top3[1].year}</div>
+            <div className="p-4 text-center">
+              <div className="font-bebas text-4xl text-white/20 leading-none mb-1">2</div>
+              <div className="font-bebas text-sm tracking-wider text-white/60 leading-tight">{top3[1].name}</div>
+              <div className="font-condensed text-[9px] tracking-wider text-white/20 mt-1">{top3[1].year}</div>
+            </div>
           </div>
 
           {/* 1st — tallest */}
-          <div className="border border-[#f5a800]/30 bg-[#f5a800]/6 p-6 text-center flex flex-col items-center justify-end relative">
-            <Trophy size={14} className="text-[#f5a800] absolute top-4 left-1/2 -translate-x-1/2" />
-            <div className="font-bebas text-6xl text-[#f5a800] mb-4 gold-glow-text">1</div>
-            <div className="w-16 h-16 border border-[#f5a800]/30 bg-[#f5a800]/10 flex items-center justify-center font-bebas text-[#f5a800] text-2xl mb-3">
-              {top3[0].name.split(' ').slice(0,2).map(n => n[0]).join('')}
+          <div className="border border-[#f5a800]/30 bg-[#080d17] flex flex-col overflow-hidden relative group cursor-default">
+            <Trophy size={12} className="text-[#f5a800] absolute top-3 right-3 z-20" />
+            <div className="relative w-full aspect-[3/4] bg-[#0c1220] overflow-hidden">
+              <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '12px 12px' }} />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,rgba(245,168,0,0.12)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              {top3[0].photo ? (
+                <Image src={top3[0].photo} alt={top3[0].name} fill className="object-contain object-bottom opacity-90 scale-[0.92] group-hover:scale-[0.97] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 origin-bottom" sizes="20vw" />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-bebas text-6xl text-[#f5a800]/20">{top3[0].name.split(' ').slice(0,2).map(n => n[0]).join('')}</span>
+                </div>
+              )}
+              <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#080d17] to-transparent z-10 pointer-events-none" />
             </div>
-            <div className="font-bebas text-base tracking-wider text-white leading-tight text-center">{top3[0].name}</div>
-            <div className="font-condensed text-[9px] tracking-wider text-[#f5a800]/50 mt-1">{top3[0].year}</div>
+            <div className="p-4 text-center bg-[#f5a800]/4">
+              <div className="font-bebas text-5xl text-[#f5a800] leading-none mb-1 gold-glow-text">1</div>
+              <div className="font-bebas text-base tracking-wider text-white leading-tight">{top3[0].name}</div>
+              <div className="font-condensed text-[9px] tracking-wider text-[#f5a800]/50 mt-1">{top3[0].year}</div>
+            </div>
           </div>
 
           {/* 3rd */}
-          <div className="border border-white/8 bg-white/2 p-6 text-center flex flex-col items-center justify-end mt-14">
-            <div className="font-bebas text-4xl text-white/10 mb-4">3</div>
-            <div className="w-12 h-12 border border-white/8 bg-white/2 flex items-center justify-center font-bebas text-white/30 text-lg mb-3">
-              {top3[2].name.split(' ').slice(0,2).map(n => n[0]).join('')}
+          <div className="border border-white/5 bg-[#080d17] flex flex-col overflow-hidden mt-52 group cursor-default">
+            <div className="relative w-full aspect-[3/4] bg-[#0c1220] overflow-hidden">
+              <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '12px 12px' }} />
+              {top3[2].photo ? (
+                <Image src={top3[2].photo} alt={top3[2].name} fill className="object-contain object-bottom opacity-70 scale-[0.92] group-hover:scale-[0.97] group-hover:opacity-90 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 origin-bottom" sizes="20vw" />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-bebas text-4xl text-white/10">{top3[2].name.split(' ').slice(0,2).map(n => n[0]).join('')}</span>
+                </div>
+              )}
+              <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-[#080d17] to-transparent z-10 pointer-events-none" />
             </div>
-            <div className="font-bebas text-xs tracking-wider text-white/40 leading-tight text-center">{top3[2].name}</div>
-            <div className="font-condensed text-[9px] tracking-wider text-white/15 mt-1">{top3[2].year}</div>
+            <div className="p-4 text-center">
+              <div className="font-bebas text-3xl text-white/10 leading-none mb-1">3</div>
+              <div className="font-bebas text-xs tracking-wider text-white/40 leading-tight">{top3[2].name}</div>
+              <div className="font-condensed text-[9px] tracking-wider text-white/15 mt-1">{top3[2].year}</div>
+            </div>
           </div>
+
         </div>
       </section>
 

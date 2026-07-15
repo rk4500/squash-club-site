@@ -10,9 +10,9 @@ const stats = [
 ]
 
 const ladder = [
-  { rank: 1, name: 'Priyaan Thakkar', detail: 'NMIMS Winner · Ladder #1' },
-  { rank: 2, name: 'Maanvir Kamani', detail: 'Vice President · AIU Rep' },
-  { rank: 3, name: 'Dhwani Balchandani', detail: 'President · AIU Rep' },
+  { rank: 1, name: 'Priyaan Thakkar', detail: 'NMIMS Winner · Ladder #1', photo: '/images/team/1priyaan.png' },
+  { rank: 2, name: 'Maanvir Kamani', detail: 'Vice President · AIU Rep', photo: '/images/team/2maanvir.png' },
+  { rank: 3, name: 'Dhwani Balchandani', detail: 'President · AIU Rep', photo: '/images/team/1dhwani.png' },
 ]
 
 const highlights = [
@@ -242,6 +242,9 @@ export default function Home() {
                     ${i === 0 ? 'text-[#f5a800]' : i === 1 ? 'text-white/30' : 'text-white/15'}`}>
                     {p.rank}
                   </span>
+                  <div className={`relative w-10 h-10 flex-shrink-0 overflow-hidden border ${i === 0 ? 'border-[#f5a800]/20' : 'border-white/8'}`}>
+                    <Image src={p.photo} alt={p.name} fill className="object-contain object-bottom" sizes="40px" />
+                  </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-bebas text-xl tracking-wider text-white truncate">{p.name}</div>
                     <div className="font-condensed text-xs tracking-wider text-white/25 mt-0.5">{p.detail}</div>
