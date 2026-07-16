@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="md:col-span-4">
             <Link href="/" className="flex items-center gap-3 mb-5">
               <div className="w-12 h-14 relative">
-                <Image src="/logo.png" alt="FSC" fill className="object-contain" />
+                <Image src="/logo.webp" alt="FSC" fill className="object-contain" />
               </div>
               <span className="font-bebas text-xl tracking-[0.2em]">FLAME SQUASH CLUB</span>
             </Link>

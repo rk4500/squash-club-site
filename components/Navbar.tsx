@@ -38,7 +38,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 relative opacity-90 group-hover:opacity-100 transition-opacity">
-              <Image src="/logo.png" alt="FSC" fill className="object-contain" />
+              <Image src="/logo.webp" alt="FSC" fill className="object-contain" />
             </div>
             <div className="flex flex-col leading-none">
               <span className="font-bebas text-[17px] tracking-[0.18em] text-white group-hover:text-[#f5a800] transition-colors duration-300">FLAME SQUASH</span>
