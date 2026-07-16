@@ -15,9 +15,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        bebas: ['"Bebas Neue"', 'sans-serif'],
-        condensed: ['"Barlow Condensed"', 'sans-serif'],
-        barlow: ['Barlow', 'sans-serif'],
+        bebas: ['var(--font-bebas)', 'sans-serif'],
+        condensed: ['var(--font-condensed)', 'sans-serif'],
+        barlow: ['var(--font-barlow)', 'sans-serif'],
       },
       backgroundImage: {
         'gold-gradient': 'linear-gradient(135deg, #f5a800, #ffd166, #f5a800)',
