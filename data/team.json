@@ -1,8 +1,6 @@
 [
   {
     "name": "Priyaan Thakker",
-    "role": "Vice President & Team Player",
-    "year": "3rd Year",
     "gender": "male",
     "bio": "Club Vice President known for relentless court coverage and elite composure.",
     "achievements": ["NMIMS Fury Tournament Winner", "Ladder Edition 4 — Rank #1", "AIU Pre-Quarterfinalist"],
@@ -10,8 +8,6 @@
   },
   {
     "name": "Maanvir Kamani",
-    "role": "President & Team Player",
-    "year": "2nd Year",
     "gender": "male",
     "bio": "Club President known for aggressive and dominant baseline play.",
     "achievements": ["NMIMS Fury — Pre-Quarterfinalist", "Ladder Edition 4 — Rank #2", "AIU Representative"],
@@ -19,8 +15,6 @@
   },
   {
     "name": "Avi Sharma",
-    "role": "Head of Public Relations & Team Player",
-    "year": "2nd Year",
     "gender": "male",
     "bio": "Head of PR combining quick reflexes with an attacking court style.",
     "achievements": ["AIU Representative", "Ladder Edition 4 — Rank #16"],
@@ -28,8 +22,6 @@
   },
   {
     "name": "Japmann S. Bhasin",
-    "role": "Team Player",
-    "year": "2nd Year",
     "gender": "male",
     "bio": "Relentless competitor known for clinical shot-making and high grit.",
     "achievements": ["NMIMS Fury — Quarterfinalist", "AIU Representative", "Ladder Edition 4 — Rank #4"],
@@ -37,8 +29,6 @@
   },
   {
     "name": "Shahaan Singh Anand",
-    "role": "Team Player",
-    "year": "3rd Year",
     "gender": "male",
     "bio": "Experienced player bringing calm composure to high-pressure matches.",
     "achievements": ["AIU Representative", "Ladder Edition 4 — Rank #18"],
@@ -46,8 +36,6 @@
   },
   {
     "name": "Dhwani Balchandani",
-    "role": "Team Player",
-    "year": "2nd Year",
     "gender": "female",
     "bio": "Elite competitor combining court precision with inspiring leadership.",
     "achievements": ["Ladder Edition 4 — Rank #3", "AIU Representative"],
@@ -55,17 +43,13 @@
   },
   {
     "name": "Riya Girish",
-    "role": "Head of Social Media & Team Player",
-    "year": "2nd Year",
     "gender": "female",
-    "bio": "Social Media Head balancing off-court leadership with intense play.",
+    "bio": "Dynamic competitor blending composed court craft with relentless intensity.",
     "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #7"],
     "photo": "/images/team/2riya.webp"
   },
   {
     "name": "Adhya Bamrah",
-    "role": "Team Player",
-    "year": "2nd Year",
     "gender": "female",
     "bio": "Agile competitor celebrated for swift movement and superb retrieval.",
     "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #8"],

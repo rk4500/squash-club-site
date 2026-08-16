@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Trophy, ArrowRight } from 'lucide-react'
+import ladderData from '@/data/ladder.json'
+import { previewRole } from '@/lib/roster'
 
 const stats = [
   { value: '20+', label: 'Events', sub: 'This season' },
@@ -9,11 +11,9 @@ const stats = [
   { value: '92%', label: 'Growth', sub: 'Follower increase' },
 ]
 
-const ladder = [
-  { rank: 1, name: 'Priyaan Thakkar', detail: 'NMIMS Winner · Ladder #1', photo: '/images/team/1priyaan.webp' },
-  { rank: 2, name: 'Maanvir Kamani', detail: 'Vice President · AIU Rep', photo: '/images/team/2maanvir.webp' },
-  { rank: 3, name: 'Dhwani Balchandani', detail: 'President · AIU Rep', photo: '/images/team/1dhwani.webp' },
-]
+// Top 3 pulled live from the ladder; designations pulled from committee data
+// (see lib/roster) so they never go stale.
+const ladder = (ladderData.rankings as { rank: number; name: string; photo?: string }[]).slice(0, 3)
 
 const highlights = [
   { tag: 'Inter-College', title: 'NMIMS Fury Tournament', result: 'Priyaan Thakkar — Category Winner', date: 'Mar 2026' },
@@ -100,7 +100,7 @@ export default function Home() {
             {/* Right — Stats panel */}
             <div className="hidden lg:flex flex-col items-end gap-1 pb-2">
               <div className="w-full max-w-xs">
-                <p className="section-label justify-end mb-6">Season 2025–26</p>
+                <p className="section-label justify-end mb-6">Season 2026–27</p>
                 <div className="grid grid-cols-2 gap-3">
                   {stats.map((s) => (
                     <div key={s.label} className="border border-white/8 bg-white/3 backdrop-blur-sm p-5">
@@ -127,7 +127,7 @@ export default function Home() {
         <div className="marquee-inner">
           {Array(8).fill(null).map((_, i) => (
             <span key={i} className="font-bebas text-sm tracking-[0.5em] text-[#f5a800]/50 mx-10 whitespace-nowrap">
-              FSC &nbsp;·&nbsp; FLAME SQUASH &nbsp;·&nbsp; DOMINATE &nbsp;·&nbsp; PUNE &nbsp;·&nbsp; 2025–26 &nbsp;·&nbsp;
+              FSC &nbsp;·&nbsp; FLAME SQUASH &nbsp;·&nbsp; DOMINATE &nbsp;·&nbsp; PUNE &nbsp;·&nbsp; 2026–27 &nbsp;·&nbsp;
             </span>
           ))}
         </div>
@@ -243,11 +243,11 @@ export default function Home() {
                     {p.rank}
                   </span>
                   <div className={`relative w-10 h-10 flex-shrink-0 overflow-hidden border ${i === 0 ? 'border-[#f5a800]/20' : 'border-white/8'}`}>
-                    <Image src={p.photo} alt={p.name} fill className="object-contain object-bottom" sizes="40px" />
+                    <Image src={p.photo ?? '/logo.webp'} alt={p.name} fill className="object-contain object-bottom" sizes="40px" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-bebas text-xl tracking-wider text-white truncate">{p.name}</div>
-                    <div className="font-condensed text-xs tracking-wider text-white/25 mt-0.5">{p.detail}</div>
+                    <div className="font-condensed text-xs tracking-wider text-white/25 mt-0.5">{previewRole(p.name)}</div>
                   </div>
                   {i === 0 && <Trophy size={16} className="text-[#f5a800] flex-shrink-0" />}
                 </div>

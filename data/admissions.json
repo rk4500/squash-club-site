@@ -1,0 +1,27 @@
+{
+  "__note": "SINGLE SOURCE OF TRUTH for each player's admission year. The academic year shown on the site (Team, Ladder, Home) is auto-calculated from this and increments every August. To update a player: set their admission year as a 4-digit number (e.g. 2024). Use \"graduated\" to show a Graduated badge instead of a year. Set null / leave a value you don't know yet — it will simply show no year until filled. Names MUST match team.json and ladder.json exactly. There is no year cap: 4th, 5th year etc. are all valid.",
+  "admissions": {
+    "Priyaan Thakker": 2025,
+    "Maanvir Kamani": 2024,
+    "Avi Sharma": 2025,
+    "Japmann S. Bhasin": 2025,
+    "Shahaan Singh Anand": 2024,
+    "Dhwani Balchandani": 2023,
+    "Riya Girish": 2024,
+    "Adhya Bamrah": 2025,
+    "Aman Bhargava": 2025,
+    "Rudra Krishna": 2024,
+    "Rushil Gupta": 2025,
+    "Aum Parikh": 2025,
+    "Pratham Golchha": "graduated",
+    "Manav Jain": 2023,
+    "Atharva Sheth": 2025,
+    "Hriday Agrawal": 2024,
+    "Ahana Bhaskaran": 2025,
+    "Mannit Hemdev": 2023,
+    "Vedant Shah": 2024,
+    "Anantya Daga": 2024,
+    "Bhagya Patel": 2024,
+    "Samya Arora": 2024
+  }
+}

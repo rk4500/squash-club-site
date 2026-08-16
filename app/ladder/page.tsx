@@ -1,6 +1,7 @@
 import ladderData from '@/data/ladder.json'
 import Image from 'next/image'
 import { Trophy, TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import { academicYear } from '@/lib/roster'
 
 function Trend({ t }: { t: string }) {
   if (t === 'up')   return <TrendingUp size={12} className="text-emerald-400" />
@@ -62,7 +63,7 @@ export default function LadderPage() {
             <div className="p-4 text-center">
               <div className="font-bebas text-4xl text-white/20 leading-none mb-1">2</div>
               <div className="font-bebas text-sm tracking-wider text-white/60 leading-tight">{top3[1].name}</div>
-              <div className="font-condensed text-[9px] tracking-wider text-white/20 mt-1">{top3[1].year}</div>
+              <div className="font-condensed text-[9px] tracking-wider text-white/20 mt-1">{academicYear(top3[1].name)}</div>
             </div>
           </div>
 
@@ -84,7 +85,7 @@ export default function LadderPage() {
             <div className="p-4 text-center bg-[#f5a800]/4">
               <div className="font-bebas text-5xl text-[#f5a800] leading-none mb-1 gold-glow-text">1</div>
               <div className="font-bebas text-base tracking-wider text-white leading-tight">{top3[0].name}</div>
-              <div className="font-condensed text-[9px] tracking-wider text-[#f5a800]/50 mt-1">{top3[0].year}</div>
+              <div className="font-condensed text-[9px] tracking-wider text-[#f5a800]/50 mt-1">{academicYear(top3[0].name)}</div>
             </div>
           </div>
 
@@ -104,7 +105,7 @@ export default function LadderPage() {
             <div className="p-4 text-center">
               <div className="font-bebas text-3xl text-white/10 leading-none mb-1">3</div>
               <div className="font-bebas text-xs tracking-wider text-white/40 leading-tight">{top3[2].name}</div>
-              <div className="font-condensed text-[9px] tracking-wider text-white/15 mt-1">{top3[2].year}</div>
+              <div className="font-condensed text-[9px] tracking-wider text-white/15 mt-1">{academicYear(top3[2].name)}</div>
             </div>
           </div>
 
@@ -135,7 +136,7 @@ export default function LadderPage() {
                 }`}>{p.rank}</span>
                 <div>
                   <div className="font-bebas tracking-wider text-white group-hover:text-[#f5a800] transition-colors text-base leading-none">{p.name}</div>
-                  <div className="font-condensed text-[9px] tracking-wider text-white/20 mt-1">{p.year}</div>
+                  <div className="font-condensed text-[9px] tracking-wider text-white/20 mt-1">{academicYear(p.name)}</div>
                 </div>
                 <span className={`font-condensed text-sm text-center ${record === '—' ? 'text-white/15' : 'text-white/50'}`}>{record}</span>
                 <div className="flex justify-center"><Trend t={p.trend} /></div>

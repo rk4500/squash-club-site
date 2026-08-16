@@ -1,6 +1,7 @@
 import team from '@/data/team.json'
 import Image from 'next/image'
 import { Trophy } from 'lucide-react'
+import { teamRole, academicYear } from '@/lib/roster'
 
 
 export default function TeamPage() {
@@ -24,7 +25,7 @@ export default function TeamPage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="section-label mb-8">FLAME Squash Club · 2025–26</p>
+          <p className="section-label mb-8">FLAME Squash Club · 2026–27</p>
           <h1 className="font-bebas text-[12vw] md:text-8xl tracking-wider leading-none mb-5">
             <span className="text-white">THE</span><br />
             <span className="gold-text">SQUAD</span>
@@ -126,11 +127,11 @@ export default function TeamPage() {
 
                   {/* The Details Footer (Bottom Section) */}
                   <div className="p-6 flex flex-col items-center text-center relative z-20 bg-[#080d17] flex-1">
-                    <p className="font-condensed text-[10px] tracking-[0.25em] text-[#f5a800] uppercase mb-2">{p.role}</p>
+                    <p className="font-condensed text-[10px] tracking-[0.25em] text-[#f5a800] uppercase mb-2">{teamRole(p.name)}</p>
                     <h3 className="font-bebas text-2xl tracking-wider text-white leading-none mb-1 group-hover:text-[#f5a800] transition-colors duration-300">
                       {p.name}
                     </h3>
-                    <p className="font-condensed text-xs tracking-wider text-white/30 mb-4">{p.year}</p>
+                    <p className="font-condensed text-xs tracking-wider text-white/30 mb-4">{academicYear(p.name)}</p>
                     
                     <p className="font-barlow text-white/35 text-[11px] leading-relaxed max-w-xs mt-1 font-light">
                       {p.bio}
