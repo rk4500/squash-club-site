@@ -1,0 +1,17 @@
+[
+  { "src": "/images/gallery/ladder-1.webp", "label": "Ladder Tournament", "span": "sm:col-span-2 sm:row-span-2" },
+  { "src": "/images/gallery/fsc-collage.webp", "label": "Season Collage", "span": "sm:row-span-2" },
+  { "src": "/images/gallery/winter-carnival.webp", "label": "Winter Carnival", "span": "sm:col-span-2" },
+  { "src": "/images/gallery/og-ec.webp", "label": "The OG Committee", "span": "" },
+  { "src": "/images/gallery/racketlon-auction.webp", "label": "Racketlon Auction", "span": "sm:col-span-2" },
+  { "src": "/images/gallery/club-fair.webp", "label": "Club Fair", "span": "sm:row-span-2" },
+  { "src": "/images/gallery/team-tryouts.webp", "label": "Team Tryouts", "span": "sm:col-span-2" },
+  { "src": "/images/gallery/interhouse-girls.webp", "label": "Interhouse — Girls", "span": "" },
+  { "src": "/images/gallery/winter-carnival-3.webp", "label": "Winter Carnival", "span": "sm:row-span-2" },
+  { "src": "/images/gallery/takeover-tennis.webp", "label": "Takeover with Tennis", "span": "" },
+  { "src": "/images/gallery/meet-paarth-ambani.webp", "label": "Meet with Paarth Ambani", "span": "sm:col-span-2" },
+  { "src": "/images/gallery/auction-2.webp", "label": "Player Auction", "span": "" },
+  { "src": "/images/gallery/ladder.webp", "label": "Ladder Tournament", "span": "" },
+  { "src": "/images/gallery/stall.webp", "label": "The Stall", "span": "" },
+  { "src": "/images/gallery/winter-carnival-stall.webp", "label": "Winter Carnival Stall", "span": "" }
+]
