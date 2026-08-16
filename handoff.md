@@ -80,3 +80,23 @@ Season string is `2026–27` (en-dash). Lives in `components/Footer.tsx` (×3) a
 - Season bumped 2025–26 → 2026–27 site-wide.
 - Open item: `Bhagya Patel` / `Samya Arora` admission years — confirm in
   `admissions.json` (were the two not supplied initially).
+
+---
+
+## Gallery (branch `gallery-redesign`)
+- Current gallery = dense spanning **mosaic** (`app/gallery/page.tsx`, data in
+  `data/gallery.json` — `label` + `span` per photo). Photos are webp under
+  `public/images/gallery/`; original loosely-named jpegs left untracked.
+- Old album-based gallery preserved at `backups/gallery-page.legacy.tsx`.
+
+### PINNED — deferred layout redesign (revisit with more photos)
+The mosaic reads a bit flat vs. the rest of the site. Three concepts explored
+via `/impeccable bolder`, parked for later. All keep the FSC dark/gold/Bebas
+world + hover labels bottom-left:
+1. **Editorial contact-sheet** — asymmetric staggered columns (like the ladder
+   podium offsets) + huge outlined index numerals behind frames. Static, fast,
+   most on-brand.
+2. **Horizontal film reels** — auto-scrolling sideways rows reusing the marquee
+   motif, sprocket-hole edges, pause+caption on hover. Kinetic; less scannable.
+3. **Spotlight dossier** — one big feature frame + numbered index list; hovering
+   a row swaps the hero with a Bebas caption. Interactive "archive terminal".
