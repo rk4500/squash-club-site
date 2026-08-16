@@ -99,7 +99,7 @@ export default function GalleryMosaic({ photos }: { photos: Photo[] }) {
           onClick={close}
         >
           {/* Top bar */}
-          <div className="flex items-center justify-between px-5 sm:px-8 py-4" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center justify-between px-5 sm:px-8 py-4">
             <span className="font-condensed text-xs tracking-[0.3em] text-[#f5a800]/60 uppercase">
               {pad(active! + 1)} <span className="text-white/20">/ {pad(photos.length)}</span>
             </span>
@@ -115,7 +115,7 @@ export default function GalleryMosaic({ photos }: { photos: Photo[] }) {
 
           {/* Image stage */}
           <div className="relative flex-1 min-h-0 flex items-center justify-center px-4 sm:px-20" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-            <div key={current.src} className="lb-figure relative w-full h-full max-w-6xl" onClick={(e) => e.stopPropagation()}>
+            <div key={current.src} className="lb-figure relative w-full h-full max-w-6xl pointer-events-none">
               <Image src={current.src} alt={current.label} fill priority sizes="100vw" className="object-contain" />
             </div>
 
@@ -139,7 +139,7 @@ export default function GalleryMosaic({ photos }: { photos: Photo[] }) {
           </div>
 
           {/* Caption + mobile nav */}
-          <div className="flex items-end justify-between gap-4 px-5 sm:px-8 py-5 sm:py-6" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-end justify-between gap-4 px-5 sm:px-8 py-5 sm:py-6">
             <div className="min-w-0">
               <span className="block w-8 h-px bg-[#f5a800] mb-2.5" />
               <h2 className="font-bebas text-2xl sm:text-4xl tracking-wider text-white leading-none truncate">{current.label}</h2>
