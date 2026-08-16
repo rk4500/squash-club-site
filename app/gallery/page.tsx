@@ -1,13 +1,5 @@
-import { ImageIcon } from 'lucide-react'
-
-const albums = [
-  { title: 'FLAME Squash Championship', count: 12, tag: 'Dec 2025' },
-  { title: 'AIU Tournament', count: 8, tag: 'Mar 2026' },
-  { title: 'FLAME Racketlon 2026', count: 10, tag: 'Mar 2026' },
-  { title: 'Ladder Tournaments', count: 6, tag: 'Sep–Mar' },
-  { title: 'Team & Training', count: 8, tag: 'Season' },
-  { title: 'Events & Collabs', count: 9, tag: 'Season' },
-]
+import Image from 'next/image'
+import gallery from '@/data/gallery.json'
 
 export default function GalleryPage() {
   return (
@@ -25,48 +17,56 @@ export default function GalleryPage() {
             <span className="gold-text">GALLERY</span>
           </h1>
           <p className="font-barlow text-white/40 text-base max-w-xl leading-relaxed font-light">
-            Moments from the court — championships, training, tournaments, and everything in between.
+            Moments from the court — tournaments, auctions, carnivals, and everything in between. Hover a frame to read it.
           </p>
         </div>
       </section>
 
-      {/* ── ALBUMS ── */}
-      <section className="py-16 max-w-7xl mx-auto px-6 lg:px-10">
-
-        {/* Upload instruction */}
-        <div className="border border-dashed border-[#f5a800]/15 bg-[#f5a800]/3 p-8 mb-12 flex items-start gap-5">
-          <ImageIcon size={20} className="text-[#f5a800]/30 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="font-condensed text-sm tracking-wider text-white/40 uppercase mb-1">To populate this section</p>
-            <p className="font-barlow text-white/25 text-sm">
-              Drop images into <code className="text-[#f5a800]/50 bg-[#f5a800]/8 px-1.5 py-0.5 text-xs rounded">public/gallery/</code> and update <code className="text-[#f5a800]/50 bg-[#f5a800]/8 px-1.5 py-0.5 text-xs rounded">data/gallery.json</code>
-            </p>
-          </div>
+      {/* ── MOSAIC ── */}
+      <section className="pb-24 max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="flex items-center gap-5 mb-8">
+          <span className="font-condensed text-xs tracking-[0.25em] text-white/30 uppercase">{gallery.length} Frames</span>
+          <div className="flex-1 h-px bg-white/5" />
+          <span className="font-condensed text-xs tracking-[0.25em] text-[#f5a800]/40 uppercase">FSC · 2026–27</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          {albums.map((a) => (
-            <div key={a.title} className="card group cursor-pointer overflow-hidden">
-              {/* Placeholder image area */}
-              <div className="aspect-[4/3] bg-[#080d17] relative flex items-center justify-center border-b border-white/5">
-                <ImageIcon size={24} className="text-white/8" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#05080f] via-transparent to-transparent opacity-80" />
-              </div>
-              <div className="p-5 flex items-center justify-between">
-                <div>
-                  <h3 className="font-bebas tracking-wider text-white text-base group-hover:text-[#f5a800] transition-colors leading-none">{a.title}</h3>
-                  <p className="font-condensed text-[10px] tracking-wider text-white/20 mt-1 uppercase">{a.count} photos · {a.tag}</p>
-                </div>
-                <span className="font-condensed text-[10px] tracking-wider text-[#f5a800]/30 uppercase border border-[#f5a800]/10 px-2 py-1">
-                  Soon
-                </span>
-              </div>
-            </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 auto-rows-[42vw] sm:auto-rows-[190px] lg:auto-rows-[210px] grid-flow-dense gap-3">
+          {gallery.map((g, i) => (
+            <figure
+              key={g.src}
+              className={`group relative overflow-hidden border border-white/5 bg-[#080d17] cursor-default ${g.span}`}
+            >
+              <Image
+                src={g.src}
+                alt={g.label}
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                className="object-cover opacity-75 grayscale-[0.15] group-hover:grayscale-0 group-hover:opacity-100 scale-100 group-hover:scale-[1.05] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              />
+
+              {/* Court gridline texture */}
+              <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '14px 14px' }} />
+
+              {/* Top gold reveal line */}
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f5a800] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-20" />
+
+              {/* Corner index tick */}
+              <span className="absolute top-2.5 right-3 z-20 font-condensed text-[9px] tracking-[0.2em] text-white/25 group-hover:text-[#f5a800]/70 transition-colors duration-500">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+
+              {/* Darken + label */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#05080f] via-[#05080f]/10 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+              <figcaption className="absolute bottom-0 left-0 p-4 z-20 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <span className="block w-6 h-px bg-[#f5a800] mb-2" />
+                <h3 className="font-bebas text-lg tracking-wider text-white leading-none">{g.label}</h3>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </section>
 
-      <div className="pb-20" />
+      <div className="pb-8" />
     </div>
   )
 }
