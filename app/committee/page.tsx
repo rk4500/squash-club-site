@@ -23,7 +23,7 @@ function Monogram({ name, size = 'md' }: { name: string; size?: 'sm' | 'md' | 'l
   )
 }
 
-function CCHeadCard({ member }: { member: { name: string; role: string; team: string; photo?: string } }) {
+function CCHeadCard({ member }: { member: { name: string; role: string; team: string; photo?: string; scale?: number; anchor?: string; dropY?: number } }) {
   const hasPhoto = !!member.photo
   return (
     <div className="group relative flex flex-col bg-[#080d17] border border-white/5 transition-all duration-500 hover:-translate-y-1 hover:border-[#f5a800]/30 overflow-hidden cursor-default">
@@ -34,13 +34,21 @@ function CCHeadCard({ member }: { member: { name: string; role: string; team: st
           <>
             <div className="absolute inset-0 opacity-[0.04] pointer-events-none group-hover:opacity-[0.1] transition-opacity duration-700" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '12px 12px' }} />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(245,168,0,0.12)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            <Image
-              src={member.photo!}
-              alt={member.name}
-              fill
-              className="object-contain object-bottom opacity-85 scale-[0.9] translate-y-2 group-hover:scale-[0.95] group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 origin-bottom"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            />
+            <div
+              className="absolute inset-0 z-10"
+              style={(member.scale || member.dropY) ? {
+                transform: `translateY(${member.dropY ?? 0}px) scale(${member.scale ?? 1})`,
+                transformOrigin: member.anchor === 'top' ? 'center top' : 'center bottom',
+              } : undefined}
+            >
+              <Image
+                src={member.photo!}
+                alt={member.name}
+                fill
+                className="object-contain object-bottom opacity-85 scale-[0.9] translate-y-2 group-hover:scale-[0.95] group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              />
+            </div>
           </>
         ) : (
           <>
@@ -137,7 +145,7 @@ export default function CommitteePage() {
           <span className="font-bebas text-[18vw] opacity-10" style={{WebkitTextStroke:'1px rgba(245,168,0,0.15)', color:'transparent'}}>CC</span>
         </div>
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="section-label mb-8">Leadership 2025–26</p>
+          <p className="section-label mb-8">Leadership 2026–27</p>
           <h1 className="font-bebas text-[12vw] md:text-8xl tracking-wider leading-none mb-5">
             <span className="text-white">THE</span><br />
             <span className="gold-text">COMMITTEE</span>
