@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="marquee-inner">
           {Array(6).fill(null).map((_, i) => (
             <span key={i} className="font-bebas text-sm tracking-[0.4em] text-[#f5a800]/40 mx-8 whitespace-nowrap">
-              FLAME SQUASH CLUB &nbsp;·&nbsp; DOMINATE THE COURT &nbsp;·&nbsp; PUNE &nbsp;·&nbsp; FSC 2025–26 &nbsp;·&nbsp;
+              FLAME SQUASH CLUB &nbsp;·&nbsp; DOMINATE THE COURT &nbsp;·&nbsp; PUNE &nbsp;·&nbsp; FSC 2026–27 &nbsp;·&nbsp;
             </span>
           ))}
         </div>
@@ -69,13 +69,13 @@ export default function Footer() {
             </p>
             <div className="mt-6 inline-flex items-center gap-2 border border-[#f5a800]/20 px-4 py-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#f5a800] animate-pulse" />
-              <span className="font-condensed text-xs tracking-[0.2em] text-[#f5a800]/70 uppercase">Season 2025–26 Active</span>
+              <span className="font-condensed text-xs tracking-[0.2em] text-[#f5a800]/70 uppercase">Season 2026–27 Active</span>
             </div>
           </div>
         </div>
 
         <div className="mt-16 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="font-condensed text-xs tracking-wider text-white/20 uppercase">© 2025–26 FLAME Squash Club</p>
+          <p className="font-condensed text-xs tracking-wider text-white/20 uppercase">© 2026–27 FLAME Squash Club</p>
           <p className="font-condensed text-xs tracking-wider text-white/20 uppercase">Made with passion · FLAME University</p>
         </div>
       </div>

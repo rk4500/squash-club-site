@@ -29,7 +29,7 @@ export default function EventsPage() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="section-label mb-8">Academic Year 2025–26</p>
+          <p className="section-label mb-8">Academic Year 2026–27</p>
           <h1 className="font-bebas text-[12vw] md:text-8xl lg:text-9xl tracking-wider leading-none mb-6">
             <span className="text-white">EVENTS &</span><br />
             <span className="gold-text">TOURNAMENTS</span>

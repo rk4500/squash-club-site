@@ -20,7 +20,7 @@ export default function GalleryPage() {
           <span className="font-bebas text-[18vw] opacity-[0.06]" style={{WebkitTextStroke:'1px rgba(245,168,0,0.2)', color:'transparent'}}>SHOTS</span>
         </div>
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
-          <p className="section-label mb-8">Season 2025–26</p>
+          <p className="section-label mb-8">Season 2026–27</p>
           <h1 className="font-bebas text-[12vw] md:text-8xl tracking-wider leading-none mb-5">
             <span className="gold-text">GALLERY</span>
           </h1>
