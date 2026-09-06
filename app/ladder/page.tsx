@@ -1,6 +1,7 @@
 import ladderData from '@/data/ladder.json'
 import Image from 'next/image'
-import { Trophy, TrendingUp, TrendingDown, Minus } from 'lucide-react'
+import Link from 'next/link'
+import { Trophy, TrendingUp, TrendingDown, Minus, ArrowRight } from 'lucide-react'
 import { academicYear } from '@/lib/roster'
 
 function Trend({ t }: { t: string }) {
@@ -34,6 +35,15 @@ export default function LadderPage() {
           <p className="font-barlow text-white/40 text-base max-w-xl leading-relaxed font-light mb-8">
             Top 20 active players ranked across three editions per semester. Challenge the player above you. Climb the board.
           </p>
+          <div className="flex flex-wrap items-center gap-5 mb-8">
+            <Link
+              href="/ladder/bracket"
+              className="group inline-flex items-center gap-3 bg-[#f5a800] text-[#05080f] font-condensed tracking-[0.15em] text-sm uppercase px-7 py-3.5 hover:bg-[#ffbe33] transition-colors"
+            >
+              Tournament Bracket <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
           <div className="flex items-center gap-6">
             <span className="font-condensed text-xs tracking-[0.2em] uppercase border border-[#f5a800]/20 px-3 py-1.5 text-[#f5a800]/70 bg-[#f5a800]/5">
               {edition}
@@ -44,11 +54,11 @@ export default function LadderPage() {
       </section>
 
       {/* ── TOP 3 PODIUM ── */}
-      <section className="py-12 max-w-7xl mx-auto px-6 lg:px-10">
+      <section className="pt-2 pb-6 max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid grid-cols-3 gap-3 max-w-2xl mx-auto mb-2 items-end">
 
           {/* 2nd */}
-          <div className="border border-white/8 bg-[#080d17] flex flex-col overflow-hidden mt-28 group cursor-default">
+          <div className="border border-white/8 bg-[#080d17] flex flex-col overflow-hidden mt-10 group cursor-default">
             <div className="relative w-full aspect-[3/4] bg-[#0c1220] overflow-hidden">
               <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '12px 12px' }} />
               {top3[1].photo ? (
@@ -90,7 +100,7 @@ export default function LadderPage() {
           </div>
 
           {/* 3rd */}
-          <div className="border border-white/5 bg-[#080d17] flex flex-col overflow-hidden mt-52 group cursor-default">
+          <div className="border border-white/5 bg-[#080d17] flex flex-col overflow-hidden mt-16 group cursor-default">
             <div className="relative w-full aspect-[3/4] bg-[#0c1220] overflow-hidden">
               <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '12px 12px' }} />
               {top3[2].photo ? (
@@ -113,7 +123,7 @@ export default function LadderPage() {
       </section>
 
       {/* ── FULL TABLE ── */}
-      <section className="pb-24 max-w-4xl mx-auto px-6 lg:px-10">
+      <section className="pb-16 max-w-4xl mx-auto px-6 lg:px-10">
         <div className="border border-white/5 overflow-hidden">
           {/* Header */}
           <div className="grid grid-cols-[3rem_1fr_5rem_2rem] gap-4 px-6 py-3 bg-[#080d17] border-b border-white/5">
