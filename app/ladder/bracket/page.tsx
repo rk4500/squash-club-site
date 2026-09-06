@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BracketBoard from '@/components/ladder/BracketBoard'
-import { getUser } from '@/lib/supabase/server'
+import { getUser, createClient } from '@/lib/supabase/server'
+import { loadDraw } from '@/lib/ladder/drawStore'
 import './ladder.css'
 
 export const metadata: Metadata = {
@@ -29,6 +30,10 @@ export default async function BracketPage() {
   // Signed in means committee: the controls appear. The database enforces the
   // same rule independently, so this only decides what is worth showing.
   const admin = !!(await getUser())
+
+  // The draw comes from the database so a name or a court time can be fixed
+  // from the page itself. data/ladder/seed.ts is only what seeded it.
+  const draw = await loadDraw(createClient())
 
   return (
     <div className="pt-[68px] bg-[#05080f]">
@@ -67,11 +72,11 @@ export default async function BracketPage() {
         <h2 className="font-bebas text-4xl md:text-5xl tracking-wider uppercase mt-14 mb-2">Bracket</h2>
         <p className="font-barlow text-white/40 text-sm max-w-[78ch] leading-relaxed mb-2">
           {admin
-            ? 'Click a player inside a match box to set the winner. Downstream boxes fill in automatically, and everyone watching sees the result immediately.'
+            ? 'Click a player inside a match box to set the winner. Downstream boxes fill in automatically, and everyone watching sees the result immediately. Switch to Edit draw to correct a name, time or court in the box itself.'
             : 'Results update live as they are recorded.'}
         </p>
 
-        <BracketBoard admin={admin} />
+        <BracketBoard draw={draw} admin={admin} />
       </div>
     </div>
   )

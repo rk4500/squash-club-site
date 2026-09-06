@@ -1,9 +1,14 @@
 'use client'
 
-import { MATCHES, SCHEDULE, SRC_LABEL, type BracketSpec } from '@/data/ladder/draw'
+import { SRC_LABEL, type BracketSpec, type DrawData, type Match } from '@/data/ladder/draw'
 import {
   matchState, isReady, participants, type Results, type Snapshots, type Winner,
 } from '@/lib/ladder/engine'
+import { useRef } from 'react'
+import {
+  clampHour, clampMinute, COURT_CYCLE, DAY_CYCLE, DEFAULT_MERIDIEM, HOUR_MAX, MINUTE_MAX,
+  type Draft, type DrawEdit,
+} from '@/lib/ladder/useDrawEdit'
 
 const FLAG_TEXT = {
   orphan: '⚠ feeder cleared — result kept, needs re-check',
@@ -12,6 +17,7 @@ const FLAG_TEXT = {
 } as const
 
 export type BracketProps = {
+  draw: DrawData
   results: Results
   snaps: Snapshots
   taint: Set<string>
@@ -19,37 +25,260 @@ export type BracketProps = {
   admin: boolean
   onPick: (mid: string, side: Winner) => void
   onClear: (mid: string) => void
+  /**
+   * Present only while the board is in edit-draw mode. Its presence is what
+   * turns the boxes into fields, so a box never has to ask twice whether a
+   * click means "this player won" or "I am fixing this player's name".
+   */
+  edit?: DrawEdit | null
 }
 
-function MatchBox({ mid, results, snaps, taint, admin, onPick, onClear }: BracketProps & { mid: string }) {
-  const match = MATCHES[mid]
-  const slot = SCHEDULE[mid]
-  const [a, b] = participants(mid, results)
-  const state = matchState(mid, results, snaps)
+/**
+ * Hour, minutes and meridiem as three segments that behave like one field.
+ *
+ * The point is that a committee member never has to type punctuation or think
+ * about format: two digits at most per segment, focus moves on as soon as a
+ * segment cannot take another digit, and out-of-range values are pulled back
+ * in as they are typed rather than rejected afterwards.
+ */
+function TimeField(
+  { mid, draft, edit, display, onFieldKey }: {
+    mid: string
+    draft: Draft
+    edit: DrawEdit
+    display: string
+    onFieldKey: (e: React.KeyboardEvent<HTMLElement>) => void
+  },
+) {
+  const hourRef = useRef<HTMLInputElement>(null)
+  const minRef = useRef<HTMLInputElement>(null)
+  const merRef = useRef<HTMLButtonElement>(null)
+
+  const focus = (el: HTMLElement | null) => {
+    if (!el) return
+    el.focus()
+    if (el instanceof HTMLInputElement) el.select()
+  }
+
+  const digitsOf = (raw: string) => raw.replace(/\D/g, '').slice(0, 2)
+
+  const onHour = (raw: string) => {
+    const digits = digitsOf(raw)
+    // Starting a time on an empty slot picks the meridiem the draw runs in;
+    // it is one click to flip and saves 64 of them.
+    const mer = draft.mer || (digits ? DEFAULT_MERIDIEM : '')
+
+    if (!digits) return edit.set(mid, { hh: '', mer })
+    if (digits.length === 1) {
+      // 2 through 9 cannot begin a two-digit hour, so that segment is done.
+      edit.set(mid, { hh: digits, mer })
+      if (Number(digits) * 10 > HOUR_MAX) focus(minRef.current)
+      return
+    }
+    edit.set(mid, { hh: String(clampHour(Number(digits))), mer })
+    focus(minRef.current)
+  }
+
+  const onMinute = (raw: string) => {
+    const digits = digitsOf(raw)
+    if (!digits) return edit.set(mid, { mm: '' })
+    if (digits.length === 1) {
+      // 6 through 9 cannot begin a two-digit minute, so it means 06 through 09.
+      if (Number(digits) * 10 > MINUTE_MAX) {
+        edit.set(mid, { mm: `0${digits}` })
+        focus(merRef.current)
+      } else {
+        edit.set(mid, { mm: digits })
+      }
+      return
+    }
+    edit.set(mid, { mm: String(clampMinute(Number(digits))).padStart(2, '0') })
+    focus(merRef.current)
+  }
+
+  const hourKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'ArrowRight' && e.currentTarget.selectionStart === e.currentTarget.value.length) {
+      e.preventDefault()
+      focus(minRef.current)
+      return
+    }
+    onFieldKey(e)
+  }
+
+  const minuteKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const atStart = e.currentTarget.selectionStart === 0 && e.currentTarget.selectionEnd === 0
+    if ((e.key === 'Backspace' && !e.currentTarget.value) || (e.key === 'ArrowLeft' && atStart)) {
+      e.preventDefault()
+      focus(hourRef.current)
+      return
+    }
+    if (e.key === 'ArrowRight' && e.currentTarget.selectionStart === e.currentTarget.value.length) {
+      e.preventDefault()
+      focus(merRef.current)
+      return
+    }
+    onFieldKey(e)
+  }
+
+  const merKey = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    const k = e.key.toLowerCase()
+    if (k === 'a' || k === 'p') {
+      e.preventDefault()
+      edit.set(mid, { mer: k === 'a' ? 'AM' : 'PM' })
+      return
+    }
+    if (k === 'backspace' || k === 'arrowleft') {
+      e.preventDefault()
+      focus(minRef.current)
+      return
+    }
+    if (k === 'arrowup' || k === 'arrowdown') {
+      e.preventDefault()
+      edit.set(mid, { mer: draft.mer === 'AM' ? 'PM' : 'AM' })
+      return
+    }
+    onFieldKey(e)
+  }
+
+  return (
+    <div className="lc-f-time">
+      <input
+        ref={hourRef}
+        className="lc-f-hh"
+        value={draft.hh}
+        placeholder="--"
+        inputMode="numeric"
+        autoComplete="off"
+        aria-label={`Hour for ${display}`}
+        onChange={e => onHour(e.target.value)}
+        onFocus={e => e.currentTarget.select()}
+        onBlur={e => {
+          // Read the field, not `draft`: auto-advance blurs this input during
+          // the same keystroke that changed it, before a re-render, so the
+          // captured draft here is one keystroke stale.
+          const v = digitsOf(e.currentTarget.value)
+          if (v) edit.set(mid, { hh: String(clampHour(Number(v))) })
+        }}
+        onKeyDown={hourKey}
+      />
+      <span aria-hidden="true">:</span>
+      <input
+        ref={minRef}
+        className="lc-f-mm"
+        value={draft.mm}
+        placeholder="--"
+        inputMode="numeric"
+        autoComplete="off"
+        aria-label={`Minutes for ${display}`}
+        onChange={e => onMinute(e.target.value)}
+        onFocus={e => e.currentTarget.select()}
+        onBlur={e => {
+          const v = digitsOf(e.currentTarget.value)
+          if (v) edit.set(mid, { mm: String(clampMinute(Number(v))).padStart(2, '0') })
+        }}
+        onKeyDown={minuteKey}
+      />
+      <button
+        ref={merRef}
+        type="button"
+        className="lc-f-mer"
+        aria-label={`${display} runs ${draft.mer || 'at an unset half of the day'}. Switches to ${
+          draft.mer === 'PM' ? 'AM' : 'PM'
+        }`}
+        onClick={() => edit.set(mid, { mer: draft.mer === 'PM' ? 'AM' : 'PM' })}
+        onKeyDown={merKey}
+      >
+        {draft.mer || '--'}
+      </button>
+    </div>
+  )
+}
+
+/** What a cycling field lands on next, for its label. */
+function nextIn(values: readonly string[], current: string): string {
+  const at = values.indexOf(current)
+  return at === -1 ? values[0] : values[(at + 1) % values.length]
+}
+
+/** How a structural side reads when it is shown instead of a resolved player. */
+function describeSide(side: Match['a'], draw: DrawData): string {
+  const [type, val] = side
+  if (type === 'name') return val
+  if (type === 'bye') return 'Bye'
+  return `${type === 'W' ? 'Winner' : 'Loser'} of ${draw.matches[val].display}`
+}
+
+function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, edit }: BracketProps & { mid: string }) {
+  const match = draw.matches[mid]
+  const slot = draw.schedule[mid]
+  const [a, b] = participants(mid, results, draw.matches)
+  const state = matchState(mid, results, snaps, draw.matches)
   const recorded = results[mid]
+
+  const editing = admin && !!edit
+  const draft = edit?.get(mid)
+  const error = edit?.errors[mid]
 
   const flag =
     state === 'orphan' || state === 'conflict' ? state : taint.has(mid) ? 'tainted' : null
-  const pickable = admin && isReady(mid, results, snaps)
+  const pickable = admin && !editing && isReady(mid, results, snaps, draw.matches)
 
   const classes = [
     'lc-box',
     match.route.startsWith('Decides') ? 'decider' : '',
-    isReady(mid, results, snaps) && !recorded ? 'live' : '',
+    isReady(mid, results, snaps, draw.matches) && !recorded ? 'live' : '',
     flag ?? '',
+    editing ? 'editing' : '',
+    error ? 'invalid' : '',
+    edit?.saving === mid ? 'saving' : '',
+    edit?.saved === mid ? 'saved' : '',
   ].filter(Boolean).join(' ')
 
   const title =
     `${match.label} — ${match.route}` +
     (slot ? `\n${slot.day} ${slot.time} · ${slot.court}` : '')
 
+  // Leaving the box is the commit. Moving between its own fields is not, so a
+  // name and a court time change together in one write.
+  const onBoxBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    if (!edit) return
+    if (e.currentTarget.contains(e.relatedTarget as Node | null)) return
+    void edit.commit(mid)
+  }
+
+  const onFieldKey = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (!edit) return
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      e.currentTarget.blur()
+    } else if (e.key === 'Escape') {
+      e.preventDefault()
+      edit.revert(mid)
+      e.currentTarget.blur()
+    }
+  }
+
+  const dayLabel = draft?.day ? draft.day.slice(0, 3) : 'Day'
+
   return (
-    <div className={classes} title={title}>
+    <div
+      className={classes}
+      title={editing ? undefined : title}
+      onBlur={editing ? onBoxBlur : undefined}
+    >
       <div className="lc-head">
         <b>{match.display}</b>
         <span className="lc-head-right">
-          <span>{slot?.time ?? ''}</span>
-          {admin && recorded && (
+          {editing ? (
+            /* The time lives in the slot row below while editing, so the
+               header is free to report what the box is doing instead. */
+            <span className={edit.dirty(mid) ? 'lc-pending' : undefined}>
+              {edit.saving === mid ? 'Saving' : edit.dirty(mid) ? 'Unsaved' : ''}
+            </span>
+          ) : (
+            <span>{slot?.time ?? ''}</span>
+          )}
+          {!editing && admin && recorded && (
             <button
               type="button"
               className="lc-x"
@@ -63,25 +292,82 @@ function MatchBox({ mid, results, snaps, taint, admin, onPick, onClear }: Bracke
         </span>
       </div>
 
-      {([['a', a], ['b', b]] as const).map(([key, player]) => {
-        // A conflicted box shows no win/lose marks: the recorded winner refers
-        // to players who are no longer the ones in the slots.
-        const mark = recorded && state !== 'conflict' ? (recorded === key ? ' win' : ' lose') : ''
-        return (
-          <button
-            key={key}
-            type="button"
-            className={`lc-slot${player.known ? '' : ' tbd'}${mark}`}
-            disabled={!pickable}
-            aria-label={pickable ? `Record ${player.name} as the winner of ${match.display}` : undefined}
-            onClick={() => onPick(mid, key)}
-          >
-            <span>{player.name}</span>
-          </button>
-        )
-      })}
+      <div className="lc-sides">
+        {editing && edit && draft
+          ? (['a', 'b'] as const).map(key => (
+              match[key][0] === 'name' ? (
+                <input
+                  key={key}
+                  className="lc-name"
+                  value={key === 'a' ? draft.a : draft.b}
+                  spellCheck={false}
+                  autoComplete="off"
+                  aria-label={`${match.display} ${key === 'a' ? 'top' : 'bottom'} player`}
+                  onChange={e => edit.set(mid, key === 'a' ? { a: e.target.value } : { b: e.target.value })}
+                  onKeyDown={onFieldKey}
+                />
+              ) : (
+                <div key={key} className="lc-static" title="Decided by an earlier match">
+                  {describeSide(match[key], draw)}
+                </div>
+              )
+            ))
+          : ([['a', a], ['b', b]] as const).map(([key, player]) => {
+              // A conflicted box shows no win/lose marks: the recorded winner
+              // refers to players who are no longer the ones in the slots.
+              const mark = recorded && state !== 'conflict' ? (recorded === key ? ' win' : ' lose') : ''
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  className={`lc-slot${player.known ? '' : ' tbd'}${mark}`}
+                  disabled={!pickable}
+                  aria-label={pickable ? `Record ${player.name} as the winner of ${match.display}` : undefined}
+                  onClick={() => onPick(mid, key)}
+                >
+                  <span>{player.name}</span>
+                </button>
+              )
+            })}
+      </div>
 
-      {flag && <div className="lc-flag">{FLAG_TEXT[flag]}</div>}
+      {editing && edit && draft && (
+        <div className="lc-slotrow">
+          <button
+            type="button"
+            className="lc-f-day"
+            aria-label={`Day for ${match.display}: ${draft.day || 'not set'}. Changes to ${
+              nextIn(DAY_CYCLE, draft.day) || 'not set'
+            }`}
+            onClick={() => edit.cycle(mid, 'day', DAY_CYCLE)}
+            onKeyDown={onFieldKey}
+          >
+            {dayLabel}
+          </button>
+          <TimeField
+            mid={mid}
+            draft={draft}
+            edit={edit}
+            display={match.display}
+            onFieldKey={onFieldKey}
+          />
+          <button
+            type="button"
+            className="lc-f-court"
+            aria-label={`Court for ${match.display}: ${draft.court || 'not set'}. Changes to ${
+              nextIn(COURT_CYCLE, draft.court)
+            }`}
+            onClick={() => edit.cycle(mid, 'court', COURT_CYCLE)}
+            onKeyDown={onFieldKey}
+          >
+            {draft.court || 'Court'}
+          </button>
+        </div>
+      )}
+
+      {error
+        ? <div className="lc-flag">{error}</div>
+        : flag && <div className="lc-flag">{FLAG_TEXT[flag]}</div>}
     </div>
   )
 }
@@ -155,12 +441,12 @@ export function Standings({ placings }: { placings: { rank: number; name: string
 }
 
 /** Schedule, derived from SCHEDULE so it cannot drift from the draw. */
-export function Schedule() {
+export function Schedule({ draw }: { draw: DrawData }) {
   const days = ['Saturday', 'Sunday'] as const
 
   const rows = (day: string) => {
     const byTime = new Map<string, Record<string, string>>()
-    for (const [mid, slot] of Object.entries(SCHEDULE)) {
+    for (const [mid, slot] of Object.entries(draw.schedule)) {
       if (slot.day !== day) continue
       const row = byTime.get(slot.time) ?? {}
       row[slot.court] = mid
@@ -185,7 +471,7 @@ export function Schedule() {
                   <tr key={time}>
                     <td className="lc-time">{time}</td>
                     {['Court 1', 'Court 2'].map(court => (
-                      <td key={court}>{courts[court] ? <ScheduleCell mid={courts[court]} /> : null}</td>
+                      <td key={court}>{courts[court] ? <ScheduleCell mid={courts[court]} draw={draw} /> : null}</td>
                     ))}
                   </tr>
                 ))}
@@ -198,17 +484,10 @@ export function Schedule() {
   )
 }
 
-function ScheduleCell({ mid }: { mid: string }) {
-  const match = MATCHES[mid]
-  const slot = SCHEDULE[mid]
+function ScheduleCell({ mid, draw }: { mid: string; draw: DrawData }) {
+  const match = draw.matches[mid]
+  const slot = draw.schedule[mid]
   const decides = match.route.startsWith('Decides')
-
-  const describe = (side: typeof match.a) => {
-    const [type, val] = side
-    if (type === 'name') return val
-    if (type === 'bye') return 'BYE'
-    return `${type === 'W' ? 'Winner' : 'Loser'} of ${MATCHES[val].display}`
-  }
 
   return (
     <div className={`lc-match${decides ? ' final-rank' : ''}`}>
@@ -218,7 +497,7 @@ function ScheduleCell({ mid }: { mid: string }) {
           <span className={`lc-tag ${slot.src}`}>{SRC_LABEL[slot.src]}</span>
         )}
       </strong>
-      <div>{describe(match.a)} vs {describe(match.b)}</div>
+      <div>{describeSide(match.a, draw)} vs {describeSide(match.b, draw)}</div>
       <small>{match.route}</small>
     </div>
   )
