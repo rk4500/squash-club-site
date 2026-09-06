@@ -129,15 +129,58 @@ the scaffold's localhost value.
 
 ### Editing the draw from the site
 
-Signed-in users get an **Edit players and times** panel on the bracket page
-(`components/ladder/DrawEditor.tsx`). Editable: player names, and day / time /
-court / source per match. Not editable: who feeds whom. Changing the structure
-needs validation that the graph stays acyclic and that no recorded result is
-orphaned, which is a bigger job; the columns are already in the table for it.
+Signed-in users get a segmented control above the board: **Record results** or
+**Edit draw**. A name slot is already the button that records a winner, so a
+click cannot also mean "edit this name" — the mode decides, and nothing per-box
+is added to the board at rest. Result controls (export / import / reset / paste)
+hide while editing, since they act on results rather than on the draw.
+
+In edit mode a box becomes its own form. Names are inputs styled identically to
+the read state, so nothing shifts when you enter one; the affordance is the
+hover and focus chrome. A side fed by an earlier match renders as
+*Winner of R32-1* and is not focusable — changing who feeds whom is structural,
+needs the graph re-validated for cycles and orphaned results, and is not in
+scope here. The columns are already in the table for that work.
+
+**A box commits when focus leaves it**, so a name and a court time go in one
+write. Enter commits, Esc reverts, and the box shows *Unsaved* / *Saving* in its
+header with a gold pulse on success.
+
+Editable per box:
+
+- **Names** — free text, non-empty.
+- **Day** — click cycles unset → Saturday → Sunday → unset.
+- **Time** — three segments behaving as one field. Two digits max each, focus
+  advances as soon as a segment cannot take another digit (2–9 for the hour,
+  6–9 for minutes), and values clamp into range as typed rather than being
+  rejected after. AM/PM is a button that also answers `a`/`p` and the arrows;
+  starting an hour on an unscheduled match defaults it to PM, since every slot
+  in this draw is afternoon or evening.
+- **Court** — click toggles Court 1 / Court 2. There is no third court, and the
+  schedule table hardcodes the same two, so it is picked and never typed.
+
+Two rules worth knowing before changing this code:
+
+- **A slot hangs on its day and time, not its court.** `resolveSlot` returns
+  null unless both are set, and the court falls back to Court 1. That is what
+  lets a court toggle have no blank state while a match can still be taken off
+  the schedule (clear the day or the time). The table's grouped constraint wants
+  all four columns set or all four null; this is how the UI guarantees it.
+- **`src` is derived, never asked for.** "Adjusted" already means a printed
+  match that had to move, so moving one is exactly what earns the label; a slot
+  filled in from nothing is *planned*; an unchanged slot keeps what it had. This
+  removed a control and the whole class of "set all four together" errors.
 
 Renaming a player flags every recorded match they appear in — the stored
 snapshot no longer matches. That is correct behaviour, and re-picking the same
 winner clears the flags without changing any result.
+
+**Gotcha, already paid for once:** the time segments auto-advance by calling
+`focus()` *during* the keystroke that changed the value, before React
+re-renders. Any handler that fires on that blur must read
+`e.currentTarget.value`, not the captured `draft` — the draft is one keystroke
+stale, and reading it wrote the pre-keystroke hour back, which looked exactly
+like the field refusing two-digit hours.
 
 `data/ladder/seed.ts` is **seed only**; the running site does not read it. It is
 the source the seeding migration was generated from, kept in git so a mangled
@@ -154,10 +197,19 @@ table can be rebuilt from something reviewable. Editing it changes nothing.
 - `lib/ladder/store.ts` / `supabaseStore.ts` — results, row per match, so two
   people can record different matches without clobbering each other.
 - `lib/ladder/drawStore.ts` — loads and saves the draw.
-- `lib/ladder/useLadder.ts` — state, optimistic with rollback: a refused write
-  restores the previous board rather than showing a result that never saved.
-- `components/ladder/` — `Bracket.tsx` (boxes, tree, standings, schedule),
-  `BracketBoard.tsx` (controls, zoom, import/export), `DrawEditor.tsx`.
+- `lib/ladder/useLadder.ts` — results state, optimistic with rollback: a refused
+  write restores the previous board rather than showing a result that never
+  saved.
+- `lib/ladder/useDrawEdit.ts` — draft state for edit mode, validation, and the
+  commit. Holds the time as `hh`/`mm`/`mer` rather than `"4:00 PM"`, because a
+  half-typed time has no valid single-string form and round-tripping it through
+  a parser fights the person typing. `composeTime` puts it back together on the
+  way out. A draft deliberately outlives its own save: `router.refresh()` is
+  async, so dropping it when the write returns flashes the old value back — each
+  draft is retired once the draw coming down agrees with it.
+- `components/ladder/` — `Bracket.tsx` (boxes, tree, standings, schedule, and
+  the `TimeField` segments), `BracketBoard.tsx` (mode toggle, controls, zoom,
+  import/export).
 - `app/ladder/bracket/ladder.css` — plain CSS on purpose. The connectors depend
   on every cell being `flex: 1 1 0` so a pair's midpoint lands on the next
   round's cell centre. Tailwind does not express this well; changing the flex
