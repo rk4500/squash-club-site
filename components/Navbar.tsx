@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 
 const navLinks = [
   { label: 'Events', href: '/events' },
@@ -26,6 +27,21 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => { setOpen(false) }, [pathname])
+
+  /*
+   * Committee sign-in is unlisted — /login is not linked from anywhere. Once
+   * someone is signed in, the Join call-to-action becomes their way out, so
+   * they are never stuck with no visible sign of being logged in.
+   */
+  const [signedIn, setSignedIn] = useState(false)
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => setSignedIn(!!data.user))
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSignedIn(!!session?.user)
+    })
+    return () => sub.subscription.unsubscribe()
+  }, [])
 
   return (
     <>
@@ -67,12 +83,23 @@ export default function Navbar() {
                 </Link>
               )
             })}
-            <Link
-              href="/contact"
-              className="ml-4 font-condensed text-xs tracking-[0.2em] uppercase px-5 py-2 bg-[#f5a800] text-[#05080f] hover:bg-[#ffbe33] transition-colors duration-200"
-            >
-              Join
-            </Link>
+            {signedIn ? (
+              <form action="/auth/signout" method="post" className="ml-4">
+                <button
+                  type="submit"
+                  className="font-condensed text-xs tracking-[0.2em] uppercase px-5 py-2 border border-[#f5a800]/40 text-[#f5a800] hover:bg-[#f5a800] hover:text-[#05080f] transition-colors duration-200"
+                >
+                  Log out
+                </button>
+              </form>
+            ) : (
+              <Link
+                href="/contact"
+                className="ml-4 font-condensed text-xs tracking-[0.2em] uppercase px-5 py-2 bg-[#f5a800] text-[#05080f] hover:bg-[#ffbe33] transition-colors duration-200"
+              >
+                Join
+              </Link>
+            )}
           </nav>
 
           {/* Mobile toggle */}
@@ -101,6 +128,16 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
+        {signedIn && (
+          <form action="/auth/signout" method="post" className="mt-10">
+            <button
+              type="submit"
+              className="font-bebas text-3xl tracking-wider text-[#f5a800]/70 hover:text-[#f5a800] transition-colors duration-200"
+            >
+              Log out
+            </button>
+          </form>
+        )}
         <div className="mt-12 pt-8 border-t border-white/10">
           <p className="font-condensed text-xs tracking-[0.3em] text-white/30 uppercase">FLAME University · Pune</p>
         </div>
