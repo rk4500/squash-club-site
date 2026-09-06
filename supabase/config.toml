@@ -227,9 +227,12 @@ web3 = 30
 # secret = ""
 
 [auth.email]
-# Allow/disallow new user signups via email to your project. See the note on
-# enable_signup under [auth] — admin accounts are created by hand.
-enable_signup = false
+# Must stay true: the CLI maps this onto the email provider itself, so setting
+# it false disables password sign-in entirely rather than just registration
+# (auth/v1/settings reports "email": false and every login returns
+# email_provider_disabled). Self-registration is blocked by enable_signup
+# under [auth], which is the knob that produces disable_signup: true.
+enable_signup = true
 # If enabled, a user will be required to confirm any email change on both the old, and new email
 # addresses. If disabled, only the new email is required to confirm.
 double_confirm_changes = true
