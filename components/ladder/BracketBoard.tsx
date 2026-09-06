@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { BRACKETS, DRAW_ID, MATCHES } from '@/data/ladder/draw'
 import { useLadder } from '@/lib/ladder/useLadder'
 import type { LadderStore } from '@/lib/ladder/store'
+import { createSupabaseStore } from '@/lib/ladder/supabaseStore'
 import { BracketTree, Schedule, Standings } from './Bracket'
 
 const ZOOM_KEY = `${DRAW_ID}-zoom`
@@ -13,7 +14,10 @@ const BASE_COL = 210
 const BASE_STUB = 18
 
 export default function BracketBoard({ admin = false, store }: { admin?: boolean; store?: LadderStore }) {
-  const ladder = useLadder(store)
+  // One store for the lifetime of the board: it owns a realtime subscription,
+  // so rebuilding it on every render would tear the channel down and back up.
+  const supabaseStore = useMemo(() => store ?? createSupabaseStore(), [store])
+  const ladder = useLadder(supabaseStore)
   const { broken, taint, placings, champ, decided, total } = ladder
 
   const rootRef = useRef<HTMLDivElement>(null)

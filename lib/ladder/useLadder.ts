@@ -23,14 +23,20 @@ export function useLadder(store: LadderStore = localStore) {
   latest.current = { results, snaps }
 
   const reload = useCallback(async () => {
-    const loaded = await store.load()
-    const fixed = backfillSnapshots(loaded.results, loaded.snaps)
-    setResults(loaded.results)
-    setSnaps(fixed.snaps)
-    // A hand-written import can arrive without snapshots; persist the ones we
-    // were able to infer so the next load does not have to redo it.
-    if (fixed.changed) await store.replaceAll(loaded.results, fixed.snaps)
-    setLoading(false)
+    try {
+      const loaded = await store.load()
+      const fixed = backfillSnapshots(loaded.results, loaded.snaps)
+      setResults(loaded.results)
+      setSnaps(fixed.snaps)
+      // A hand-written import can arrive without snapshots; persist the ones
+      // we were able to infer. Only a signed-in user may write, so a refusal
+      // here is expected for visitors and must not break the page.
+      if (fixed.changed) await store.replaceAll(loaded.results, fixed.snaps).catch(() => {})
+    } catch (e) {
+      setStatus({ text: `Could not load results: ${(e as Error).message}`, bad: true })
+    } finally {
+      setLoading(false)
+    }
   }, [store])
 
   useEffect(() => { void reload() }, [reload])
@@ -40,6 +46,31 @@ export function useLadder(store: LadderStore = localStore) {
 
   const say = useCallback((text: string, bad = false) => setStatus({ text, bad }), [])
 
+  /**
+   * Apply a change locally so the board responds immediately, then persist.
+   * If the write is refused — an expired session, a lost connection — put the
+   * previous state back rather than leaving the screen showing a result that
+   * was never saved.
+   */
+  const commit = useCallback(async (
+    nextResults: Results,
+    nextSnaps: Snapshots,
+    persist: () => Promise<void>,
+  ): Promise<boolean> => {
+    const prev = latest.current
+    setResults(nextResults)
+    setSnaps(nextSnaps)
+    try {
+      await persist()
+      return true
+    } catch (e) {
+      setResults(prev.results)
+      setSnaps(prev.snaps)
+      setStatus({ text: `Not saved — ${(e as Error).message}`, bad: true })
+      return false
+    }
+  }, [])
+
   const pick = useCallback(async (mid: string, side: Winner) => {
     const next = { ...latest.current.results, [mid]: side }
     const snap = snapshotOf(mid, next)
@@ -47,10 +78,8 @@ export function useLadder(store: LadderStore = localStore) {
     if (snap) nextSnaps[mid] = snap
     else delete nextSnaps[mid]
 
-    setResults(next)
-    setSnaps(nextSnaps)
-    await store.setWinner(mid, side, snap)
-  }, [store])
+    await commit(next, nextSnaps, () => store.setWinner(mid, side, snap))
+  }, [store, commit])
 
   const clear = useCallback(async (mid: string) => {
     const next = { ...latest.current.results }
@@ -58,17 +87,12 @@ export function useLadder(store: LadderStore = localStore) {
     delete next[mid]
     delete nextSnaps[mid]
 
-    setResults(next)
-    setSnaps(nextSnaps)
-    await store.clearMatch(mid)
-  }, [store])
+    await commit(next, nextSnaps, () => store.clearMatch(mid))
+  }, [store, commit])
 
   const resetAll = useCallback(async () => {
-    setResults({})
-    setSnaps({})
-    await store.replaceAll({}, {})
-    say('All results cleared.')
-  }, [store, say])
+    if (await commit({}, {}, () => store.replaceAll({}, {}))) say('All results cleared.')
+  }, [store, commit, say])
 
   /**
    * Load an exported file or a hand-written map. `confirmForeign` and
@@ -101,9 +125,10 @@ export function useLadder(store: LadderStore = localStore) {
     if (existing && !confirmOverwrite(existing, incoming)) return
 
     const fixed = backfillSnapshots(parsed.results, parsed.snapshots)
-    setResults(parsed.results)
-    setSnaps(fixed.snaps)
-    await store.replaceAll(parsed.results, fixed.snaps)
+    // On failure commit() has already restored the previous results and said why.
+    const ok = await commit(parsed.results, fixed.snaps, () =>
+      store.replaceAll(parsed.results, fixed.snaps))
+    if (!ok) return
 
     const broken = computeTaint(parsed.results, fixed.snaps).broken
     let msg = `Imported ${incoming} result${incoming === 1 ? '' : 's'} from ${label}.`

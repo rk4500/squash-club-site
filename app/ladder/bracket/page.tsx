@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BracketBoard from '@/components/ladder/BracketBoard'
+import { getUser } from '@/lib/supabase/server'
 import './ladder.css'
 
 export const metadata: Metadata = {
@@ -24,7 +25,11 @@ const LEGEND: [string, string][] = [
   ['Dotted red-striped box', 'Provisional: sits downstream of a match that needs re-checking'],
 ]
 
-export default function BracketPage() {
+export default async function BracketPage() {
+  // Signed in means committee: the controls appear. The database enforces the
+  // same rule independently, so this only decides what is worth showing.
+  const admin = !!(await getUser())
+
   return (
     <div className="pt-[68px] bg-[#05080f]">
       <section className="relative py-24 overflow-hidden">
@@ -61,10 +66,12 @@ export default function BracketPage() {
 
         <h2 className="font-bebas text-4xl md:text-5xl tracking-wider uppercase mt-14 mb-2">Bracket</h2>
         <p className="font-barlow text-white/40 text-sm max-w-[78ch] leading-relaxed mb-2">
-          Results are read-only here and update live as they are recorded.
+          {admin
+            ? 'Click a player inside a match box to set the winner. Downstream boxes fill in automatically, and everyone watching sees the result immediately.'
+            : 'Results update live as they are recorded.'}
         </p>
 
-        <BracketBoard admin={false} />
+        <BracketBoard admin={admin} />
       </div>
     </div>
   )
