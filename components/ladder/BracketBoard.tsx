@@ -1,11 +1,12 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { BRACKETS, DRAW_ID, MATCHES } from '@/data/ladder/draw'
+import { BRACKETS, DRAW_ID, type DrawData } from '@/data/ladder/draw'
 import { useLadder } from '@/lib/ladder/useLadder'
 import type { LadderStore } from '@/lib/ladder/store'
 import { createSupabaseStore } from '@/lib/ladder/supabaseStore'
 import { BracketTree, Schedule, Standings } from './Bracket'
+import { useDrawEdit } from '@/lib/ladder/useDrawEdit'
 
 const ZOOM_KEY = `${DRAW_ID}-zoom`
 const ZOOM_MIN = 0.6
@@ -13,12 +14,19 @@ const ZOOM_MAX = 1.6
 const BASE_COL = 210
 const BASE_STUB = 18
 
-export default function BracketBoard({ admin = false, store }: { admin?: boolean; store?: LadderStore }) {
+export default function BracketBoard(
+  { draw, admin = false, store }: { draw: DrawData; admin?: boolean; store?: LadderStore },
+) {
   // One store for the lifetime of the board: it owns a realtime subscription,
   // so rebuilding it on every render would tear the channel down and back up.
   const supabaseStore = useMemo(() => store ?? createSupabaseStore(), [store])
-  const ladder = useLadder(supabaseStore)
+  const ladder = useLadder(draw.matches, supabaseStore)
   const { broken, taint, placings, champ, decided, total } = ladder
+
+  // Recording a winner and correcting the draw are different jobs on the same
+  // boxes, so the board is in one mode or the other rather than trying to read
+  // intent out of a single click.
+  const edit = useDrawEdit(draw)
 
   const rootRef = useRef<HTMLDivElement>(null)
   const fileRef = useRef<HTMLInputElement>(null)
@@ -93,6 +101,38 @@ export default function BracketBoard({ admin = false, store }: { admin?: boolean
   return (
     <div className="ladder" ref={rootRef}>
       {admin && (
+        <>
+          <div className="lc-controls">
+            <div className="lc-seg" role="group" aria-label="What clicking the board does">
+              <button
+                type="button"
+                aria-pressed={!edit.editing}
+                onClick={() => edit.setEditing(false)}
+              >
+                Record results
+              </button>
+              <button
+                type="button"
+                aria-pressed={edit.editing}
+                onClick={() => edit.setEditing(true)}
+              >
+                Edit draw
+              </button>
+            </div>
+          </div>
+
+          {edit.editing && (
+            <p className="lc-note">
+              Type straight into a box. It saves when you leave it; Esc puts it back. A side fed by
+              an earlier match shows where it comes from and cannot be typed over. Renaming a player
+              flags every recorded match they appear in for re-checking — re-picking the same winner
+              clears the flag without changing the result.
+            </p>
+          )}
+        </>
+      )}
+
+      {admin && !edit.editing && (
         <>
           <div className="lc-controls">
             <button type="button" className="lc-btn primary" onClick={exportResults}>Export results</button>
@@ -173,7 +213,7 @@ export default function BracketBoard({ admin = false, store }: { admin?: boolean
       {broken.size > 0 && (
         <div className="lc-alert" role="status">
           ⚠ {broken.size} match{broken.size > 1 ? 'es need' : ' needs'} re-checking after a reset:{' '}
-          {Array.from(broken).map(m => MATCHES[m].display).join(', ')}
+          {Array.from(broken).map(m => draw.matches[m].display).join(', ')}
           {taint.size > 0 && ` · ${taint.size} later match${taint.size > 1 ? 'es are' : ' is'} provisional`}
         </div>
       )}
@@ -191,10 +231,12 @@ export default function BracketBoard({ admin = false, store }: { admin?: boolean
           </h3>
           <BracketTree
             spec={spec}
+            draw={draw}
             results={ladder.results}
             snaps={ladder.snaps}
             taint={taint}
             admin={admin}
+            edit={edit.editing ? edit : null}
             onPick={(mid, side) => void ladder.pick(mid, side)}
             onClear={mid => void ladder.clear(mid)}
           />
@@ -207,7 +249,7 @@ export default function BracketBoard({ admin = false, store }: { admin?: boolean
       <Standings placings={placings} />
 
       <h2 className="font-bebas text-4xl md:text-5xl tracking-wider uppercase mt-14 mb-2">Schedule</h2>
-      <Schedule />
+      <Schedule draw={draw} />
     </div>
   )
 }

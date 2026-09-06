@@ -188,6 +188,231 @@
 .ladder .lc-x:hover { background: rgba(255, 107, 74, 0.18); color: var(--warn); }
 .ladder .lc-x:focus-visible { outline: 2px solid var(--warn); outline-offset: 1px; }
 
+/* ── edit-draw mode ──
+ * The board becomes its own editing surface: a name is the same 13px Barlow
+ * whether it is being read or typed, so nothing moves when a box is entered.
+ * The affordance is the field's hover and focus chrome, not a shape change.
+ */
+.ladder .lc-sides { display: flex; flex-direction: column; }
+
+.ladder .lc-box.editing { border-color: rgba(245, 168, 0, 0.28); }
+.ladder .lc-box.editing:hover { border-color: rgba(245, 168, 0, 0.45); }
+.ladder .lc-box.invalid { border-color: var(--warn); }
+
+.ladder .lc-name,
+.ladder .lc-static {
+  display: block;
+  width: 100%;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: var(--font-barlow), sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  padding: 7px 8px;
+}
+.ladder .lc-sides > :first-child { border-top: none; }
+
+.ladder .lc-name {
+  background: transparent;
+  color: #fff;
+  caret-color: var(--gold);
+  box-shadow: inset 0 0 0 1px transparent;
+  transition: background 0.18s, box-shadow 0.18s;
+}
+.ladder .lc-name:hover { background: rgba(255, 255, 255, 0.04); }
+.ladder .lc-name:focus {
+  outline: none;
+  background: rgba(245, 168, 0, 0.07);
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+
+/* Fed by an earlier match: shown, explained, not typeable. */
+.ladder .lc-static {
+  background: transparent;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Day, time and court sit in one row because the database keeps them as one
+ * group: three set, or three empty. */
+.ladder .lc-slotrow {
+  display: flex;
+  gap: 1px;
+  background: var(--border);
+  border-top: 1px solid var(--border);
+}
+.ladder .lc-slotrow > * {
+  min-width: 0;
+  background: var(--panel2);
+  border: none;
+  color: #fff;
+  font-family: var(--font-condensed), sans-serif;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  padding: 6px;
+  caret-color: var(--gold);
+  transition: background 0.18s, box-shadow 0.18s, color 0.18s;
+}
+.ladder .lc-slotrow > *::placeholder { color: var(--muted); }
+.ladder .lc-slotrow > *:hover { background: rgba(255, 255, 255, 0.05); }
+.ladder .lc-slotrow > *:focus {
+  outline: none;
+  background: rgba(245, 168, 0, 0.09);
+  color: var(--gold-bright);
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+.ladder .lc-f-time:hover { background: rgba(255, 255, 255, 0.05); }
+/* Day and court are both picked from a fixed set, so they look and behave
+ * alike: click to step, never a caret. */
+.ladder .lc-f-day,
+.ladder .lc-f-court {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  cursor: pointer;
+  text-align: left;
+}
+.ladder .lc-f-day { flex: 0 0 auto; }
+.ladder .lc-f-day:hover,
+.ladder .lc-f-court:hover { color: #fff; }
+/* Hour, minutes and meridiem read as one field: no internal rules, one focus
+ * ring around the group, and the segment you are in tinted inside it. */
+.ladder .lc-f-time {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 6px 4px;
+  font-variant-numeric: tabular-nums;
+}
+.ladder .lc-f-time:focus-within {
+  background: rgba(245, 168, 0, 0.09);
+  box-shadow: inset 0 0 0 1px var(--gold);
+}
+.ladder .lc-f-time > * {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 0;
+  text-align: center;
+}
+/* Two digits plus room for the caret. At exactly 2ch the second digit is
+ * scrolled out of view, which reads as the field refusing to take it. */
+.ladder .lc-f-time input {
+  width: 2.75ch;
+  caret-color: var(--gold);
+}
+.ladder .lc-f-time input::placeholder {
+  color: var(--muted);
+  letter-spacing: 0;
+}
+.ladder .lc-f-time input:focus,
+.ladder .lc-f-time button:focus {
+  outline: none;
+  background: rgba(245, 168, 0, 0.2);
+  color: var(--gold-bright);
+}
+.ladder .lc-f-hh { text-align: right; }
+.ladder .lc-f-mm { text-align: left; }
+.ladder .lc-f-time > span { color: var(--muted); padding: 0; }
+.ladder .lc-f-time button {
+  cursor: pointer;
+  margin-left: 3px;
+  text-transform: uppercase;
+}
+.ladder .lc-f-time button:hover { color: #fff; }
+
+.ladder .lc-f-court { flex: 1 1 0; padding-left: 8px; }
+
+/* Held but not written yet. */
+.ladder .lc-head-right > .lc-pending { color: var(--gold); }
+.ladder .lc-box.saving .lc-slotrow,
+.ladder .lc-box.saving .lc-sides { opacity: 0.55; }
+
+@keyframes lc-saved {
+  from {
+    border-color: var(--gold);
+    box-shadow: 0 6px 24px -8px rgba(245, 168, 0, 0.55);
+  }
+  to {
+    border-color: rgba(245, 168, 0, 0.28);
+    box-shadow: 0 0 0 0 rgba(245, 168, 0, 0);
+  }
+}
+.ladder .lc-box.saved { animation: lc-saved 1.1s cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* One mode at a time, said plainly. */
+.ladder .lc-seg {
+  display: inline-flex;
+  border: 1px solid var(--border);
+}
+.ladder .lc-seg button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-family: var(--font-condensed), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.ladder .lc-seg button + button { border-left: 1px solid var(--border); }
+.ladder .lc-seg button:hover { color: #fff; }
+.ladder .lc-seg button[aria-pressed='true'] {
+  background: var(--gold);
+  color: #05080f;
+  font-weight: 600;
+}
+.ladder .lc-seg button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+.ladder .lc-note {
+  max-width: 78ch;
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-left: 1px solid var(--gold);
+  background: rgba(245, 168, 0, 0.04);
+  color: rgba(255, 255, 255, 0.62);
+  font-family: var(--font-barlow), sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* A phone at courtside: iOS zooms the page for any field under 16px, so the
+ * fields grow and the slot row wraps instead. */
+@media (pointer: coarse) {
+  .ladder .lc-name,
+  .ladder .lc-static { font-size: 16px; }
+  .ladder .lc-slotrow { flex-wrap: wrap; }
+  .ladder .lc-slotrow > * { font-size: 15px; padding: 8px 6px; }
+  .ladder .lc-f-time { padding: 8px 4px; }
+  .ladder .lc-f-court { flex: 1 1 100%; }
+}
+
+/* Surfaces the browser draws for us, drawn in the board's own palette. */
+.ladder ::selection { background: rgba(245, 168, 0, 0.3); color: #fff; }
+.ladder .lc-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 168, 0, 0.35) rgba(255, 255, 255, 0.04);
+}
+.ladder .lc-scroll::-webkit-scrollbar { height: 10px; }
+.ladder .lc-scroll::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.04); }
+.ladder .lc-scroll::-webkit-scrollbar-thumb { background: rgba(245, 168, 0, 0.3); }
+.ladder .lc-scroll::-webkit-scrollbar-thumb:hover { background: rgba(245, 168, 0, 0.55); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ladder .lc-box.saved { animation: none; border-color: var(--gold); }
+  .ladder .lc-name,
+  .ladder .lc-slotrow > *,
+  .ladder .lc-seg button { transition: none; }
+}
+
 /* ── stale states ──
  * orphan   result kept but a feeder was cleared, so we no longer know who played
  * conflict result kept, players known, but they are not who it was recorded for

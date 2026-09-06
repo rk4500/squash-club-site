@@ -1,10 +1,17 @@
 /**
- * Bracket logic. Pure — no DOM, no React, no Supabase. Every function here
- * takes the recorded results explicitly, which is what makes the whole page a
- * function of MATCHES + Results and keeps this testable in isolation.
+ * Bracket logic. Pure — no DOM, no React, no Supabase. Every function takes
+ * both the draw and the recorded results explicitly, so the whole page is a
+ * function of its inputs and this module can be tested against a fixed draw.
  */
 
-import { MATCHES, RANK_PAIRS, type SideRef } from '@/data/ladder/draw'
+import { RANK_PAIRS, type Match, type SideRef } from '@/data/ladder/draw'
+
+/**
+ * The draw these functions operate on, passed in rather than imported: it is
+ * loaded from the database at runtime, and keeping it a parameter is what lets
+ * this module stay pure.
+ */
+export type Matches = Record<string, Match>
 
 /** Which side of a match box won. 'a' is the top player, 'b' the bottom. */
 export type Winner = 'a' | 'b'
@@ -28,29 +35,29 @@ export type ResolvedPlayer = {
  * Recursive: ["W","M17"] asks who won M17, which may itself depend on M1 and
  * M2. Unrecorded matches stop the walk and yield a placeholder.
  */
-export function resolveRef(side: SideRef, results: Results): ResolvedPlayer {
+export function resolveRef(side: SideRef, results: Results, matches: Matches): ResolvedPlayer {
   const [type, val] = side
   if (type === 'name') return { name: val, known: true }
   if (type === 'bye') return { name: 'BYE', known: true, bye: true }
 
   const winner = results[val]
   if (!winner) {
-    return { name: `${type === 'W' ? 'Winner' : 'Loser'} of ${MATCHES[val].display}`, known: false }
+    return { name: `${type === 'W' ? 'Winner' : 'Loser'} of ${matches[val].display}`, known: false }
   }
-  const a = resolveSide(val, 'a', results)
-  const b = resolveSide(val, 'b', results)
+  const a = resolveSide(val, 'a', results, matches)
+  const b = resolveSide(val, 'b', results, matches)
   const won = winner === 'a' ? a : b
   const lost = winner === 'a' ? b : a
   return type === 'W' ? won : lost
 }
 
-export function resolveSide(mid: string, key: Winner, results: Results): ResolvedPlayer {
-  return resolveRef(MATCHES[mid][key], results)
+export function resolveSide(mid: string, key: Winner, results: Results, matches: Matches): ResolvedPlayer {
+  return resolveRef(matches[mid][key], results, matches)
 }
 
 /** Both players in a match, resolved. */
-export function participants(mid: string, results: Results): [ResolvedPlayer, ResolvedPlayer] {
-  return [resolveSide(mid, 'a', results), resolveSide(mid, 'b', results)]
+export function participants(mid: string, results: Results, matches: Matches): [ResolvedPlayer, ResolvedPlayer] {
+  return [resolveSide(mid, 'a', results, matches), resolveSide(mid, 'b', results, matches)]
 }
 
 /**
@@ -58,8 +65,8 @@ export function participants(mid: string, results: Results): [ResolvedPlayer, Re
  * Recorded alongside a result so that clearing an upstream match can be
  * detected later rather than silently rewriting who played.
  */
-export function snapshotOf(mid: string, results: Results): Snapshot | null {
-  const [a, b] = participants(mid, results)
+export function snapshotOf(mid: string, results: Results, matches: Matches): Snapshot | null {
+  const [a, b] = participants(mid, results, matches)
   return a.known && b.known ? { a: a.name, b: b.name } : null
 }
 
@@ -71,9 +78,9 @@ export function snapshotOf(mid: string, results: Results): Snapshot | null {
  */
 export type MatchState = 'open' | 'done' | 'orphan' | 'conflict'
 
-export function matchState(mid: string, results: Results, snaps: Snapshots): MatchState {
+export function matchState(mid: string, results: Results, snaps: Snapshots, matches: Matches): MatchState {
   if (!results[mid]) return 'open'
-  const [a, b] = participants(mid, results)
+  const [a, b] = participants(mid, results, matches)
   if (!a.known || !b.known) return 'orphan'
   const snap = snaps[mid]
   if (snap && (snap.a !== a.name || snap.b !== b.name)) return 'conflict'
@@ -87,10 +94,10 @@ export function matchState(mid: string, results: Results, snaps: Snapshots): Mat
  * Re-picking the same winner clears the whole cascade; picking a different one
  * moves the conflict exactly one level downstream.
  */
-export function computeTaint(results: Results, snaps: Snapshots) {
+export function computeTaint(results: Results, snaps: Snapshots, matches: Matches) {
   const broken = new Set<string>()
-  for (const mid of Object.keys(MATCHES)) {
-    const st = matchState(mid, results, snaps)
+  for (const mid of Object.keys(matches)) {
+    const st = matchState(mid, results, snaps, matches)
     if (st === 'orphan' || st === 'conflict') broken.add(mid)
   }
 
@@ -98,7 +105,7 @@ export function computeTaint(results: Results, snaps: Snapshots) {
   let changed = true
   while (changed) {
     changed = false
-    for (const [mid, m] of Object.entries(MATCHES)) {
+    for (const [mid, m] of Object.entries(matches)) {
       if (taint.has(mid)) continue
       for (const key of ['a', 'b'] as const) {
         const [type, ref] = m[key]
@@ -117,10 +124,10 @@ export function computeTaint(results: Results, snaps: Snapshots) {
  * A match can be picked when both players are known and it is not already
  * settled. A recorded match reopens only when the players under it changed.
  */
-export function isReady(mid: string, results: Results, snaps: Snapshots): boolean {
-  const [a, b] = participants(mid, results)
+export function isReady(mid: string, results: Results, snaps: Snapshots, matches: Matches): boolean {
+  const [a, b] = participants(mid, results, matches)
   if (!a.known || !b.known || a.bye || b.bye) return false
-  return !results[mid] || matchState(mid, results, snaps) === 'conflict'
+  return !results[mid] || matchState(mid, results, snaps, matches) === 'conflict'
 }
 
 /**
@@ -128,13 +135,13 @@ export function isReady(mid: string, results: Results, snaps: Snapshots): boolea
  * imports, older saves) and drop snapshots whose result is gone. Returns new
  * objects only when something actually changed, so callers can skip a write.
  */
-export function backfillSnapshots(results: Results, snaps: Snapshots): { snaps: Snapshots; changed: boolean } {
+export function backfillSnapshots(results: Results, snaps: Snapshots, matches: Matches): { snaps: Snapshots; changed: boolean } {
   const next: Snapshots = { ...snaps }
   let changed = false
 
   for (const mid of Object.keys(results)) {
     if (next[mid]) continue
-    const snap = snapshotOf(mid, results)
+    const snap = snapshotOf(mid, results, matches)
     if (snap) {
       next[mid] = snap
       changed = true
@@ -152,11 +159,11 @@ export function backfillSnapshots(results: Results, snaps: Snapshots): { snaps: 
 /** Final placings decided so far, in rank order. */
 export type Placing = { rank: number; name: string; provisional: boolean }
 
-export function standings(results: Results, snaps: Snapshots, taint: Set<string>): Placing[] {
+export function standings(results: Results, snaps: Snapshots, taint: Set<string>, matches: Matches): Placing[] {
   const out: Placing[] = []
   for (const [mid, rank] of RANK_PAIRS) {
-    if (matchState(mid, results, snaps) !== 'done') continue
-    const [a, b] = participants(mid, results)
+    if (!matches[mid] || matchState(mid, results, snaps, matches) !== 'done') continue
+    const [a, b] = participants(mid, results, matches)
     const won = results[mid] === 'a' ? a : b
     const lost = results[mid] === 'a' ? b : a
     const provisional = taint.has(mid)
@@ -167,9 +174,9 @@ export function standings(results: Results, snaps: Snapshots, taint: Set<string>
 }
 
 /** The champion, once the final is settled. */
-export function champion(results: Results, snaps: Snapshots): ResolvedPlayer | null {
-  if (matchState('F', results, snaps) !== 'done') return null
-  return resolveSide('F', results.F, results)
+export function champion(results: Results, snaps: Snapshots, matches: Matches): ResolvedPlayer | null {
+  if (!matches.F || matchState('F', results, snaps, matches) !== 'done') return null
+  return resolveSide('F', results.F, results, matches)
 }
 
 /* ── export / import ─────────────────────────────────────────────────────── */
@@ -188,14 +195,14 @@ export type ExportPayload = {
   snapshots: Snapshots
 }
 
-export function exportPayload(results: Results, snaps: Snapshots, draw: string): ExportPayload {
+export function exportPayload(results: Results, snaps: Snapshots, draw: string, matches: Matches): ExportPayload {
   return {
     format: IO_FORMAT,
     version: IO_VERSION,
     draw,
     savedAt: new Date().toISOString(),
     decided: Object.keys(results).length,
-    total: Object.keys(MATCHES).length,
+    total: Object.keys(matches).length,
     results: { ...results },
     snapshots: { ...snaps },
   }
@@ -215,7 +222,7 @@ export type ParsedImport = {
  * can be typed by hand. Throws on anything that is not readable JSON — the
  * caller reports that to the user.
  */
-export function parseImport(raw: string): ParsedImport {
+export function parseImport(raw: string, matches: Matches): ParsedImport {
   let obj: unknown
   try {
     obj = JSON.parse(raw)
@@ -233,7 +240,7 @@ export function parseImport(raw: string): ParsedImport {
   const results: Results = {}
   const skipped: string[] = []
   for (const [mid, v] of Object.entries(rawResults)) {
-    if (MATCHES[mid] && (v === 'a' || v === 'b')) results[mid] = v
+    if (matches[mid] && (v === 'a' || v === 'b')) results[mid] = v
     else skipped.push(mid)
   }
 
