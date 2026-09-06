@@ -83,6 +83,21 @@ Season string is `2026–27` (en-dash). Lives in `components/Footer.tsx` (×3) a
 
 ---
 
+## Grain overlay
+
+`.grain` on `<body>` (`app/globals.css`) is an `feTurbulence` noise SVG painted
+`position: fixed` at `z-index: 9999` over the whole site. It is **static on
+purpose**. It used to drift on an 8s `steps(2)` loop across a 400% x 400% layer;
+the motion was the only thing that made it perceptible — at `0.35 x 0.04` the
+noise is about 1.4% and reads as texture, but moving it read as the screen
+crawling. Removing the animation let the layer shrink to the viewport, which is
+also 16x fewer filtered pixels on a layer that composites above everything.
+
+If someone asks to "bring the grain back", they mean the motion; the texture
+never left. Don't re-add the keyframes.
+
+---
+
 ## Ladder bracket (`/ladder/bracket`) — Supabase-backed
 
 The tournament draw, ported from the standalone `ladder-v2.html`. Separate from
