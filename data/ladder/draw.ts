@@ -50,7 +50,7 @@ export const MATCHES: Record<string, Match> = {
       ],
       "b": [
         "name",
-        "Bhagya Popat"
+        "Bhagya Patel"
       ],
       "display": "R32-1",
       "route": "Winner → R16-1 · Loser → 17–20 Q1"
@@ -219,7 +219,7 @@ export const MATCHES: Record<string, Match> = {
       ],
       "b": [
         "name",
-        "Bhagya Patel"
+        "Bhagya Popat"
       ],
       "display": "R32-14",
       "route": "Winner → R16-7 · Loser → 17–20 Q7"
