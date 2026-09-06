@@ -155,15 +155,17 @@
   cursor: pointer;
 }
 .ladder .lc-slot:first-of-type { border-top: none; }
-.ladder .lc-slot:enabled:hover {
+/* Picking is gated with aria-disabled, not the disabled attribute, so that a
+ * settled box still receives the double-click that opens it for editing. */
+.ladder .lc-slot:not([aria-disabled='true']):hover {
   background: var(--gold-dim);
   color: var(--gold-bright);
 }
-.ladder .lc-slot:enabled:focus-visible {
+.ladder .lc-slot:not([aria-disabled='true']):focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: -2px;
 }
-.ladder .lc-slot:disabled { cursor: default; }
+.ladder .lc-slot[aria-disabled='true'] { cursor: default; }
 .ladder .lc-slot.tbd { color: var(--muted); font-style: italic; }
 .ladder .lc-slot.win {
   background: var(--gold-dim);
@@ -219,6 +221,7 @@
   box-shadow: inset 0 0 0 1px transparent;
   transition: background 0.18s, box-shadow 0.18s;
 }
+.ladder .lc-name::placeholder { color: var(--muted); font-style: italic; }
 .ladder .lc-name:hover { background: rgba(255, 255, 255, 0.04); }
 .ladder .lc-name:focus {
   outline: none;
@@ -230,6 +233,23 @@
 .ladder .lc-static {
   background: transparent;
   color: var(--muted);
+  font-style: italic;
+}
+
+/* Once that earlier match is decided the side is a person, so the name leads
+ * and the feeder drops back to a caption beside it. */
+.ladder .lc-static.resolved {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  color: #fff;
+  font-style: normal;
+}
+.ladder .lc-static .lc-from {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 11px;
   font-style: italic;
 }
 

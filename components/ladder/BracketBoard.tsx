@@ -119,12 +119,16 @@ export default function BracketBoard(
                 Edit draw
               </button>
             </div>
+            <span className="self-center font-condensed text-xs tracking-widest text-white/25 uppercase">
+              {edit.editing ? 'Esc leaves edit mode' : 'Double-click any box to edit it'}
+            </span>
           </div>
 
           {edit.editing && (
             <p className="lc-note">
-              Type straight into a box. It saves when you leave it; Esc puts it back. A side fed by
-              an earlier match shows where it comes from and cannot be typed over. Renaming a player
+              Type straight into a box. It saves when you leave it; Esc puts it back, and Esc again —
+              with the caret out of the box — leaves edit mode. A side fed by
+              an earlier match shows whoever has reached it and cannot be typed over. Renaming a player
               flags every recorded match they appear in for re-checking — re-picking the same winner
               clears the flag without changing the result.
             </p>
@@ -237,6 +241,7 @@ export default function BracketBoard(
             taint={taint}
             admin={admin}
             edit={edit.editing ? edit : null}
+            onEditAt={admin ? edit.openAt : undefined}
             onPick={(mid, side) => void ladder.pick(mid, side)}
             onClear={mid => void ladder.clear(mid)}
           />

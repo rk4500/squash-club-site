@@ -114,6 +114,14 @@ export function deriveSrc(prev: Slot | undefined, d: Draft): ScheduleSrc | null 
   return moved && prev.src === 'printed' ? 'fixed' : prev.src
 }
 
+/**
+ * A field inside a match box, named so that a double-click anywhere on the
+ * board can say where the caret should land once edit mode is on.
+ */
+export type FocusField = 'a' | 'b' | 'day' | 'hh' | 'mm' | 'mer' | 'court'
+
+export type FocusTarget = { mid: string; field: FocusField }
+
 export type DrawEdit = ReturnType<typeof useDrawEdit>
 
 export function useDrawEdit(draw: DrawData) {
@@ -123,7 +131,16 @@ export function useDrawEdit(draw: DrawData) {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState<string | null>(null)
   const [saved, setSaved] = useState<string | null>(null)
+  // Where the next render should put the caret. Set by a double-click on the
+  // board and cleared by whichever box claims it, so it is a one-shot request
+  // rather than a mode the board has to be talked back out of.
+  const [focus, setFocus] = useState<FocusTarget | null>(null)
   const pulse = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // Reverted boxes, waiting for the blur that would otherwise commit them.
+  // Esc reverts and drops focus in the same keystroke, and the blur it causes
+  // is dispatched before React has applied the revert -- so without this the
+  // commit reads the draft that was just thrown away and saves it.
+  const reverted = useRef(new Set<string>())
 
   useEffect(() => () => { if (pulse.current) clearTimeout(pulse.current) }, [])
 
@@ -163,11 +180,13 @@ export function useDrawEdit(draw: DrawData) {
   }, [])
 
   const set = useCallback((mid: string, patch: Partial<Draft>) => {
+    reverted.current.delete(mid)
     setDrafts(d => ({ ...d, [mid]: { ...(d[mid] ?? baselineOf(draw, mid)), ...patch } }))
     forget(mid)
   }, [draw, forget])
 
   const revert = useCallback((mid: string) => {
+    reverted.current.add(mid)
     setDrafts(d => {
       if (!(mid in d)) return d
       const next = { ...d }
@@ -193,12 +212,45 @@ export function useDrawEdit(draw: DrawData) {
     // Leaving the mode discards anything still in hand. Every box commits on
     // the way out of its own focus, so this only ever drops rejected edits.
     if (!on) {
+      reverted.current.clear()
       setDrafts({})
       setErrors({})
+      setFocus(null)
     }
   }, [])
 
+  /**
+   * Esc leaves edit mode -- but only once it is not busy being the smaller
+   * shortcut. Inside a box it reverts that box and drops focus, so the press
+   * that closes the mode is the one made with the caret nowhere in particular:
+   * either a second press, or the first if you never went into a field.
+   */
+  useEffect(() => {
+    if (!editing) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape' || e.defaultPrevented) return
+      const el = document.activeElement
+      if (el instanceof HTMLElement && el.closest('[data-field]')) return
+      setEditing(false)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [editing, setEditing])
+
+  /**
+   * Turn edit mode on straight into one field. Double-clicking a box is the
+   * shortcut for the two-step "switch mode, then find the box again", so the
+   * click that asked for it is also the click that picks the field.
+   */
+  const openAt = useCallback((mid: string, field: FocusField) => {
+    setEditingState(true)
+    setFocus({ mid, field })
+  }, [])
+
+  const clearFocus = useCallback(() => setFocus(null), [])
+
   const commit = useCallback(async (mid: string) => {
+    if (reverted.current.delete(mid)) return
     const d = trimmed(get(mid))
     const match = draw.matches[mid]
     if (!match || same(d, baselineOf(draw, mid))) return
@@ -241,5 +293,8 @@ export function useDrawEdit(draw: DrawData) {
     }
   }, [draw, forget, get, router])
 
-  return { editing, setEditing, get, set, dirty, revert, commit, cycle, errors, saving, saved }
+  return {
+    editing, setEditing, openAt, focus, clearFocus,
+    get, set, dirty, revert, commit, cycle, errors, saving, saved,
+  }
 }

@@ -4,10 +4,10 @@ import { SRC_LABEL, type BracketSpec, type DrawData, type Match } from '@/data/l
 import {
   matchState, isReady, participants, type Results, type Snapshots, type Winner,
 } from '@/lib/ladder/engine'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   clampHour, clampMinute, COURT_CYCLE, DAY_CYCLE, DEFAULT_MERIDIEM, HOUR_MAX, MINUTE_MAX,
-  type Draft, type DrawEdit,
+  type Draft, type DrawEdit, type FocusField,
 } from '@/lib/ladder/useDrawEdit'
 
 const FLAG_TEXT = {
@@ -31,7 +31,20 @@ export type BracketProps = {
    * click means "this player won" or "I am fixing this player's name".
    */
   edit?: DrawEdit | null
+  /**
+   * Present for an admin in either mode: double-clicking a box asks for edit
+   * mode with the caret already in the field that was clicked. Absent for a
+   * visitor, which is also what leaves the single-click path undelayed.
+   */
+  onEditAt?: (mid: string, field: FocusField) => void
 }
+
+/**
+ * How long a click on a player waits to see whether it is half of a
+ * double-click. Recording a winner is a write, so it is worth the pause not to
+ * record one every time somebody double-clicks their way into edit mode.
+ */
+const DOUBLE_MS = 220
 
 /**
  * Hour, minutes and meridiem as three segments that behave like one field.
@@ -144,6 +157,7 @@ function TimeField(
     <div className="lc-f-time">
       <input
         ref={hourRef}
+        data-field="hh"
         className="lc-f-hh"
         value={draft.hh}
         placeholder="--"
@@ -164,6 +178,7 @@ function TimeField(
       <span aria-hidden="true">:</span>
       <input
         ref={minRef}
+        data-field="mm"
         className="lc-f-mm"
         value={draft.mm}
         placeholder="--"
@@ -180,6 +195,7 @@ function TimeField(
       />
       <button
         ref={merRef}
+        data-field="mer"
         type="button"
         className="lc-f-mer"
         aria-label={`${display} runs ${draft.mer || 'at an unset half of the day'}. Switches to ${
@@ -208,7 +224,10 @@ function describeSide(side: Match['a'], draw: DrawData): string {
   return `${type === 'W' ? 'Winner' : 'Loser'} of ${draw.matches[val].display}`
 }
 
-function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, edit }: BracketProps & { mid: string }) {
+function MatchBox(
+  { mid, draw, results, snaps, taint, admin, onPick, onClear, edit, onEditAt }:
+    BracketProps & { mid: string },
+) {
   const match = draw.matches[mid]
   const slot = draw.schedule[mid]
   const [a, b] = participants(mid, results, draw.matches)
@@ -222,6 +241,49 @@ function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, ed
   const flag =
     state === 'orphan' || state === 'conflict' ? state : taint.has(mid) ? 'tainted' : null
   const pickable = admin && !editing && isReady(mid, results, snaps, draw.matches)
+
+  const boxRef = useRef<HTMLDivElement>(null)
+  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  useEffect(() => () => { if (clickTimer.current) clearTimeout(clickTimer.current) }, [])
+
+  // The board hands out one focus request at a time; the box it names claims
+  // it once the fields have rendered, then puts it down so a later re-render
+  // does not steal the caret back.
+  const wanted = edit?.focus?.mid === mid ? edit.focus.field : null
+  const clearFocus = edit?.clearFocus
+  useEffect(() => {
+    if (!wanted || !clearFocus) return
+    const box = boxRef.current
+    // A box whose sides are both fed by earlier matches has no name field, so
+    // fall back to whatever it does offer rather than focusing nothing.
+    const el = box?.querySelector<HTMLElement>(`[data-field="${wanted}"]`)
+      ?? box?.querySelector<HTMLElement>('[data-field]')
+    el?.focus()
+    if (el instanceof HTMLInputElement) el.select()
+    clearFocus()
+  }, [wanted, clearFocus])
+
+  /** Enter edit mode with the caret in `field`, dropping any pending pick. */
+  const openAt = (field: FocusField) => {
+    if (!onEditAt) return
+    if (clickTimer.current) {
+      clearTimeout(clickTimer.current)
+      clickTimer.current = null
+    }
+    onEditAt(mid, field)
+  }
+
+  const slotClick = (key: Winner) => {
+    if (!pickable) return
+    // Without an edit route out of this box a click can never be half of
+    // anything, so the result goes in at once.
+    if (!onEditAt) return onPick(mid, key)
+    if (clickTimer.current) clearTimeout(clickTimer.current)
+    clickTimer.current = setTimeout(() => {
+      clickTimer.current = null
+      onPick(mid, key)
+    }, DOUBLE_MS)
+  }
 
   const classes = [
     'lc-box',
@@ -262,9 +324,11 @@ function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, ed
 
   return (
     <div
+      ref={boxRef}
       className={classes}
       title={editing ? undefined : title}
       onBlur={editing ? onBoxBlur : undefined}
+      onDoubleClick={!editing && onEditAt ? () => openAt('a') : undefined}
     >
       <div className="lc-head">
         <b>{match.display}</b>
@@ -273,10 +337,12 @@ function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, ed
             /* The time lives in the slot row below while editing, so the
                header is free to report what the box is doing instead. */
             <span className={edit.dirty(mid) ? 'lc-pending' : undefined}>
-              {edit.saving === mid ? 'Saving' : edit.dirty(mid) ? 'Unsaved' : ''}
+              {edit.saving === mid ? 'Saving' : edit.dirty(mid) ? 'Unsaved' : (slot?.time ?? '')}
             </span>
           ) : (
-            <span>{slot?.time ?? ''}</span>
+            <span onDoubleClick={onEditAt ? e => { e.stopPropagation(); openAt('hh') } : undefined}>
+              {slot?.time ?? ''}
+            </span>
           )}
           {!editing && admin && recorded && (
             <button
@@ -285,6 +351,7 @@ function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, ed
               title="Clear this result (later matches are kept, but flagged)"
               aria-label={`Clear the result of ${match.display}`}
               onClick={e => { e.stopPropagation(); onClear(mid) }}
+              onDoubleClick={e => e.stopPropagation()}
             >
               ✕
             </button>
@@ -294,12 +361,14 @@ function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, ed
 
       <div className="lc-sides">
         {editing && edit && draft
-          ? (['a', 'b'] as const).map(key => (
+          ? ([['a', a], ['b', b]] as const).map(([key, player]) => (
               match[key][0] === 'name' ? (
                 <input
                   key={key}
+                  data-field={key}
                   className="lc-name"
                   value={key === 'a' ? draft.a : draft.b}
+                  placeholder={key === 'a' ? 'Top player' : 'Bottom player'}
                   spellCheck={false}
                   autoComplete="off"
                   aria-label={`${match.display} ${key === 'a' ? 'top' : 'bottom'} player`}
@@ -307,8 +376,16 @@ function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, ed
                   onKeyDown={onFieldKey}
                 />
               ) : (
-                <div key={key} className="lc-static" title="Decided by an earlier match">
-                  {describeSide(match[key], draw)}
+                // Not typeable, but not a blank either: once the feeding match
+                // is decided this side is a person, and editing the rest of the
+                // box is a lot easier when you can see which one.
+                <div
+                  key={key}
+                  className={`lc-static${player.known ? ' resolved' : ''}`}
+                  title="Decided by an earlier match"
+                >
+                  <span>{player.known ? player.name : describeSide(match[key], draw)}</span>
+                  {player.known && <span className="lc-from">{describeSide(match[key], draw)}</span>}
                 </div>
               )
             ))
@@ -321,9 +398,14 @@ function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, ed
                   key={key}
                   type="button"
                   className={`lc-slot${player.known ? '' : ' tbd'}${mark}`}
-                  disabled={!pickable}
+                  // aria-disabled rather than disabled: a decided or not-yet-ready
+                  // box still has to hear the double-click that opens it for editing,
+                  // and a disabled button is dropped from the event path entirely.
+                  aria-disabled={!pickable}
+                  tabIndex={pickable ? 0 : -1}
                   aria-label={pickable ? `Record ${player.name} as the winner of ${match.display}` : undefined}
-                  onClick={() => onPick(mid, key)}
+                  onClick={() => slotClick(key)}
+                  onDoubleClick={onEditAt ? e => { e.stopPropagation(); openAt(key) } : undefined}
                 >
                   <span>{player.name}</span>
                 </button>
@@ -335,6 +417,7 @@ function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, ed
         <div className="lc-slotrow">
           <button
             type="button"
+            data-field="day"
             className="lc-f-day"
             aria-label={`Day for ${match.display}: ${draft.day || 'not set'}. Changes to ${
               nextIn(DAY_CYCLE, draft.day) || 'not set'
@@ -353,6 +436,7 @@ function MatchBox({ mid, draw, results, snaps, taint, admin, onPick, onClear, ed
           />
           <button
             type="button"
+            data-field="court"
             className="lc-f-court"
             aria-label={`Court for ${match.display}: ${draft.court || 'not set'}. Changes to ${
               nextIn(COURT_CYCLE, draft.court)

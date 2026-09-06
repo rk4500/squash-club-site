@@ -150,6 +150,28 @@ click cannot also mean "edit this name" — the mode decides, and nothing per-bo
 is added to the board at rest. Result controls (export / import / reset / paste)
 hide while editing, since they act on results rather than on the draw.
 
+**Double-clicking a box is the shortcut in**, from either mode: it turns edit
+mode on and puts the caret in the part that was double-clicked — a name, or the
+time in the header. `openAt(mid, field)` sets a one-shot focus request that the
+named box claims after its fields render and then clears, so a later re-render
+cannot steal the caret back. A box with no name field of its own falls back to
+whatever field it does offer.
+
+The cost of that is a **220ms delay on recording a winner** (`DOUBLE_MS` in
+`Bracket.tsx`): a single click on a slot is held long enough to see whether it
+is half of a double-click, because recording a result is a write and doing one
+every time somebody double-clicks their way into edit mode is worse than the
+pause. A visitor has no `onEditAt`, and their clicks go in undelayed. The slots
+also use `aria-disabled` rather than `disabled` — a disabled button is dropped
+from the event path, and a decided box still has to hear the double-click.
+
+**Esc leaves edit mode**, but only when the caret is not in a field: inside a
+box Esc still reverts that box and blurs it, so the press that closes the mode
+is the second one (or the first, if you never entered a field). The listener is
+on `document`, lives in `useDrawEdit`, and checks `document.activeElement`
+against `[data-field]`. Leaving the mode drops any drafts still in hand, which
+is only ever a rejected edit — every box commits on the way out of its focus.
+
 In edit mode a box becomes its own form. Names are inputs styled identically to
 the read state, so nothing shifts when you enter one; the affordance is the
 hover and focus chrome. A side fed by an earlier match renders as
@@ -190,6 +212,13 @@ Renaming a player flags every recorded match they appear in — the stored
 snapshot no longer matches. That is correct behaviour, and re-picking the same
 winner clears the flags without changing any result.
 
+**Second gotcha, same shape:** Esc reverts a box and then blurs it, and the
+blur that commits the box is dispatched inside that same keystroke — before
+React has applied the revert. A commit reading `drafts` there sees the draft
+that was just thrown away and saves it, i.e. Esc writes the edit it was meant
+to cancel. `useDrawEdit` parks the mid in a `reverted` ref that `commit` checks
+and clears; `set` clears it too, so typing again after a revert still commits.
+
 **Gotcha, already paid for once:** the time segments auto-advance by calling
 `focus()` *during* the keystroke that changed the value, before React
 re-renders. Any handler that fires on that blur must read
@@ -215,8 +244,8 @@ table can be rebuilt from something reviewable. Editing it changes nothing.
 - `lib/ladder/useLadder.ts` — results state, optimistic with rollback: a refused
   write restores the previous board rather than showing a result that never
   saved.
-- `lib/ladder/useDrawEdit.ts` — draft state for edit mode, validation, and the
-  commit. Holds the time as `hh`/`mm`/`mer` rather than `"4:00 PM"`, because a
+- `lib/ladder/useDrawEdit.ts` — draft state for edit mode, validation, the
+  commit, the `openAt` focus request and the Esc-to-leave listener. Holds the time as `hh`/`mm`/`mer` rather than `"4:00 PM"`, because a
   half-typed time has no valid single-string form and round-tripping it through
   a parser fights the person typing. `composeTime` puts it back together on the
   way out. A draft deliberately outlives its own save: `router.refresh()` is
