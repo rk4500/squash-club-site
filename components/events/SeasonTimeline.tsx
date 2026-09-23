@@ -35,30 +35,30 @@ export default function SeasonTimeline() {
           {events.map((ev, i) => {
             const above = i % 2 === 0
             return (
-              <div key={ev.month + ev.name} className="group relative w-[104px] h-28 shrink-0 flex justify-center">
+              <div key={ev.month + ev.name} className="group relative w-[134px] h-32 shrink-0 flex justify-center">
                 {/* connector */}
                 <div
-                  className={`absolute left-1/2 -translate-x-1/2 w-px h-3 ${
-                    above ? 'top-[calc(50%-12px)]' : 'top-1/2'
+                  className={`absolute left-1/2 -translate-x-1/2 w-px h-3.5 ${
+                    above ? 'top-[calc(50%-14px)]' : 'top-1/2'
                   } ${ev.confirmed ? 'bg-[#f5a800]/30' : 'bg-white/10'}`}
                 />
 
                 {/* label */}
                 <div
-                  className={`absolute left-1/2 -translate-x-1/2 w-[120px] text-center ${
-                    above ? 'bottom-[calc(50%+12px)]' : 'top-[calc(50%+12px)]'
+                  className={`absolute left-1/2 -translate-x-1/2 w-[150px] text-center ${
+                    above ? 'bottom-[calc(50%+14px)]' : 'top-[calc(50%+14px)]'
                   }`}
                 >
                   <div
-                    className={`font-condensed text-[9px] tracking-[0.15em] uppercase mb-1 ${
-                      ev.confirmed ? 'text-[#f5a800]/60' : 'text-white/25'
+                    className={`font-condensed text-xs tracking-[0.15em] uppercase mb-1.5 ${
+                      ev.confirmed ? 'text-[#f5a800]/70' : 'text-white/30'
                     }`}
                   >
                     {ev.month.slice(0, 3)} {ev.dates}
                   </div>
                   <div
-                    className={`font-bebas text-sm tracking-wide leading-tight ${
-                      ev.confirmed ? 'text-white/80' : 'text-white/35'
+                    className={`font-bebas text-xl tracking-wide leading-tight ${
+                      ev.confirmed ? 'text-white/90' : 'text-white/40'
                     }`}
                   >
                     {ev.name}
@@ -80,10 +80,10 @@ export default function SeasonTimeline() {
                 {!ev.confirmed && (
                   <div
                     className={`pointer-events-none absolute left-1/2 -translate-x-1/2 z-20 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 ${
-                      above ? 'top-[calc(50%+12px)]' : 'bottom-[calc(50%+12px)]'
+                      above ? 'top-[calc(50%+14px)]' : 'bottom-[calc(50%+14px)]'
                     }`}
                   >
-                    <div className="font-condensed text-[9px] tracking-[0.15em] uppercase text-white/60 bg-[#0c1220] border border-white/10 px-2 py-1">
+                    <div className="font-condensed text-[10px] tracking-[0.15em] uppercase text-white/60 bg-[#0c1220] border border-white/10 px-2 py-1">
                       Date not locked in yet
                     </div>
                   </div>
