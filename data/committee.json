@@ -13,12 +13,12 @@
     { "name": "Arni Damani", "role": "Co-Head of Events", "team": "Events & Planning", "photo": "/images/committee/cutouts/cc_arni.webp" },
     { "name": "Aman Bhargava", "role": "Head of Ladder", "team": "Ladder", "photo": "/images/committee/cutouts/cc_aman.webp" },
     { "name": "Gazal Marda", "role": "Co-Head of Logistics", "team": "Logistics", "photo": "/images/committee/cutouts/cc_gazal.webp" },
-    { "name": "Krisha Shah", "role": "Co-Head of Logistics", "team": "Logistics" },
+    { "name": "Krisha Shah", "role": "Co-Head of Logistics", "team": "Logistics", "photo": "/images/committee/cutouts/cc_krisha.webp" },
     { "name": "Shaurya Jalan", "role": "Co-Head of Social Media", "team": "Social Media", "photo": "/images/committee/cutouts/cc_shaurya.webp", "scale": 1.3, "anchor": "top", "dropY": 10 },
     { "name": "Laiba Patel", "role": "Co-Head of Social Media", "team": "Social Media" },
     { "name": "Nitiksha Thukrul", "role": "Co-Head of Design", "team": "Design" },
-    { "name": "Naavya Jalan", "role": "Head of Content", "team": "Content" },
-    { "name": "Moksh Sanghvi", "role": "Head of Outreach", "team": "Outreach" }
+    { "name": "Naavya Jalan", "role": "Head of Content", "team": "Content", "photo": "/images/committee/cutouts/cc_naavya.webp", "scale": 1.55 },
+    { "name": "Moksh Sanghvi", "role": "Head of Outreach", "team": "Outreach", "photo": "/images/committee/cutouts/cc_moksh.webp", "scale": 1.25 }
   ],
   "members": [
     { "name": "Reyaan Oswal", "committee": "Events & Planning" },
