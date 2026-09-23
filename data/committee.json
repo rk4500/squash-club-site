@@ -30,10 +30,6 @@
     { "name": "Atishay Jain", "committee": "Events & Planning" },
     { "name": "Baibhav Rampuria", "committee": "Events & Planning" },
     { "name": "Kritika Hissaria", "committee": "Events & Planning" },
-    { "name": "Dev Agarwal", "studentId": "261026", "committee": "Logistics" },
-    { "name": "Divisha Bhandari", "studentId": "261007", "committee": "Logistics" },
-    { "name": "Shaurya Mahtani", "studentId": "261123", "committee": "Logistics" },
-    { "name": "Vinata Kakkera", "studentId": "2603567", "committee": "Logistics" },
     { "name": "Anushka Bajaj", "committee": "Social Media" },
     { "name": "Dishika Rathod", "committee": "Social Media" },
     { "name": "Vedika Gawale", "committee": "Social Media" },
@@ -44,6 +40,10 @@
     { "name": "Shishir Sapkota", "committee": "Social Media" },
     { "name": "Kaavya Misra", "committee": "Social Media" },
     { "name": "Japmann Bhasin", "committee": "Social Media" },
+    { "name": "Dev Agarwal", "studentId": "261026", "committee": "Logistics" },
+    { "name": "Divisha Bhandari", "studentId": "261007", "committee": "Logistics" },
+    { "name": "Shaurya Mahtani", "studentId": "261123", "committee": "Logistics" },
+    { "name": "Vinata Kakkera", "studentId": "2603567", "committee": "Logistics" },
     { "name": "Khushali Bansal", "studentId": "260696", "committee": "Documentation" },
     { "name": "Ggarima Jain", "studentId": "260642", "committee": "Documentation" }
   ]
