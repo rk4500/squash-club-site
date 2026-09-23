@@ -76,7 +76,7 @@ function CCHeadCard({ member }: { member: { name: string; role: string; team: st
   )
 }
 
-function ECCard({ member }: { member: { name: string; role: string; photo?: string } }) {
+function ECCard({ member }: { member: { name: string; role: string; photo?: string; scale?: number } }) {
   const hasPhoto = !!member.photo
   return (
     <div className="group relative flex flex-col bg-[#080d17] border border-white/5 transition-all duration-500 hover:-translate-y-1 hover:border-[#f5a800]/30 overflow-hidden cursor-default">
@@ -92,13 +92,18 @@ function ECCard({ member }: { member: { name: string; role: string; photo?: stri
             {/* Victory Gold Halo */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(245,168,0,0.15)_0%,transparent_75%)] opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             
-            <Image
-              src={member.photo || ''}
-              alt={member.name}
-              fill
-              className="object-contain object-bottom opacity-90 scale-[0.88] translate-y-4 group-hover:scale-[0.96] group-hover:translate-y-1 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 origin-bottom"
-              sizes="(max-w-768px) 100vw, 33vw"
-            />
+            <div
+              className="absolute inset-0 z-10"
+              style={member.scale ? { transform: `scale(${member.scale})`, transformOrigin: 'center bottom' } : undefined}
+            >
+              <Image
+                src={member.photo || ''}
+                alt={member.name}
+                fill
+                className="object-contain object-bottom opacity-90 scale-[0.88] translate-y-4 group-hover:scale-[0.96] group-hover:translate-y-1 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom"
+                sizes="(max-w-768px) 100vw, 33vw"
+              />
+            </div>
           </>
         ) : (
           <>

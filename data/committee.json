@@ -2,9 +2,9 @@
   "executive": [
     { "name": "Maanvir Kamani", "role": "President", "photo": "/images/committee/cutouts/ec_maanvir.webp" },
     { "name": "Priyaan Thakker", "role": "Vice President", "photo": "/images/committee/cutouts/ec_priyaan.webp" },
-    { "name": "Vikhyat Upadhyay", "role": "Secretary", "photo": "/images/committee/cutouts/ec_vikhyat.webp" },
-    { "name": "Rudra Krishna", "role": "Treasurer", "photo": "/images/committee/cutouts/ec_rudra.webp" },
-    { "name": "Vanshika Mehta", "role": "Head of Public Relations", "photo": "/images/committee/cutouts/ec_vanshika.webp" }
+    { "name": "Vikhyat Upadhyay", "role": "Secretary", "photo": "/images/committee/cutouts/ec_vikhyat.webp", "scale": 1.12 },
+    { "name": "Rudra Krishna", "role": "Treasurer", "photo": "/images/committee/cutouts/ec_rudra.webp", "scale": 1.12 },
+    { "name": "Vanshika Mehta", "role": "Head of Public Relations", "photo": "/images/committee/cutouts/ec_vanshika.webp", "scale": 1.25 }
   ],
   "heads": [
     { "name": "Shyamlee Singh", "role": "Co-Head of Documentation", "team": "Documentation", "photo": "/images/committee/cutouts/cc_shyamlee.webp", "scale": 1.3 },
