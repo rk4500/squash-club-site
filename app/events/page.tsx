@@ -1,5 +1,6 @@
 import events from '@/data/events.json'
 import { ArrowRight, Calendar } from 'lucide-react'
+import SeasonTimeline from '@/components/events/SeasonTimeline'
 
 const categoryStyle: Record<string, string> = {
   'Intra-College':  'border-blue-500/20 text-blue-400/80 bg-blue-500/5',
@@ -48,6 +49,12 @@ export default function EventsPage() {
           </div>
         </div>
       </section>
+
+      <SeasonTimeline />
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        <div className="h-px bg-white/5" />
+      </div>
 
       {/* ── EVENTS BY CATEGORY ── */}
       <section className="py-16 max-w-7xl mx-auto px-6 lg:px-10">
