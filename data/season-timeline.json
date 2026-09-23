@@ -2,54 +2,54 @@
   {
     "month": "August",
     "events": [
-      { "dates": "22", "name": "Sports Fair", "done": true },
-      { "dates": "29", "name": "Rookie Workshop", "done": true }
+      { "dates": "22", "name": "Sports Fair", "confirmed": true },
+      { "dates": "29", "name": "Rookie Workshop", "confirmed": true }
     ]
   },
   {
     "month": "September",
     "events": [
-      { "dates": "4–6", "name": "Ladder Tournament", "done": true },
-      { "dates": "12–13", "name": "Team Tryouts", "done": true }
+      { "dates": "4–6", "name": "Ladder Tournament", "confirmed": true },
+      { "dates": "12–13", "name": "Team Tryouts", "confirmed": true }
     ]
   },
   {
     "month": "October",
     "events": [
-      { "dates": "17–18", "name": "Interhouse", "done": true },
-      { "dates": "23", "name": "ProAm Tourney", "done": false }
+      { "dates": "17–18", "name": "Interhouse", "confirmed": true },
+      { "dates": "23", "name": "ProAm Tourney", "confirmed": false }
     ]
   },
   {
     "month": "November",
     "events": [
-      { "dates": "21–22", "name": "FSC", "done": true },
-      { "dates": "28–29", "name": "Racketlon", "done": false }
+      { "dates": "21–22", "name": "FSC", "confirmed": true },
+      { "dates": "28–29", "name": "Racketlon", "confirmed": false }
     ]
   },
   {
     "month": "December",
     "events": [
-      { "dates": "5–6", "name": "Racketlon Finals", "done": false }
+      { "dates": "5–6", "name": "Racketlon Finals", "confirmed": false }
     ]
   },
   {
     "month": "January",
     "events": [
-      { "dates": "15–17", "name": "Alumni Weekend", "done": false },
-      { "dates": "22–23", "name": "Kurukshetra", "done": true }
+      { "dates": "15–17", "name": "Alumni Weekend", "confirmed": false },
+      { "dates": "22–23", "name": "Kurukshetra", "confirmed": true }
     ]
   },
   {
     "month": "February",
     "events": [
-      { "dates": "7", "name": "Corporate", "done": false }
+      { "dates": "7", "name": "Corporate", "confirmed": false }
     ]
   },
   {
     "month": "March",
     "events": [
-      { "dates": "6–7, 13–14", "name": "Ladder Booster", "done": false }
+      { "dates": "6–7, 13–14", "name": "Ladder Booster", "confirmed": false }
     ]
   }
 ]

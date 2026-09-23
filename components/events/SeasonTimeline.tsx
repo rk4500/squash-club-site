@@ -18,11 +18,11 @@ export default function SeasonTimeline() {
         <div className="flex items-center gap-6 font-condensed text-[11px] tracking-[0.2em] uppercase text-white/30">
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 rotate-45 bg-gold shadow-[0_0_10px_rgba(245,168,0,0.6)]" />
-            Completed
+            Confirmed
           </span>
           <span className="flex items-center gap-2">
             <span className="w-2 h-2 rotate-45 border border-white/25" />
-            Upcoming
+            Tentative
           </span>
         </div>
       </div>
@@ -35,12 +35,12 @@ export default function SeasonTimeline() {
           {events.map((ev, i) => {
             const above = i % 2 === 0
             return (
-              <div key={ev.month + ev.name} className="relative w-[104px] h-28 shrink-0 flex justify-center">
+              <div key={ev.month + ev.name} className="group relative w-[104px] h-28 shrink-0 flex justify-center">
                 {/* connector */}
                 <div
                   className={`absolute left-1/2 -translate-x-1/2 w-px h-3 ${
                     above ? 'top-[calc(50%-12px)]' : 'top-1/2'
-                  } ${ev.done ? 'bg-[#f5a800]/30' : 'bg-white/10'}`}
+                  } ${ev.confirmed ? 'bg-[#f5a800]/30' : 'bg-white/10'}`}
                 />
 
                 {/* label */}
@@ -51,14 +51,14 @@ export default function SeasonTimeline() {
                 >
                   <div
                     className={`font-condensed text-[9px] tracking-[0.15em] uppercase mb-1 ${
-                      ev.done ? 'text-[#f5a800]/60' : 'text-white/25'
+                      ev.confirmed ? 'text-[#f5a800]/60' : 'text-white/25'
                     }`}
                   >
                     {ev.month.slice(0, 3)} {ev.dates}
                   </div>
                   <div
                     className={`font-bebas text-sm tracking-wide leading-tight ${
-                      ev.done ? 'text-white/80' : 'text-white/35'
+                      ev.confirmed ? 'text-white/80' : 'text-white/35'
                     }`}
                   >
                     {ev.name}
@@ -68,13 +68,26 @@ export default function SeasonTimeline() {
                 {/* node */}
                 <span
                   className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rotate-45 border flex items-center justify-center ${
-                    ev.done
+                    ev.confirmed
                       ? 'bg-gold border-gold shadow-[0_0_10px_rgba(245,168,0,0.55)]'
-                      : 'bg-[#05080f] border-white/25'
+                      : 'bg-[#05080f] border-white/25 cursor-help'
                   }`}
                 >
-                  {ev.done && <Check size={7} strokeWidth={3.5} className="-rotate-45 text-[#05080f]" />}
+                  {ev.confirmed && <Check size={7} strokeWidth={3.5} className="-rotate-45 text-[#05080f]" />}
                 </span>
+
+                {/* tentative tooltip, opposite side from the label */}
+                {!ev.confirmed && (
+                  <div
+                    className={`pointer-events-none absolute left-1/2 -translate-x-1/2 z-20 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 ${
+                      above ? 'top-[calc(50%+12px)]' : 'bottom-[calc(50%+12px)]'
+                    }`}
+                  >
+                    <div className="font-condensed text-[9px] tracking-[0.15em] uppercase text-white/60 bg-[#0c1220] border border-white/10 px-2 py-1">
+                      Date not locked in yet
+                    </div>
+                  </div>
+                )}
               </div>
             )
           })}
