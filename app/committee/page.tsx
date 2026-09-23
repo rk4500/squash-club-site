@@ -204,9 +204,9 @@ export default function CommitteePage() {
           <div className="flex-1 h-px bg-white/5" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-3">
-          {Object.entries(membersByTeam).map(([team, members], idx) => (
-            <div key={team} className={`card p-6 ${idx < 3 ? 'lg:col-span-2' : 'lg:col-span-3'}`}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          {Object.entries(membersByTeam).map(([team, members]) => (
+            <div key={team} className="card p-6">
               <span className={`inline-flex font-condensed text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 border mb-5 ${teamColor[team] ?? 'text-gray-400 border-gray-400/20 bg-gray-400/5'}`}>
                 {team}
               </span>

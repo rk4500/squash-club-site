@@ -21,7 +21,6 @@
     { "name": "Moksh Sanghvi", "role": "Head of Outreach", "team": "Outreach" }
   ],
   "members": [
-    { "name": "Adhya Bamrah", "studentId": "250303", "committee": "Public Relations" },
     { "name": "Reyaan Oswal", "committee": "Events & Planning" },
     { "name": "Jiah Dulat", "committee": "Events & Planning" },
     { "name": "Arush Vij", "committee": "Events & Planning" },
@@ -46,8 +45,6 @@
     { "name": "Kaavya Misra", "committee": "Social Media" },
     { "name": "Japmann Bhasin", "committee": "Social Media" },
     { "name": "Khushali Bansal", "studentId": "260696", "committee": "Documentation" },
-    { "name": "Ggarima Jain", "studentId": "260642", "committee": "Documentation" },
-    { "name": "Samriddhi Garg", "studentId": "250762", "committee": "Outreach" },
-    { "name": "Kashvi Toprani", "studentId": "230671", "committee": "Design" }
+    { "name": "Ggarima Jain", "studentId": "260642", "committee": "Documentation" }
   ]
 }
