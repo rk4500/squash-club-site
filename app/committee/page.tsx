@@ -11,6 +11,7 @@ const teamColor: Record<string, string> = {
   'Outreach':         'text-cyan-400  border-cyan-400/20  bg-cyan-400/5',
   'Public Relations': 'text-rose-400  border-rose-400/20  bg-rose-400/5',
   'Design':           'text-fuchsia-400 border-fuchsia-400/20 bg-fuchsia-400/5',
+  'Content':          'text-lime-400  border-lime-400/20  bg-lime-400/5',
 }
 
 function Monogram({ name, size = 'md' }: { name: string; size?: 'sm' | 'md' | 'lg' | 'xl' }) {
@@ -52,12 +53,16 @@ function CCHeadCard({ member }: { member: { name: string; role: string; team: st
           </>
         ) : (
           <>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-bebas text-[80px] leading-none select-none text-[#f5a800]/5 group-hover:text-[#f5a800]/10 transition-all duration-700">
-                {member.name.split(' ').slice(0, 2).map((n) => n[0]).join('')}
+            <div className="absolute inset-3 border border-dashed border-white/10 group-hover:border-[#f5a800]/30 transition-colors duration-700" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="text-white/15 group-hover:text-[#f5a800]/50 transition-colors duration-700">
+                <circle cx="20" cy="14" r="8" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M4 38c0-8.837 7.163-16 16-16s16 7.163 16 16" stroke="currentColor" strokeWidth="1.5" />
+              </svg>
+              <span className="font-condensed text-[8px] tracking-[0.25em] uppercase text-white/15 group-hover:text-[#f5a800]/60 transition-colors duration-700">
+                Photo Pending
               </span>
             </div>
-            <div className="absolute inset-0 opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity duration-700" style={{ backgroundImage: 'linear-gradient(45deg, transparent 49%, white 49%, white 51%, transparent 51%)', backgroundSize: '12px 12px' }} />
           </>
         )}
         <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-[#080d17] to-transparent z-10 pointer-events-none" />
@@ -185,7 +190,7 @@ export default function CommitteePage() {
           <div className="flex-1 h-px bg-white/5" />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {committee.heads.map((h) => (
             <CCHeadCard key={`${h.name}-${h.role}`} member={h} />
           ))}
