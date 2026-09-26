@@ -63,6 +63,17 @@ Names must match **exactly** across `admissions.json`, `team.json`, `ladder.json
   magick /tmp/cut.png -trim -background none -gravity South -extent 800x1200 /tmp/norm.png
   magick /tmp/norm.png -quality 82 cutouts/cc_<name>.webp
   ```
+- Per-member `scale` / `dropY` / `anchor` in `committee.json` reframe a cutout
+  inside its card (crop legs out of a full-body shot, nudge a tight headshot
+  down, etc.) — see Moksh (full body → head/shoulders, `scale: 2.6, dropY:
+  240`) and Akeysha (`scale: 1.85, dropY: 150`) for the extreme end of it.
+  `CCHeadCard`/`ECCard` in `app/committee/page.tsx` counter-scale the hover
+  micro-shift by `member.scale` (`hoverY = 8 - 8/s` for heads, `16 - 12/s` for
+  execs) so a card with `scale: 2.6` doesn't jump several times further on
+  hover than one at `scale: 1` — the raw hover translate was inside the same
+  scaled wrapper as the photo, so it got amplified along with it. Don't hand-
+  tune the hover translate-y classes per member; adjust the formula if the
+  base (`scale: 1`) hover distance ever needs to change.
 
 ## Season label
 Season string is `2026–27` (en-dash). Lives in `components/Footer.tsx` (×3) and
@@ -174,10 +185,13 @@ is only ever a rejected edit — every box commits on the way out of its focus.
 
 In edit mode a box becomes its own form. Names are inputs styled identically to
 the read state, so nothing shifts when you enter one; the affordance is the
-hover and focus chrome. A side fed by an earlier match renders as
-*Winner of R32-1* and is not focusable — changing who feeds whom is structural,
-needs the graph re-validated for cycles and orphaned results, and is not in
-scope here. The columns are already in the table for that work.
+hover and focus chrome. A side fed by an earlier match is not focusable —
+changing who feeds whom is structural, needs the graph re-validated for cycles
+and orphaned results, and is not in scope here. The columns are already in the
+table for that work. Such a side reads as *Winner of R32-1* until that match is
+decided, and after it the player's name leads with the feeder as a caption
+beside it (`.lc-static.resolved` / `.lc-from`) — editing the rest of the box is
+much easier when you can see who is actually in it.
 
 **A box commits when focus leaves it**, so a name and a court time go in one
 write. Enter commits, Esc reverts, and the box shows *Unsaved* / *Saving* in its
@@ -212,19 +226,19 @@ Renaming a player flags every recorded match they appear in — the stored
 snapshot no longer matches. That is correct behaviour, and re-picking the same
 winner clears the flags without changing any result.
 
-**Second gotcha, same shape:** Esc reverts a box and then blurs it, and the
-blur that commits the box is dispatched inside that same keystroke — before
-React has applied the revert. A commit reading `drafts` there sees the draft
-that was just thrown away and saves it, i.e. Esc writes the edit it was meant
-to cancel. `useDrawEdit` parks the mid in a `reverted` ref that `commit` checks
-and clears; `set` clears it too, so typing again after a revert still commits.
-
 **Gotcha, already paid for once:** the time segments auto-advance by calling
 `focus()` *during* the keystroke that changed the value, before React
 re-renders. Any handler that fires on that blur must read
 `e.currentTarget.value`, not the captured `draft` — the draft is one keystroke
 stale, and reading it wrote the pre-keystroke hour back, which looked exactly
 like the field refusing two-digit hours.
+
+**Second gotcha, same shape:** Esc reverts a box and then blurs it, and the
+blur that commits the box is dispatched inside that same keystroke — before
+React has applied the revert. A commit reading `drafts` there sees the draft
+that was just thrown away and saves it, i.e. Esc writes the edit it was meant
+to cancel. `useDrawEdit` parks the mid in a `reverted` ref that `commit` checks
+and clears; `set` clears it too, so typing again after a revert still commits.
 
 `data/ladder/seed.ts` is **seed only**; the running site does not read it. It is
 the source the seeding migration was generated from, kept in git so a mangled
