@@ -11,9 +11,9 @@ import {
 } from '@/lib/ladder/useDrawEdit'
 
 const FLAG_TEXT = {
-  orphan: '⚠ feeder cleared — result kept, needs re-check',
-  conflict: '⚠ players changed — re-pick the winner',
-  tainted: '⚠ provisional — an earlier match is unresolved',
+  orphan: '⚠ feeder cleared, result kept, needs re-check',
+  conflict: '⚠ players changed, re-pick the winner',
+  tainted: '⚠ provisional, an earlier match is unresolved',
 } as const
 
 export type BracketProps = {
@@ -297,7 +297,7 @@ function MatchBox(
   ].filter(Boolean).join(' ')
 
   const title =
-    `${match.label} — ${match.route}` +
+    `${match.label}: ${match.route}` +
     (slot ? `\n${slot.day} ${slot.time} · ${slot.court}` : '')
 
   // Leaving the box is the commit. Moving between its own fields is not, so a

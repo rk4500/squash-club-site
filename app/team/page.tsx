@@ -1,8 +1,13 @@
+import type { Metadata } from 'next'
 import team from '@/data/team.json'
 import Image from 'next/image'
 import { Trophy } from 'lucide-react'
 import { teamRole, academicYear } from '@/lib/roster'
 
+export const metadata: Metadata = {
+  title: 'Team',
+  description: "Meet the players on FLAME Squash Club's roster, FLAME University's squash team.",
+}
 
 export default function TeamPage() {
   const men = team.filter(p => p.gender === 'male')
@@ -31,7 +36,7 @@ export default function TeamPage() {
             <span className="gold-text">SQUAD</span>
           </h1>
           <p className="font-barlow text-white/40 text-base max-w-xl leading-relaxed font-light mb-8">
-            FLAME's competitive squash team — representing the university from on-campus tournaments to national AIU competition.
+            FLAME's competitive squash team, representing the university from on-campus tournaments to national AIU competition.
           </p>
           <div className="flex items-center gap-8">
             {[['AIU', 'National Level'], ['Pre-QF', 'AIU Result'], ['NMIMS', 'Category Winner']].map(([v,l]) => (

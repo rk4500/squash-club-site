@@ -3,56 +3,56 @@
     "name": "Priyaan Thakker",
     "gender": "male",
     "bio": "Club Vice President known for relentless court coverage and elite composure.",
-    "achievements": ["NMIMS Fury Tournament Winner", "Ladder Edition 4 — Rank #1", "AIU Pre-Quarterfinalist"],
+    "achievements": ["NMIMS Fury Tournament Winner", "Ladder Edition 4, Rank #1", "AIU Pre-Quarterfinalist"],
     "photo": "/images/team/1priyaan.webp"
   },
   {
     "name": "Maanvir Kamani",
     "gender": "male",
     "bio": "Club President known for aggressive and dominant baseline play.",
-    "achievements": ["NMIMS Fury — Pre-Quarterfinalist", "Ladder Edition 4 — Rank #2", "AIU Representative"],
+    "achievements": ["NMIMS Fury, Pre-Quarterfinalist", "Ladder Edition 4, Rank #2", "AIU Representative"],
     "photo": "/images/team/2maanvir.webp"
   },
   {
     "name": "Avi Sharma",
     "gender": "male",
     "bio": "Head of PR combining quick reflexes with an attacking court style.",
-    "achievements": ["AIU Representative", "Ladder Edition 4 — Rank #16"],
+    "achievements": ["AIU Representative", "Ladder Edition 4, Rank #16"],
     "photo": "/images/team/3avi.webp"
   },
   {
     "name": "Japmann S. Bhasin",
     "gender": "male",
     "bio": "Relentless competitor known for clinical shot-making and high grit.",
-    "achievements": ["NMIMS Fury — Quarterfinalist", "AIU Representative", "Ladder Edition 4 — Rank #4"],
+    "achievements": ["NMIMS Fury, Quarterfinalist", "AIU Representative", "Ladder Edition 4, Rank #4"],
     "photo": "/images/team/5japmann.webp"
   },
   {
     "name": "Shahaan Singh Anand",
     "gender": "male",
     "bio": "Experienced player bringing calm composure to high-pressure matches.",
-    "achievements": ["AIU Representative", "Ladder Edition 4 — Rank #18"],
+    "achievements": ["AIU Representative", "Ladder Edition 4, Rank #18"],
     "photo": "/images/team/4shahaan.webp"
   },
   {
     "name": "Dhwani Balchandani",
     "gender": "female",
     "bio": "Elite competitor combining court precision with inspiring leadership.",
-    "achievements": ["Ladder Edition 4 — Rank #3", "AIU Representative"],
+    "achievements": ["Ladder Edition 4, Rank #3", "AIU Representative"],
     "photo": "/images/team/1dhwani.webp"
   },
   {
     "name": "Riya Girish",
     "gender": "female",
     "bio": "Dynamic competitor blending composed court craft with relentless intensity.",
-    "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #7"],
+    "achievements": ["AIU Representative", "Ladder Edition 3, Rank #7"],
     "photo": "/images/team/2riya.webp"
   },
   {
     "name": "Adhya Bamrah",
     "gender": "female",
     "bio": "Agile competitor celebrated for swift movement and superb retrieval.",
-    "achievements": ["AIU Representative", "Ladder Edition 3 — Rank #8"],
+    "achievements": ["AIU Representative", "Ladder Edition 3, Rank #8"],
     "photo": "/images/team/3adhya.webp"
   }
 ]

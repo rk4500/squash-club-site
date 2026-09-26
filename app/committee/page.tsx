@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import committee from '@/data/committee.json'
 import Image from 'next/image'
+
+export const metadata: Metadata = {
+  title: 'Committee',
+  description: 'The executive committee and core heads running FLAME Squash Club this season.',
+}
 
 const teamColor: Record<string, string> = {
   'Logistics':        'text-sky-400   border-sky-400/20   bg-sky-400/5',
@@ -164,7 +170,7 @@ export default function CommitteePage() {
             <span className="gold-text">COMMITTEE</span>
           </h1>
           <p className="font-barlow text-white/40 text-base max-w-xl leading-relaxed font-light">
-            From executive vision to ground-level execution — the people building FLAME Squash Club.
+            From executive vision to ground-level execution, the people building FLAME Squash Club.
           </p>
         </div>
       </section>

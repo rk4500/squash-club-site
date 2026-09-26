@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
 import gallery from '@/data/gallery.json'
 import GalleryMosaic from './GalleryMosaic'
+
+export const metadata: Metadata = {
+  title: 'Gallery',
+  description: 'Photos from FLAME Squash Club events, tournaments, and tryouts.',
+}
 
 export default function GalleryPage() {
   return (
@@ -17,7 +23,7 @@ export default function GalleryPage() {
             <span className="gold-text">GALLERY</span>
           </h1>
           <p className="font-barlow text-white/40 text-base max-w-xl leading-relaxed font-light">
-            Moments from the court — tournaments, auctions, carnivals, and everything in between. Tap any frame to open it full-screen.
+            Moments from the court: tournaments, auctions, carnivals, and everything in between. Tap any frame to open it full-screen.
           </p>
         </div>
       </section>

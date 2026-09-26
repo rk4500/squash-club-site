@@ -19,7 +19,7 @@
   },
   {
     "id": 3,
-    "name": "Squash Ladder Tournament — Edition 1",
+    "name": "Squash Ladder Tournament: Edition 1",
     "category": "Intra-College",
     "date": "2025-09-12",
     "description": "In collaboration with DotSlash. Knockout format at Arjuna Squash Courts. Established the official FLAME Squash Ladder Leaderboard with top 20 active players.",
@@ -33,7 +33,7 @@
     "date": "2025-09-19",
     "description": "All four FLAME houses competed. Chanakya won the women's final against Vivekananda with a confident performance.",
     "budget": "N/A",
-    "highlight": "Chanakya House — Women's Champions"
+    "highlight": "Chanakya House: Women's Champions"
   },
   {
     "id": 5,
@@ -42,7 +42,7 @@
     "date": "2025-09-19",
     "description": "High-energy men's division with Kalidas securing victory over Vivekananda in the final.",
     "budget": "N/A",
-    "highlight": "Kalidas House — Men's Champions"
+    "highlight": "Kalidas House: Men's Champions"
   },
   {
     "id": 6,
@@ -60,7 +60,7 @@
     "date": "2025-11-23",
     "description": "International squash player from Columbia University shared insights on training, match preparation, fitness, and balancing academics with high-level sport.",
     "budget": "N/A",
-    "highlight": "Columbia University athlete — international insights"
+    "highlight": "Columbia University athlete, international insights"
   },
   {
     "id": 8,
@@ -82,7 +82,7 @@
   },
   {
     "id": 10,
-    "name": "Friendlies — Start Academy",
+    "name": "Friendlies: Start Academy",
     "category": "Inter-College",
     "date": "2026-01-18",
     "description": "Round-robin friendly matches with Start Academy. Players tested skills against diverse playing styles.",
@@ -91,7 +91,7 @@
   },
   {
     "id": 11,
-    "name": "Squash Ladder Tournament — Edition 2",
+    "name": "Squash Ladder Tournament: Edition 2",
     "category": "Intra-College",
     "date": "2026-02-01",
     "description": "Round-robin format open to all FLAME students. Top 20 players selected for the FLAME Squash Ladder Leaderboard, with challenge matches to move up.",
@@ -103,7 +103,7 @@
     "name": "FirstCut Finale Carnival Stall",
     "category": "Collaboration",
     "date": "2026-02-10",
-    "description": "Interactive squash accuracy game — throwing balls into cups at varying distances — drew enthusiastic participation at the FirstCut Finale Carnival.",
+    "description": "Interactive squash accuracy game, throwing balls into cups at varying distances, drew enthusiastic participation at the FirstCut Finale Carnival.",
     "budget": "₹500",
     "highlight": "High engagement, precision & coordination activities"
   },
@@ -145,7 +145,7 @@
   },
   {
     "id": 17,
-    "name": "Squash Ladder Tournament — Edition 3",
+    "name": "Squash Ladder Tournament: Edition 3",
     "category": "Intra-College",
     "date": "2026-03-01",
     "description": "Final edition for the year. Priyaan, Maanvir, and Dhwani emerged as the top three players.",
@@ -159,11 +159,11 @@
     "date": "2026-03-14",
     "description": "Inter-collegiate tournament with players from multiple institutions. Priyaan Thakkar won his category. Japman reached QF, Maanvir reached pre-QF.",
     "budget": "N/A",
-    "highlight": "🏆 Priyaan Thakkar — Tournament Winner"
+    "highlight": "🏆 Priyaan Thakkar, Tournament Winner"
   },
   {
     "id": 19,
-    "name": "Friendlies — NDA & Poona Club",
+    "name": "Friendlies: NDA & Poona Club",
     "category": "Inter-College",
     "date": "2026-11-02",
     "description": "Round-robin friendlies with National Defence Academy and Poona Squash Club. 15–20 participants in a relaxed yet competitive format.",

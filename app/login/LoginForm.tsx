@@ -42,7 +42,7 @@ export default function LoginForm() {
           <span className="text-white">SIGN</span> <span className="gold-text">IN</span>
         </h1>
         <p className="font-barlow text-white/35 text-sm leading-relaxed mb-8">
-          For recording ladder results. Accounts are created by the club — there is no sign-up.
+          For recording ladder results. Accounts are created by the club; there is no sign-up.
         </p>
 
         <form onSubmit={onSubmit} className="flex flex-col gap-4">

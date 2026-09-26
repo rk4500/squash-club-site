@@ -126,10 +126,10 @@ export default function BracketBoard(
 
           {edit.editing && (
             <p className="lc-note">
-              Type straight into a box. It saves when you leave it; Esc puts it back, and Esc again —
-              with the caret out of the box — leaves edit mode. A side fed by
+              Type straight into a box. It saves when you leave it; Esc puts it back, and Esc again,
+              with the caret out of the box, leaves edit mode. A side fed by
               an earlier match shows whoever has reached it and cannot be typed over. Renaming a player
-              flags every recorded match they appear in for re-checking — re-picking the same winner
+              flags every recorded match they appear in for re-checking; re-picking the same winner
               clears the flag without changing the result.
             </p>
           )}
@@ -165,7 +165,7 @@ export default function BracketBoard(
           <details className="lc-io">
             <summary>Paste results instead</summary>
             <p className="text-white/40 text-sm leading-relaxed mt-3 max-w-[78ch]">
-              Paste an exported file here, or hand-write a plain map like <code>{'{"M1":"a","M2":"b"}'}</code> —
+              Paste an exported file here, or hand-write a plain map like <code>{'{"M1":"a","M2":"b"}'}</code>:
               {' '}<code>a</code> is the top player in the box, <code>b</code> the bottom one. Partly finished sets
               are fine; anything left out stays open, and anything downstream of a gap gets flagged rather
               than guessed.
@@ -192,7 +192,7 @@ export default function BracketBoard(
                 className="lc-btn"
                 onClick={() => {
                   setPasted(JSON.stringify(ladder.payload(), null, 2))
-                  ladder.say('Current results written into the box below — select all and copy.')
+                  ladder.say('Current results written into the box below, select all and copy.')
                 }}
               >
                 Show current results here

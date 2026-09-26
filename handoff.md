@@ -6,6 +6,11 @@ Last updated: 2026-09-06
 Fast context for the next person editing the site. Focuses on the parts that are
 **data-driven** now (year + designations) so nobody hardcodes a value that goes stale.
 
+## Writing style
+No em dashes in anything user-visible: page copy, JSON labels/descriptions,
+UI strings, metadata titles/descriptions. Use a comma, colon, semicolon, or
+period instead. Code comments are exempt (not shown to visitors).
+
 ---
 
 ## Roster data is now derived, not hardcoded
@@ -74,6 +79,24 @@ Names must match **exactly** across `admissions.json`, `team.json`, `ladder.json
   scaled wrapper as the photo, so it got amplified along with it. Don't hand-
   tune the hover translate-y classes per member; adjust the formula if the
   base (`scale: 1`) hover distance ever needs to change.
+
+## SEO
+- Live URL is `flamesquashclub.vercel.app` (`flamesquash.vercel.app` redirects
+  to it). `SITE_URL` in `app/layout.tsx` must match if the domain ever changes
+  — it also drives `app/robots.ts` and `app/sitemap.ts`, so update all three
+  together.
+- `app/layout.tsx` sets `metadataBase`, the default OG/Twitter card
+  (`public/og-image.jpg`, 1200×630, generated from `images/gallery/team-tryouts.webp`),
+  and a `SportsClub` JSON-LD block (address, Instagram, email). Every route
+  under `app/*/page.tsx` sets its own `title`/`description` on top of that,
+  templated as `%s | FLAME Squash Club`.
+- `/login` and `/auth/*` are excluded from `app/robots.ts` and left out of
+  `app/sitemap.ts` — they're unlisted by design, see the Ladder bracket
+  section below.
+- Getting picked up over the old abandoned deploy is mostly outside the repo:
+  Search Console verification + a sitemap submission, then requesting
+  indexing on the key URLs, is what actually moves it. See chat history
+  (2026-09-26) for the walkthrough if this needs redoing.
 
 ## Season label
 Season string is `2026–27` (en-dash). Lives in `components/Footer.tsx` (×3) and

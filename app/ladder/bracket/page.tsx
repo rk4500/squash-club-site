@@ -65,7 +65,7 @@ export default async function BracketPage() {
         <h2 className="font-bebas text-4xl md:text-5xl tracking-wider uppercase mb-3">Legend</h2>
         <div className="lc-legend">
           {LEGEND.map(([term, meaning]) => (
-            <div key={term}><b>{term}</b> — {meaning}</div>
+            <div key={term}><b>{term}</b>: {meaning}</div>
           ))}
         </div>
 

@@ -1,6 +1,12 @@
+import type { Metadata } from 'next'
 import events from '@/data/events.json'
 import { ArrowRight, Calendar } from 'lucide-react'
 import SeasonTimeline from '@/components/events/SeasonTimeline'
+
+export const metadata: Metadata = {
+  title: 'Events',
+  description: 'Tryouts, tournaments, and collaborations run by FLAME Squash Club this season.',
+}
 
 const categoryStyle: Record<string, string> = {
   'Intra-College':  'border-blue-500/20 text-blue-400/80 bg-blue-500/5',
@@ -36,7 +42,7 @@ export default function EventsPage() {
             <span className="gold-text">TOURNAMENTS</span>
           </h1>
           <p className="font-barlow text-white/40 text-base max-w-xl leading-relaxed font-light mb-10">
-            A full year of competition, collaboration, and community — from intra-college rivalries to national representation.
+            A full year of competition, collaboration, and community, from intra-college rivalries to national representation.
           </p>
           {/* Counts */}
           <div className="flex items-center gap-8">

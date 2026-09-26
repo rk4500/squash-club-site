@@ -16,10 +16,10 @@ const stats = [
 const ladder = (ladderData.rankings as { rank: number; name: string; photo?: string }[]).slice(0, 3)
 
 const highlights = [
-  { tag: 'Inter-College', title: 'NMIMS Fury Tournament', result: 'Priyaan Thakkar — Category Winner', date: 'Mar 2026' },
-  { tag: 'National', title: 'AIU Squash Tournament', result: 'Both teams — Pre-Quarterfinals', date: 'Mar 2026' },
+  { tag: 'Inter-College', title: 'NMIMS Fury Tournament', result: 'Priyaan Thakkar, Category Winner', date: 'Mar 2026' },
+  { tag: 'National', title: 'AIU Squash Tournament', result: 'Both teams, Pre-Quarterfinals', date: 'Mar 2026' },
   { tag: 'Marquee Event', title: 'FSC Championship', result: '70+ athletes · Maharashtra-wide', date: 'Dec 2025' },
-  { tag: 'Multi-Sport', title: 'FLAME Racketlon 2026', result: 'Neon Knights — Champions', date: 'Mar 2026' },
+  { tag: 'Multi-Sport', title: 'FLAME Racketlon 2026', result: 'Neon Knights, Champions', date: 'Mar 2026' },
 ]
 
 export default function Home() {
@@ -150,7 +150,7 @@ export default function Home() {
               <span className="gold-text">A SPORT.</span>
             </h2>
             <p className="font-barlow text-white/50 text-lg leading-relaxed mb-6 max-w-2xl font-light">
-              The FLAME Squash Club brings together students who share a passion for squash — from dedicated competitors to those just discovering the game. We create space to explore, compete, and grow.
+              The FLAME Squash Club brings together students who share a passion for squash, from dedicated competitors to those just discovering the game. We create space to explore, compete, and grow.
             </p>
             <p className="font-barlow text-white/30 text-sm leading-relaxed mb-10 max-w-xl font-light">
               Through structured practice, competitive ladder tournaments, inter-college championships, and community initiatives, we ensure every player finds their place on court. Squash here is a shared experience built on passion, discipline, and relentless drive.
@@ -217,7 +217,7 @@ export default function Home() {
                 SQUASH<br /><span className="gold-text">LADDER</span>
               </h2>
               <p className="font-barlow text-white/40 text-sm leading-relaxed mb-8 font-light">
-                Three editions per semester. Top 20 players ranked. Challenge those above you to climb. The most competitive squash format on campus — built and run entirely by FSC.
+                Three editions per semester. Top 20 players ranked. Challenge those above you to climb. The most competitive squash format on campus, built and run entirely by FSC.
               </p>
               <Link
                 href="/ladder"
@@ -290,7 +290,7 @@ export default function Home() {
             <span className="gold-text">THE CLUB</span>
           </h2>
           <p className="font-barlow text-white/35 text-base leading-relaxed mb-12 font-light">
-            Competitive player or complete beginner — there's a court waiting for you.
+            Competitive player or complete beginner, there's a court waiting for you.
           </p>
           <Link
             href="/contact"

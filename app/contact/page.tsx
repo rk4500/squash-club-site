@@ -1,4 +1,10 @@
+import type { Metadata } from 'next'
 import { ArrowRight } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Contact & Join',
+  description: 'Join FLAME Squash Club: tryout info, Instagram, and how to reach the club.',
+}
 
 export default function ContactPage() {
   return (
@@ -18,7 +24,7 @@ export default function ContactPage() {
             <span className="gold-text">THE CLUB</span>
           </h1>
           <p className="font-barlow text-white/40 text-base max-w-xl leading-relaxed font-light">
-            Whether you're here to compete or just love the sport — there's a place for you at FLAME Squash.
+            Whether you're here to compete or just love the sport, there's a place for you at FLAME Squash.
           </p>
         </div>
       </section>
