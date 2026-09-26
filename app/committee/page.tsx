@@ -26,6 +26,8 @@ function Monogram({ name, size = 'md' }: { name: string; size?: 'sm' | 'md' | 'l
 
 function CCHeadCard({ member }: { member: { name: string; role: string; team: string; photo?: string; scale?: number; anchor?: string; dropY?: number } }) {
   const hasPhoto = !!member.photo
+  const s = member.scale ?? 1
+  const hoverY = 8 - 8 / s
   return (
     <div className="group relative flex flex-col bg-[#080d17] border border-white/5 transition-all duration-500 hover:-translate-y-1 hover:border-[#f5a800]/30 overflow-hidden cursor-default">
       <div className="absolute top-0 left-0 w-full h-[2px] bg-[#f5a800] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-20" />
@@ -46,7 +48,8 @@ function CCHeadCard({ member }: { member: { name: string; role: string; team: st
                 src={member.photo!}
                 alt={member.name}
                 fill
-                className="object-contain object-bottom opacity-85 scale-[0.9] translate-y-2 group-hover:scale-[0.95] group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom"
+                style={{ ['--hoverY' as string]: `${hoverY}px` }}
+                className="object-contain object-bottom opacity-85 scale-[0.9] translate-y-2 group-hover:scale-[0.95] group-hover:translate-y-[var(--hoverY)] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
             </div>
@@ -80,6 +83,8 @@ function CCHeadCard({ member }: { member: { name: string; role: string; team: st
 
 function ECCard({ member }: { member: { name: string; role: string; photo?: string; scale?: number } }) {
   const hasPhoto = !!member.photo
+  const s = member.scale ?? 1
+  const hoverY = 16 - 12 / s
   return (
     <div className="group relative flex flex-col bg-[#080d17] border border-white/5 transition-all duration-500 hover:-translate-y-1 hover:border-[#f5a800]/30 overflow-hidden cursor-default">
       {/* Top Gold Border Highlight */}
@@ -102,7 +107,8 @@ function ECCard({ member }: { member: { name: string; role: string; photo?: stri
                 src={member.photo || ''}
                 alt={member.name}
                 fill
-                className="object-contain object-bottom opacity-90 scale-[0.88] translate-y-4 group-hover:scale-[0.96] group-hover:translate-y-1 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom"
+                style={{ ['--hoverY' as string]: `${hoverY}px` }}
+                className="object-contain object-bottom opacity-90 scale-[0.88] translate-y-4 group-hover:scale-[0.96] group-hover:translate-y-[var(--hoverY)] group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom"
                 sizes="(max-w-768px) 100vw, 33vw"
               />
             </div>
