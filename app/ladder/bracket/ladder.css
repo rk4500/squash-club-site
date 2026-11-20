@@ -419,12 +419,15 @@
  * spans several screens of mostly empty later-round space. `zoom` (not
  * transform) shrinks the layout box too, so the scroll width shrinks with it
  * and the connectors stay where the flex maths put them. Off in edit mode,
- * where the 16px fields above must stay 16px or iOS zooms the page on focus. */
+ * where the 16px fields above must stay 16px or iOS zooms the page on focus.
+ * The schedule table scales the same way, edit mode or not: it has no fields. */
 @media (max-width: 1023px) {
-  .ladder:not(.is-editing) .lc-scroll > * { zoom: 0.85; }
+  .ladder:not(.is-editing) .lc-scroll > *,
+  .ladder .lc-tablewrap > table { zoom: 0.85; }
 }
 @media (max-width: 639px) {
-  .ladder:not(.is-editing) .lc-scroll > * { zoom: 0.66; }
+  .ladder:not(.is-editing) .lc-scroll > *,
+  .ladder .lc-tablewrap > table { zoom: 0.66; }
 }
 
 /* Surfaces the browser draws for us, drawn in the board's own palette. */
