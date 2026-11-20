@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ogCard, pageMetadata } from '@/lib/seo'
 import Link from 'next/link'
 import BracketBoard from '@/components/ladder/BracketBoard'
 import type { DrawData } from '@/data/ladder/draw'
@@ -6,10 +7,12 @@ import type { Results, Snapshots } from '@/lib/ladder/engine'
 import final from '@/data/ladder/final-2026-27.json'
 import './ladder.css'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Previous Tournament Bracket',
   description: 'The completed 2026–27 squash ladder draw: 32 players, final results, full schedule.',
-}
+  path: '/ladder/bracket',
+  image: ogCard('og-bracket.jpg', 'Ladder Bracket 2026–27, FLAME Squash Club'),
+})
 
 // The 2026-27 ladder is finished. Its draw and results were exported from
 // Supabase into data/ladder/final-2026-27.json and are locked: the page reads

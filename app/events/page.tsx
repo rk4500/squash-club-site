@@ -1,13 +1,16 @@
 import type { Metadata } from 'next'
+import { ogCard, pageMetadata } from '@/lib/seo'
 import events from '@/data/events.json'
 import Link from 'next/link'
 import { ArrowRight, Calendar } from 'lucide-react'
 import SeasonTimeline from '@/components/events/SeasonTimeline'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Events',
   description: 'Tryouts, tournaments, and collaborations run by FLAME Squash Club this season.',
-}
+  path: '/events',
+  image: ogCard('og-events.jpg', 'Club Events, FLAME Squash Club'),
+})
 
 const categoryStyle: Record<string, string> = {
   'Intra-College':  'border-blue-500/20 text-blue-400/80 bg-blue-500/5',

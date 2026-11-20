@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
+import { ogCard, pageMetadata } from '@/lib/seo'
 import { ArrowRight } from 'lucide-react'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Contact & Join',
   description: 'Join FLAME Squash Club: tryout info, Instagram, and how to reach the club.',
-}
+  path: '/contact',
+  image: ogCard('og-contact.jpg', 'Join the Club, FLAME Squash Club'),
+})
 
 export default function ContactPage() {
   return (

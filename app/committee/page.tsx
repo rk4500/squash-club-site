@@ -1,11 +1,14 @@
 import type { Metadata } from 'next'
+import { ogCard, pageMetadata } from '@/lib/seo'
 import committee from '@/data/committee.json'
 import Image from 'next/image'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Committee',
   description: 'The executive committee and core heads running FLAME Squash Club this season.',
-}
+  path: '/committee',
+  image: ogCard('og-committee.jpg', 'The Committee, FLAME Squash Club'),
+})
 
 const teamColor: Record<string, string> = {
   'Logistics':        'text-sky-400   border-sky-400/20   bg-sky-400/5',

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { ogCard, pageMetadata } from '@/lib/seo'
 import BracketBoard from '@/components/ladder/BracketBoard'
 import { getUser, createClient } from '@/lib/supabase/server'
 import { loadDraw } from '@/lib/ladder/drawStore'
@@ -6,10 +7,11 @@ import type { BracketSpec, DrawData } from '@/data/ladder/draw'
 import seed from '@/data/fsc/fsc-2026.json'
 import '../ladder/bracket/ladder.css'
 
-export const metadata: Metadata = {
-  title: 'FSC 2.0 Draws',
-  description: 'FSC 2.0, the FLAME Squash Championship: live draws, results and court schedule for Men’s Open, Women’s Open, Girls U-17 and Mixed Doubles, 21 to 22 November 2026.',
-}
+const TITLE = 'FSC 2.0 Draws'
+const DESCRIPTION = 'FSC 2.0, the FLAME Squash Championship: live draws, results and court schedule for Men’s Open, Women’s Open, Girls U-17 and Mixed Doubles, 21 to 22 November 2026.'
+const OG_IMAGE = ogCard('og-fsc.jpg', 'FSC 2.0, FLAME Squash Championship, 21–22 Nov 2026')
+
+export const metadata: Metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: '/fsc', image: OG_IMAGE })
 
 const DRAW_ID = seed.drawId
 const BRACKETS = seed.brackets as unknown as BracketSpec[]

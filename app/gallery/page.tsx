@@ -1,11 +1,14 @@
 import type { Metadata } from 'next'
+import { ogCard, pageMetadata } from '@/lib/seo'
 import gallery from '@/data/gallery.json'
 import GalleryMosaic from './GalleryMosaic'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Gallery',
   description: 'Photos from FLAME Squash Club events, tournaments, and tryouts.',
-}
+  path: '/gallery',
+  image: ogCard('og-gallery.jpg', 'Photo Gallery, FLAME Squash Club'),
+})
 
 export default function GalleryPage() {
   return (

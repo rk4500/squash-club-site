@@ -1,14 +1,17 @@
 import type { Metadata } from 'next'
+import { ogCard, pageMetadata } from '@/lib/seo'
 import ladderData from '@/data/ladder.json'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Trophy, TrendingUp, TrendingDown, Minus, ArrowRight } from 'lucide-react'
 import { academicYear } from '@/lib/roster'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Ladder Rankings',
   description: "FLAME Squash Club's season ladder: player rankings and standings.",
-}
+  path: '/ladder',
+  image: ogCard('og-ladder.jpg', 'Ladder Rankings, FLAME Squash Club'),
+})
 
 function Trend({ t }: { t: string }) {
   if (t === 'up')   return <TrendingUp size={12} className="text-emerald-400" />

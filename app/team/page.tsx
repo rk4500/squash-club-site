@@ -1,13 +1,16 @@
 import type { Metadata } from 'next'
+import { ogCard, pageMetadata } from '@/lib/seo'
 import team from '@/data/team.json'
 import Image from 'next/image'
 import { Trophy } from 'lucide-react'
 import { teamRole, academicYear } from '@/lib/roster'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Team',
   description: "Meet the players on FLAME Squash Club's roster, FLAME University's squash team.",
-}
+  path: '/team',
+  image: ogCard('og-team.jpg', 'Squash Team, FLAME Squash Club'),
+})
 
 export default function TeamPage() {
   const men = team.filter(p => p.gender === 'male')
