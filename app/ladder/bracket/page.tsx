@@ -1,14 +1,21 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import BracketBoard from '@/components/ladder/BracketBoard'
-import { getUser, createClient } from '@/lib/supabase/server'
-import { loadDraw } from '@/lib/ladder/drawStore'
+import type { DrawData } from '@/data/ladder/draw'
+import type { Results, Snapshots } from '@/lib/ladder/engine'
+import final from '@/data/ladder/final-2026-27.json'
 import './ladder.css'
 
 export const metadata: Metadata = {
-  title: 'Ladder Bracket · FLAME Squash Club',
-  description: 'The 2026–27 squash ladder draw: 32 players, live results, full schedule.',
+  title: 'Previous Tournament Bracket',
+  description: 'The completed 2026–27 squash ladder draw: 32 players, final results, full schedule.',
 }
+
+// The 2026-27 ladder is finished. Its draw and results were exported from
+// Supabase into data/ladder/final-2026-27.json and are locked: the page reads
+// the file, never the database, and offers no controls to change it.
+const DRAW = final.draw as unknown as DrawData
+const FROZEN = { results: final.results as Results, snaps: final.snaps as Snapshots }
 
 const LEGEND: [string, string][] = [
   ['R32', 'Round of 32'],
@@ -26,22 +33,14 @@ const LEGEND: [string, string][] = [
   ['Dotted red-striped box', 'Provisional: sits downstream of a match that needs re-checking'],
 ]
 
-export default async function BracketPage() {
-  // Signed in means committee: the controls appear. The database enforces the
-  // same rule independently, so this only decides what is worth showing.
-  const admin = !!(await getUser())
-
-  // The draw comes from the database so a name or a court time can be fixed
-  // from the page itself. data/ladder/seed.ts is only what seeded it.
-  const draw = await loadDraw(createClient())
-
+export default function BracketPage() {
   return (
     <div className="pt-[68px] bg-[#05080f]">
       <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_50%_30%,rgba(245,168,0,0.06),transparent)]" />
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
           <p className="font-condensed text-[11px] tracking-[0.25em] uppercase text-[#f5a800] flex items-center gap-2.5 mb-6 before:content-[''] before:w-8 before:h-px before:bg-[#f5a800]">
-            FLAME Squash Club · Ladder 2026–27
+            Previous Tournament · Ladder 2026–27 · Final
           </p>
           <h1 className="font-bebas text-[12vw] md:text-8xl tracking-wider leading-none mb-5">
             <span className="text-white">LADDER</span>{' '}
@@ -71,12 +70,10 @@ export default async function BracketPage() {
 
         <h2 className="font-bebas text-4xl md:text-5xl tracking-wider uppercase mt-14 mb-2">Bracket</h2>
         <p className="font-barlow text-white/40 text-sm max-w-[78ch] leading-relaxed mb-2">
-          {admin
-            ? 'Click a player inside a match box to set the winner. Downstream boxes fill in automatically, and everyone watching sees the result immediately. Switch to Edit draw to correct a name, time or court in the box itself.'
-            : 'Results update live as they are recorded.'}
+          This tournament is complete. All 64 results are final and the draw is locked.
         </p>
 
-        <BracketBoard draw={draw} admin={admin} />
+        <BracketBoard draw={DRAW} frozen={FROZEN} />
       </div>
     </div>
   )

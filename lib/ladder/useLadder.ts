@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { DRAW_ID } from '@/data/ladder/draw'
 import {
   backfillSnapshots, champion, computeTaint, exportPayload, parseImport,
   snapshotOf, standings,
@@ -11,10 +10,21 @@ import { localStore, type LadderStore } from './store'
 
 export type LadderState = ReturnType<typeof useLadder>
 
-export function useLadder(matches: Matches, store: LadderStore = localStore) {
-  const [results, setResults] = useState<Results>({})
-  const [snaps, setSnaps] = useState<Snapshots>({})
-  const [loading, setLoading] = useState(true)
+/**
+ * `initial` seeds the first render. A finished draw passes its final results
+ * here with a store that never changes, so the page renders complete on the
+ * server instead of showing an empty board until an effect loads it.
+ */
+export function useLadder(
+  matches: Matches,
+  store: LadderStore = localStore,
+  initial?: { results: Results; snaps: Snapshots },
+  drawId: string = 'ladder-v2',
+  rankPairs?: readonly (readonly [string, number])[],
+) {
+  const [results, setResults] = useState<Results>(initial?.results ?? {})
+  const [snaps, setSnaps] = useState<Snapshots>(initial?.snaps ?? {})
+  const [loading, setLoading] = useState(!initial)
   const [status, setStatus] = useState<{ text: string; bad: boolean } | null>(null)
 
   // Reading state inside callbacks without making them change identity on
@@ -113,7 +123,7 @@ export function useLadder(matches: Matches, store: LadderStore = localStore) {
       return
     }
 
-    if (parsed.foreignDraw && parsed.foreignDraw !== DRAW_ID && !confirmForeign(parsed.foreignDraw)) return
+    if (parsed.foreignDraw && parsed.foreignDraw !== drawId && !confirmForeign(parsed.foreignDraw)) return
 
     const incoming = Object.keys(parsed.results).length
     if (!incoming) {
@@ -141,11 +151,11 @@ export function useLadder(matches: Matches, store: LadderStore = localStore) {
       msg += ` ${broken.size} match${broken.size === 1 ? ' needs' : 'es need'} re-checking — see the flagged boxes.`
     }
     say(msg)
-  }, [store, say, matches])
+  }, [store, say, matches, drawId])
 
   const payload = useCallback(
-    () => exportPayload(latest.current.results, latest.current.snaps, DRAW_ID, matches),
-    [matches],
+    () => exportPayload(latest.current.results, latest.current.snaps, drawId, matches),
+    [matches, drawId],
   )
 
   const derived = useMemo(() => {
@@ -153,12 +163,13 @@ export function useLadder(matches: Matches, store: LadderStore = localStore) {
     return {
       broken,
       taint,
-      placings: standings(results, snaps, taint, matches),
+      placings: standings(results, snaps, taint, matches, rankPairs),
       champ: champion(results, snaps, matches),
       decided: Object.keys(results).length,
-      total: Object.keys(matches).length,
+      // A bye box never gets a result, so it is not a match left to play.
+      total: Object.values(matches).filter(m => m.a[0] !== 'bye' && m.b[0] !== 'bye').length,
     }
-  }, [results, snaps, matches])
+  }, [results, snaps, matches, rankPairs])
 
   return {
     results, snaps, loading, status, say,

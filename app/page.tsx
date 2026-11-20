@@ -51,6 +51,30 @@ export default function Home() {
           </span>
         </div>
 
+        {/* Headline event. A flex item, not absolutely placed, so it sits under
+            the nav on every screen and pushes the hero down rather than
+            overlapping it when the viewport is short. */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full mt-[92px] mb-auto pb-10 slide-up">
+          <Link
+            href="/fsc"
+            className="group flex flex-wrap items-center gap-x-5 gap-y-2 border border-[#f5a800]/35 bg-[#05080f]/70 backdrop-blur-sm px-5 py-4 md:px-6 hover:border-[#f5a800] hover:bg-[#f5a800]/8 transition-colors duration-300"
+          >
+            <span className="inline-flex items-center gap-2 font-condensed text-[11px] tracking-[0.25em] uppercase text-[#05080f] bg-[#f5a800] px-2.5 py-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#05080f] animate-pulse motion-reduce:animate-none" />
+              21–22 Nov
+            </span>
+            <span className="font-bebas text-2xl md:text-3xl tracking-wider leading-none text-white">
+              FSC <span className="text-[#f5a800]">2.0</span>
+            </span>
+            <span className="font-barlow text-sm text-white/45 font-light">
+              FLAME Squash Championship: draws, live results and court times
+            </span>
+            <span className="ml-auto inline-flex items-center gap-2 font-condensed text-xs tracking-[0.2em] uppercase text-[#f5a800]">
+              View draws <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </span>
+          </Link>
+        </div>
+
         {/* Logo + content */}
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 items-end">

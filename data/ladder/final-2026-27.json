@@ -1,0 +1,1550 @@
+{
+  "__note": "FROZEN final state of the 2026-27 ladder draw (ladder-v2), exported from Supabase ladder_matches + ladder_results after all 64 matches were decided. The bracket page reads this file, not the database. Do not edit: snapshot names must match the draw names exactly or the engine flags matches as conflicts.",
+  "drawId": "ladder-v2",
+  "draw": {
+    "matches": {
+      "F": {
+        "label": "Final",
+        "display": "FINAL",
+        "route": "Decides 1st / 2nd",
+        "a": [
+          "W",
+          "SF1"
+        ],
+        "b": [
+          "W",
+          "SF2"
+        ]
+      },
+      "M1": {
+        "label": "Round of 32",
+        "display": "R32-1",
+        "route": "Winner → R16-1 · Loser → 17–20 Q1",
+        "a": [
+          "name",
+          "Priyaan Thakker"
+        ],
+        "b": [
+          "name",
+          "Bhagya Patel"
+        ]
+      },
+      "M10": {
+        "label": "Round of 32",
+        "display": "R32-10",
+        "route": "Winner → R16-5 · Loser → 17–20 Q5",
+        "a": [
+          "name",
+          "Hriday"
+        ],
+        "b": [
+          "name",
+          "Aliqyaan"
+        ]
+      },
+      "M11": {
+        "label": "Round of 32",
+        "display": "R32-11",
+        "route": "Winner → R16-6 · Loser → 17–20 Q6",
+        "a": [
+          "name",
+          "Hunar Bedi"
+        ],
+        "b": [
+          "name",
+          "Adhya"
+        ]
+      },
+      "M12": {
+        "label": "Round of 32",
+        "display": "R32-12",
+        "route": "Winner → R16-6 · Loser → 17–20 Q6",
+        "a": [
+          "name",
+          "Om Muslunkar"
+        ],
+        "b": [
+          "name",
+          "Dhwani"
+        ]
+      },
+      "M13": {
+        "label": "Round of 32",
+        "display": "R32-13",
+        "route": "Winner → R16-7 · Loser → 17–20 Q7",
+        "a": [
+          "name",
+          "Rudra Krishna"
+        ],
+        "b": [
+          "name",
+          "Darsh Agarwal"
+        ]
+      },
+      "M14": {
+        "label": "Round of 32",
+        "display": "R32-14",
+        "route": "Winner → R16-7 · Loser → 17–20 Q7",
+        "a": [
+          "name",
+          "Riya"
+        ],
+        "b": [
+          "name",
+          "Bhagya Popat"
+        ]
+      },
+      "M15": {
+        "label": "Round of 32",
+        "display": "R32-15",
+        "route": "Winner → R16-8 · Loser → 17–20 Q8",
+        "a": [
+          "name",
+          "M.S.S Vasista"
+        ],
+        "b": [
+          "name",
+          "Rushil"
+        ]
+      },
+      "M16": {
+        "label": "Round of 32",
+        "display": "R32-16",
+        "route": "Winner → R16-8 · Loser → 17–20 Q8",
+        "a": [
+          "name",
+          "Virat Shah"
+        ],
+        "b": [
+          "name",
+          "Huzaifa"
+        ]
+      },
+      "M17": {
+        "label": "Round of 16",
+        "display": "R16-1",
+        "route": "Winner → QF-1 · Loser → 9–16 Qualifier-1",
+        "a": [
+          "W",
+          "M1"
+        ],
+        "b": [
+          "W",
+          "M2"
+        ]
+      },
+      "M18": {
+        "label": "Round of 16",
+        "display": "R16-2",
+        "route": "Winner → QF-1 · Loser → 9–16 Qualifier-2",
+        "a": [
+          "W",
+          "M3"
+        ],
+        "b": [
+          "W",
+          "M4"
+        ]
+      },
+      "M19": {
+        "label": "Round of 16",
+        "display": "R16-3",
+        "route": "Winner → QF-2 · Loser → 9–16 Qualifier-3",
+        "a": [
+          "W",
+          "M5"
+        ],
+        "b": [
+          "W",
+          "M6"
+        ]
+      },
+      "M2": {
+        "label": "Round of 32",
+        "display": "R32-2",
+        "route": "Winner → R16-1 · Loser → 17–20 Q1",
+        "a": [
+          "name",
+          "Aman"
+        ],
+        "b": [
+          "name",
+          "Aum Parikh"
+        ]
+      },
+      "M20": {
+        "label": "Round of 16",
+        "display": "R16-4",
+        "route": "Winner → QF-2 · Loser → 9–16 Qualifier-4",
+        "a": [
+          "W",
+          "M7"
+        ],
+        "b": [
+          "W",
+          "M8"
+        ]
+      },
+      "M21": {
+        "label": "Round of 16",
+        "display": "R16-5",
+        "route": "Winner → QF-3 · Loser → 9–16 Qualifier-4",
+        "a": [
+          "W",
+          "M9"
+        ],
+        "b": [
+          "W",
+          "M10"
+        ]
+      },
+      "M22": {
+        "label": "Round of 16",
+        "display": "R16-6",
+        "route": "Winner → QF-3 · Loser → 9–16 Qualifier-3",
+        "a": [
+          "W",
+          "M11"
+        ],
+        "b": [
+          "W",
+          "M12"
+        ]
+      },
+      "M23": {
+        "label": "Round of 16",
+        "display": "R16-7",
+        "route": "Winner → QF-4 · Loser → 9–16 Qualifier-2",
+        "a": [
+          "W",
+          "M13"
+        ],
+        "b": [
+          "W",
+          "M14"
+        ]
+      },
+      "M24": {
+        "label": "Round of 16",
+        "display": "R16-8",
+        "route": "Winner → QF-4 · Loser → 9–16 Qualifier-1",
+        "a": [
+          "W",
+          "M15"
+        ],
+        "b": [
+          "W",
+          "M16"
+        ]
+      },
+      "M3": {
+        "label": "Round of 32",
+        "display": "R32-3",
+        "route": "Winner → R16-2 · Loser → 17–20 Q2",
+        "a": [
+          "name",
+          "Pragya"
+        ],
+        "b": [
+          "name",
+          "Siraj Singh"
+        ]
+      },
+      "M4": {
+        "label": "Round of 32",
+        "display": "R32-4",
+        "route": "Winner → R16-2 · Loser → 17–20 Q2",
+        "a": [
+          "name",
+          "Shaurya Mahtani"
+        ],
+        "b": [
+          "name",
+          "Shahaan"
+        ]
+      },
+      "M5": {
+        "label": "Round of 32",
+        "display": "R32-5",
+        "route": "Winner → R16-3 · Loser → 17–20 Q3",
+        "a": [
+          "name",
+          "Japmann"
+        ],
+        "b": [
+          "name",
+          "Vihaan Kakkar"
+        ]
+      },
+      "M6": {
+        "label": "Round of 32",
+        "display": "R32-6",
+        "route": "Winner → R16-3 · Loser → 17–20 Q3",
+        "a": [
+          "name",
+          "Atharva"
+        ],
+        "b": [
+          "name",
+          "Jiah"
+        ]
+      },
+      "M7": {
+        "label": "Round of 32",
+        "display": "R32-7",
+        "route": "Winner → R16-4 · Loser → 17–20 Q4",
+        "a": [
+          "name",
+          "Neev K Shah"
+        ],
+        "b": [
+          "name",
+          "Nikita"
+        ]
+      },
+      "M8": {
+        "label": "Round of 32",
+        "display": "R32-8",
+        "route": "Winner → R16-4 · Loser → 17–20 Q4",
+        "a": [
+          "name",
+          "Reyaan"
+        ],
+        "b": [
+          "name",
+          "Maanvir"
+        ]
+      },
+      "M9": {
+        "label": "Round of 32",
+        "display": "R32-9",
+        "route": "Winner → R16-5 · Loser → 17–20 Q5",
+        "a": [
+          "name",
+          "Moksh"
+        ],
+        "b": [
+          "name",
+          "Idhant Katoch"
+        ]
+      },
+      "P13F": {
+        "label": "Ranks 13–14",
+        "display": "13–14 Final",
+        "route": "Decides 13th / 14th",
+        "a": [
+          "W",
+          "P13_1"
+        ],
+        "b": [
+          "W",
+          "P13_2"
+        ]
+      },
+      "P13_1": {
+        "label": "Ranks 13–16",
+        "display": "13–16 SF-1",
+        "route": "Winner → 13–14 Final · Loser → 15–16 Match",
+        "a": [
+          "L",
+          "P9_1"
+        ],
+        "b": [
+          "L",
+          "P9_4"
+        ]
+      },
+      "P13_2": {
+        "label": "Ranks 13–16",
+        "display": "13–16 SF-2",
+        "route": "Winner → 13–14 Final · Loser → 15–16 Match",
+        "a": [
+          "L",
+          "P9_2"
+        ],
+        "b": [
+          "L",
+          "P9_3"
+        ]
+      },
+      "P13_34": {
+        "label": "Ranks 15–16",
+        "display": "15–16 Match",
+        "route": "Decides 15th / 16th",
+        "a": [
+          "L",
+          "P13_1"
+        ],
+        "b": [
+          "L",
+          "P13_2"
+        ]
+      },
+      "P34": {
+        "label": "3rd/4th Playoff",
+        "display": "3rd Place",
+        "route": "Decides 3rd / 4th",
+        "a": [
+          "L",
+          "SF1"
+        ],
+        "b": [
+          "L",
+          "SF2"
+        ]
+      },
+      "P5F": {
+        "label": "Ranks 5–6",
+        "display": "5–6 Final",
+        "route": "Decides 5th / 6th",
+        "a": [
+          "W",
+          "P5_1"
+        ],
+        "b": [
+          "W",
+          "P5_2"
+        ]
+      },
+      "P5_1": {
+        "label": "Ranks 5–8",
+        "display": "5–8 SF-1",
+        "route": "Winner → 5–6 Final · Loser → 7–8 Match",
+        "a": [
+          "L",
+          "QF1"
+        ],
+        "b": [
+          "L",
+          "QF2"
+        ]
+      },
+      "P5_2": {
+        "label": "Ranks 5–8",
+        "display": "5–8 SF-2",
+        "route": "Winner → 5–6 Final · Loser → 7–8 Match",
+        "a": [
+          "L",
+          "QF3"
+        ],
+        "b": [
+          "L",
+          "QF4"
+        ]
+      },
+      "P5_34": {
+        "label": "Ranks 7–8",
+        "display": "7–8 Match",
+        "route": "Decides 7th / 8th",
+        "a": [
+          "L",
+          "P5_1"
+        ],
+        "b": [
+          "L",
+          "P5_2"
+        ]
+      },
+      "P9F": {
+        "label": "Ranks 9–10",
+        "display": "9–10 Final",
+        "route": "Decides 9th / 10th",
+        "a": [
+          "W",
+          "P9SF1"
+        ],
+        "b": [
+          "W",
+          "P9SF2"
+        ]
+      },
+      "P9SF1": {
+        "label": "Ranks 9–12",
+        "display": "9–12 SF-1",
+        "route": "Winner → 9–10 Final · Loser → 11–12 Match",
+        "a": [
+          "W",
+          "P9_1"
+        ],
+        "b": [
+          "W",
+          "P9_4"
+        ]
+      },
+      "P9SF2": {
+        "label": "Ranks 9–12",
+        "display": "9–12 SF-2",
+        "route": "Winner → 9–10 Final · Loser → 11–12 Match",
+        "a": [
+          "W",
+          "P9_2"
+        ],
+        "b": [
+          "W",
+          "P9_3"
+        ]
+      },
+      "P9_1": {
+        "label": "Ranks 9–16",
+        "display": "9–16 Qualifier-1",
+        "route": "Winner → 9–12 SF-1 · Loser → 13–16 SF-1",
+        "a": [
+          "L",
+          "M17"
+        ],
+        "b": [
+          "L",
+          "M24"
+        ]
+      },
+      "P9_2": {
+        "label": "Ranks 9–16",
+        "display": "9–16 Qualifier-2",
+        "route": "Winner → 9–12 SF-2 · Loser → 13–16 SF-2",
+        "a": [
+          "L",
+          "M18"
+        ],
+        "b": [
+          "L",
+          "M23"
+        ]
+      },
+      "P9_3": {
+        "label": "Ranks 9–16",
+        "display": "9–16 Qualifier-3",
+        "route": "Winner → 9–12 SF-2 · Loser → 13–16 SF-2",
+        "a": [
+          "L",
+          "M19"
+        ],
+        "b": [
+          "L",
+          "M22"
+        ]
+      },
+      "P9_34": {
+        "label": "Ranks 11–12",
+        "display": "11–12 Match",
+        "route": "Decides 11th / 12th",
+        "a": [
+          "L",
+          "P9SF1"
+        ],
+        "b": [
+          "L",
+          "P9SF2"
+        ]
+      },
+      "P9_4": {
+        "label": "Ranks 9–16",
+        "display": "9–16 Qualifier-4",
+        "route": "Winner → 9–12 SF-1 · Loser → 13–16 SF-1",
+        "a": [
+          "L",
+          "M20"
+        ],
+        "b": [
+          "L",
+          "M21"
+        ]
+      },
+      "Q1": {
+        "label": "17–20 Qualifier R1",
+        "display": "17–20 Q1",
+        "route": "Winner → 17–20 R2-1 · Loser → unordered 21–32 pool",
+        "a": [
+          "L",
+          "M1"
+        ],
+        "b": [
+          "L",
+          "M2"
+        ]
+      },
+      "Q10": {
+        "label": "17–20 Qualifier R2",
+        "display": "17–20 R2-2",
+        "route": "Winner → 17–20 SF-1 · Loser → unordered 21–32 pool",
+        "a": [
+          "W",
+          "Q3"
+        ],
+        "b": [
+          "W",
+          "Q4"
+        ]
+      },
+      "Q11": {
+        "label": "17–20 Qualifier R2",
+        "display": "17–20 R2-3",
+        "route": "Winner → 17–20 SF-2 · Loser → unordered 21–32 pool",
+        "a": [
+          "W",
+          "Q5"
+        ],
+        "b": [
+          "W",
+          "Q6"
+        ]
+      },
+      "Q12": {
+        "label": "17–20 Qualifier R2",
+        "display": "17–20 R2-4",
+        "route": "Winner → 17–20 SF-2 · Loser → unordered 21–32 pool",
+        "a": [
+          "W",
+          "Q7"
+        ],
+        "b": [
+          "W",
+          "Q8"
+        ]
+      },
+      "Q13": {
+        "label": "17–20 Semifinal",
+        "display": "17–20 SF-1",
+        "route": "Winner → 17–18 Final · Loser → 19–20 Match",
+        "a": [
+          "W",
+          "Q9"
+        ],
+        "b": [
+          "W",
+          "Q10"
+        ]
+      },
+      "Q14": {
+        "label": "17–20 Semifinal",
+        "display": "17–20 SF-2",
+        "route": "Winner → 17–18 Final · Loser → 19–20 Match",
+        "a": [
+          "W",
+          "Q11"
+        ],
+        "b": [
+          "W",
+          "Q12"
+        ]
+      },
+      "Q2": {
+        "label": "17–20 Qualifier R1",
+        "display": "17–20 Q2",
+        "route": "Winner → 17–20 R2-1 · Loser → unordered 21–32 pool",
+        "a": [
+          "L",
+          "M3"
+        ],
+        "b": [
+          "L",
+          "M4"
+        ]
+      },
+      "Q3": {
+        "label": "17–20 Qualifier R1",
+        "display": "17–20 Q3",
+        "route": "Winner → 17–20 R2-2 · Loser → unordered 21–32 pool",
+        "a": [
+          "L",
+          "M5"
+        ],
+        "b": [
+          "L",
+          "M6"
+        ]
+      },
+      "Q34": {
+        "label": "Ranks 19–20",
+        "display": "19–20 Match",
+        "route": "Decides 19th / 20th",
+        "a": [
+          "L",
+          "Q13"
+        ],
+        "b": [
+          "L",
+          "Q14"
+        ]
+      },
+      "Q4": {
+        "label": "17–20 Qualifier R1",
+        "display": "17–20 Q4",
+        "route": "Winner → 17–20 R2-2 · Loser → unordered 21–32 pool",
+        "a": [
+          "L",
+          "M7"
+        ],
+        "b": [
+          "L",
+          "M8"
+        ]
+      },
+      "Q5": {
+        "label": "17–20 Qualifier R1",
+        "display": "17–20 Q5",
+        "route": "Winner → 17–20 R2-3 · Loser → unordered 21–32 pool",
+        "a": [
+          "L",
+          "M9"
+        ],
+        "b": [
+          "L",
+          "M10"
+        ]
+      },
+      "Q6": {
+        "label": "17–20 Qualifier R1",
+        "display": "17–20 Q6",
+        "route": "Winner → 17–20 R2-3 · Loser → unordered 21–32 pool",
+        "a": [
+          "L",
+          "M11"
+        ],
+        "b": [
+          "L",
+          "M12"
+        ]
+      },
+      "Q7": {
+        "label": "17–20 Qualifier R1",
+        "display": "17–20 Q7",
+        "route": "Winner → 17–20 R2-4 · Loser → unordered 21–32 pool",
+        "a": [
+          "L",
+          "M13"
+        ],
+        "b": [
+          "L",
+          "M14"
+        ]
+      },
+      "Q8": {
+        "label": "17–20 Qualifier R1",
+        "display": "17–20 Q8",
+        "route": "Winner → 17–20 R2-4 · Loser → unordered 21–32 pool",
+        "a": [
+          "L",
+          "M15"
+        ],
+        "b": [
+          "L",
+          "M16"
+        ]
+      },
+      "Q9": {
+        "label": "17–20 Qualifier R2",
+        "display": "17–20 R2-1",
+        "route": "Winner → 17–20 SF-1 · Loser → unordered 21–32 pool",
+        "a": [
+          "W",
+          "Q1"
+        ],
+        "b": [
+          "W",
+          "Q2"
+        ]
+      },
+      "QF1": {
+        "label": "Quarterfinal",
+        "display": "QF-1",
+        "route": "Winner → SF-1 · Loser → 5–8 SF-1",
+        "a": [
+          "W",
+          "M17"
+        ],
+        "b": [
+          "W",
+          "M18"
+        ]
+      },
+      "QF2": {
+        "label": "Quarterfinal",
+        "display": "QF-2",
+        "route": "Winner → SF-1 · Loser → 5–8 SF-1",
+        "a": [
+          "W",
+          "M19"
+        ],
+        "b": [
+          "W",
+          "M20"
+        ]
+      },
+      "QF3": {
+        "label": "Quarterfinal",
+        "display": "QF-3",
+        "route": "Winner → SF-2 · Loser → 5–8 SF-2",
+        "a": [
+          "W",
+          "M21"
+        ],
+        "b": [
+          "W",
+          "M22"
+        ]
+      },
+      "QF4": {
+        "label": "Quarterfinal",
+        "display": "QF-4",
+        "route": "Winner → SF-2 · Loser → 5–8 SF-2",
+        "a": [
+          "W",
+          "M23"
+        ],
+        "b": [
+          "W",
+          "M24"
+        ]
+      },
+      "QFIN": {
+        "label": "Ranks 17–18",
+        "display": "17–18 Final",
+        "route": "Decides 17th / 18th",
+        "a": [
+          "W",
+          "Q13"
+        ],
+        "b": [
+          "W",
+          "Q14"
+        ]
+      },
+      "SF1": {
+        "label": "Semifinal",
+        "display": "SF-1",
+        "route": "Winner → FINAL · Loser → 3rd Place",
+        "a": [
+          "W",
+          "QF1"
+        ],
+        "b": [
+          "W",
+          "QF2"
+        ]
+      },
+      "SF2": {
+        "label": "Semifinal",
+        "display": "SF-2",
+        "route": "Winner → FINAL · Loser → 3rd Place",
+        "a": [
+          "W",
+          "QF3"
+        ],
+        "b": [
+          "W",
+          "QF4"
+        ]
+      }
+    },
+    "schedule": {
+      "F": {
+        "day": "Sunday",
+        "time": "5:45 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "M1": {
+        "day": "Saturday",
+        "time": "4:00 PM",
+        "court": "Court 2",
+        "src": "fixed"
+      },
+      "M10": {
+        "day": "Saturday",
+        "time": "5:20 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "M11": {
+        "day": "Saturday",
+        "time": "5:40 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "M12": {
+        "day": "Saturday",
+        "time": "5:40 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "M13": {
+        "day": "Saturday",
+        "time": "2:00 PM",
+        "court": "Court 1",
+        "src": "fixed"
+      },
+      "M14": {
+        "day": "Saturday",
+        "time": "2:00 PM",
+        "court": "Court 2",
+        "src": "fixed"
+      },
+      "M15": {
+        "day": "Saturday",
+        "time": "2:30 PM",
+        "court": "Court 1",
+        "src": "fixed"
+      },
+      "M16": {
+        "day": "Saturday",
+        "time": "3:00 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "M17": {
+        "day": "Saturday",
+        "time": "6:00 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "M18": {
+        "day": "Saturday",
+        "time": "6:00 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "M19": {
+        "day": "Saturday",
+        "time": "6:20 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "M2": {
+        "day": "Saturday",
+        "time": "4:00 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "M20": {
+        "day": "Saturday",
+        "time": "6:20 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "M21": {
+        "day": "Saturday",
+        "time": "6:40 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "M22": {
+        "day": "Saturday",
+        "time": "6:40 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "M23": {
+        "day": "Saturday",
+        "time": "2:30 PM",
+        "court": "Court 2",
+        "src": "fixed"
+      },
+      "M24": {
+        "day": "Saturday",
+        "time": "3:40 PM",
+        "court": "Court 1",
+        "src": "fixed"
+      },
+      "M3": {
+        "day": "Saturday",
+        "time": "4:20 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "M4": {
+        "day": "Saturday",
+        "time": "4:20 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "M5": {
+        "day": "Saturday",
+        "time": "4:40 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "M6": {
+        "day": "Saturday",
+        "time": "4:40 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "M7": {
+        "day": "Saturday",
+        "time": "5:00 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "M8": {
+        "day": "Saturday",
+        "time": "5:00 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "M9": {
+        "day": "Saturday",
+        "time": "5:20 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "P13F": {
+        "day": "Sunday",
+        "time": "8:30 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "P13_1": {
+        "day": "Sunday",
+        "time": "7:15 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "P13_2": {
+        "day": "Sunday",
+        "time": "7:15 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "P13_34": {
+        "day": "Sunday",
+        "time": "8:30 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "P34": {
+        "day": "Sunday",
+        "time": "5:45 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "P5F": {
+        "day": "Sunday",
+        "time": "8:00 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "P5_1": {
+        "day": "Sunday",
+        "time": "6:45 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "P5_2": {
+        "day": "Sunday",
+        "time": "6:45 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "P5_34": {
+        "day": "Sunday",
+        "time": "8:00 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "P9F": {
+        "day": "Sunday",
+        "time": "8:15 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "P9SF1": {
+        "day": "Sunday",
+        "time": "7:00 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "P9SF2": {
+        "day": "Sunday",
+        "time": "7:00 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "P9_1": {
+        "day": "Saturday",
+        "time": "8:50 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "P9_2": {
+        "day": "Saturday",
+        "time": "8:50 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "P9_3": {
+        "day": "Saturday",
+        "time": "9:05 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "P9_34": {
+        "day": "Sunday",
+        "time": "8:15 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "P9_4": {
+        "day": "Saturday",
+        "time": "9:05 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "Q1": {
+        "day": "Saturday",
+        "time": "7:00 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "Q10": {
+        "day": "Saturday",
+        "time": "9:20 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "Q11": {
+        "day": "Sunday",
+        "time": "6:15 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "Q12": {
+        "day": "Sunday",
+        "time": "6:15 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "Q13": {
+        "day": "Sunday",
+        "time": "7:30 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "Q14": {
+        "day": "Sunday",
+        "time": "7:30 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "Q2": {
+        "day": "Saturday",
+        "time": "7:00 PM",
+        "court": "Court 2",
+        "src": "fixed"
+      },
+      "Q3": {
+        "day": "Saturday",
+        "time": "7:20 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "Q34": {
+        "day": "Sunday",
+        "time": "8:45 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "Q4": {
+        "day": "Saturday",
+        "time": "7:20 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "Q5": {
+        "day": "Saturday",
+        "time": "7:40 PM",
+        "court": "Court 1",
+        "src": "fixed"
+      },
+      "Q6": {
+        "day": "Saturday",
+        "time": "7:40 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "Q7": {
+        "day": "Saturday",
+        "time": "8:00 PM",
+        "court": "Court 2",
+        "src": "printed"
+      },
+      "Q8": {
+        "day": "Saturday",
+        "time": "8:00 PM",
+        "court": "Court 1",
+        "src": "printed"
+      },
+      "Q9": {
+        "day": "Saturday",
+        "time": "9:20 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "QF1": {
+        "day": "Saturday",
+        "time": "8:20 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "QF2": {
+        "day": "Saturday",
+        "time": "8:20 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "QF3": {
+        "day": "Saturday",
+        "time": "8:35 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "QF4": {
+        "day": "Saturday",
+        "time": "8:35 PM",
+        "court": "Court 2",
+        "src": "planned"
+      },
+      "QFIN": {
+        "day": "Sunday",
+        "time": "8:45 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "SF1": {
+        "day": "Sunday",
+        "time": "6:30 PM",
+        "court": "Court 1",
+        "src": "planned"
+      },
+      "SF2": {
+        "day": "Sunday",
+        "time": "4:45 PM",
+        "court": "Court 2",
+        "src": "planned"
+      }
+    }
+  },
+  "results": {
+    "F": "a",
+    "M1": "a",
+    "M10": "a",
+    "M11": "a",
+    "M12": "b",
+    "M13": "a",
+    "M14": "a",
+    "M15": "a",
+    "M16": "b",
+    "M17": "a",
+    "M18": "a",
+    "M19": "a",
+    "M2": "b",
+    "M20": "b",
+    "M21": "a",
+    "M22": "b",
+    "M23": "a",
+    "M24": "b",
+    "M3": "b",
+    "M4": "a",
+    "M5": "a",
+    "M6": "a",
+    "M7": "a",
+    "M8": "b",
+    "M9": "a",
+    "P13F": "a",
+    "P13_1": "b",
+    "P13_2": "b",
+    "P13_34": "b",
+    "P34": "a",
+    "P5F": "a",
+    "P5_1": "b",
+    "P5_2": "a",
+    "P5_34": "a",
+    "P9F": "a",
+    "P9SF1": "a",
+    "P9SF2": "b",
+    "P9_1": "a",
+    "P9_2": "a",
+    "P9_3": "b",
+    "P9_34": "a",
+    "P9_4": "b",
+    "Q1": "b",
+    "Q10": "a",
+    "Q11": "b",
+    "Q12": "a",
+    "Q13": "a",
+    "Q14": "a",
+    "Q2": "a",
+    "Q3": "a",
+    "Q34": "a",
+    "Q4": "b",
+    "Q5": "b",
+    "Q6": "b",
+    "Q7": "b",
+    "Q8": "b",
+    "Q9": "a",
+    "QF1": "a",
+    "QF2": "b",
+    "QF3": "a",
+    "QF4": "a",
+    "QFIN": "a",
+    "SF1": "a",
+    "SF2": "a"
+  },
+  "snaps": {
+    "F": {
+      "a": "Priyaan Thakker",
+      "b": "Moksh"
+    },
+    "M1": {
+      "a": "Priyaan Thakker",
+      "b": "Bhagya Patel"
+    },
+    "M10": {
+      "a": "Hriday",
+      "b": "Aliqyaan"
+    },
+    "M11": {
+      "a": "Hunar Bedi",
+      "b": "Adhya"
+    },
+    "M12": {
+      "a": "Om Muslunkar",
+      "b": "Dhwani"
+    },
+    "M13": {
+      "a": "Rudra Krishna",
+      "b": "Darsh Agarwal"
+    },
+    "M14": {
+      "a": "Riya",
+      "b": "Bhagya Popat"
+    },
+    "M15": {
+      "a": "M.S.S Vasista",
+      "b": "Rushil"
+    },
+    "M16": {
+      "a": "Virat Shah",
+      "b": "Huzaifa"
+    },
+    "M17": {
+      "a": "Priyaan Thakker",
+      "b": "Aum Parikh"
+    },
+    "M18": {
+      "a": "Siraj Singh",
+      "b": "Shaurya Mahtani"
+    },
+    "M19": {
+      "a": "Japmann",
+      "b": "Atharva"
+    },
+    "M2": {
+      "a": "Aman",
+      "b": "Aum Parikh"
+    },
+    "M20": {
+      "a": "Neev K Shah",
+      "b": "Maanvir"
+    },
+    "M21": {
+      "a": "Moksh",
+      "b": "Hriday"
+    },
+    "M22": {
+      "a": "Hunar Bedi",
+      "b": "Dhwani"
+    },
+    "M23": {
+      "a": "Rudra Krishna",
+      "b": "Riya"
+    },
+    "M24": {
+      "a": "M.S.S Vasista",
+      "b": "Huzaifa"
+    },
+    "M3": {
+      "a": "Pragya",
+      "b": "Siraj Singh"
+    },
+    "M4": {
+      "a": "Shaurya Mahtani",
+      "b": "Shahaan"
+    },
+    "M5": {
+      "a": "Japmann",
+      "b": "Vihaan Kakkar"
+    },
+    "M6": {
+      "a": "Atharva",
+      "b": "Jiah"
+    },
+    "M7": {
+      "a": "Neev K Shah",
+      "b": "Nikita"
+    },
+    "M8": {
+      "a": "Reyaan",
+      "b": "Maanvir"
+    },
+    "M9": {
+      "a": "Moksh",
+      "b": "Idhant Katoch"
+    },
+    "P13F": {
+      "a": "Neev K Shah",
+      "b": "Atharva"
+    },
+    "P13_1": {
+      "a": "M.S.S Vasista",
+      "b": "Neev K Shah"
+    },
+    "P13_2": {
+      "a": "Riya",
+      "b": "Atharva"
+    },
+    "P13_34": {
+      "a": "M.S.S Vasista",
+      "b": "Riya"
+    },
+    "P34": {
+      "a": "Maanvir",
+      "b": "Rudra Krishna"
+    },
+    "P5F": {
+      "a": "Japmann",
+      "b": "Dhwani"
+    },
+    "P5_1": {
+      "a": "Siraj Singh",
+      "b": "Japmann"
+    },
+    "P5_2": {
+      "a": "Dhwani",
+      "b": "Huzaifa"
+    },
+    "P5_34": {
+      "a": "Siraj Singh",
+      "b": "Huzaifa"
+    },
+    "P9F": {
+      "a": "Aum Parikh",
+      "b": "Hunar Bedi"
+    },
+    "P9SF1": {
+      "a": "Aum Parikh",
+      "b": "Hriday"
+    },
+    "P9SF2": {
+      "a": "Shaurya Mahtani",
+      "b": "Hunar Bedi"
+    },
+    "P9_1": {
+      "a": "Aum Parikh",
+      "b": "M.S.S Vasista"
+    },
+    "P9_2": {
+      "a": "Shaurya Mahtani",
+      "b": "Riya"
+    },
+    "P9_3": {
+      "a": "Atharva",
+      "b": "Hunar Bedi"
+    },
+    "P9_34": {
+      "a": "Hriday",
+      "b": "Shaurya Mahtani"
+    },
+    "P9_4": {
+      "a": "Neev K Shah",
+      "b": "Hriday"
+    },
+    "Q1": {
+      "a": "Bhagya Patel",
+      "b": "Aman"
+    },
+    "Q10": {
+      "a": "Vihaan Kakkar",
+      "b": "Reyaan"
+    },
+    "Q11": {
+      "a": "Aliqyaan",
+      "b": "Om Muslunkar"
+    },
+    "Q12": {
+      "a": "Bhagya Popat",
+      "b": "Virat Shah"
+    },
+    "Q13": {
+      "a": "Aman",
+      "b": "Vihaan Kakkar"
+    },
+    "Q14": {
+      "a": "Om Muslunkar",
+      "b": "Bhagya Popat"
+    },
+    "Q2": {
+      "a": "Pragya",
+      "b": "Shahaan"
+    },
+    "Q3": {
+      "a": "Vihaan Kakkar",
+      "b": "Jiah"
+    },
+    "Q34": {
+      "a": "Vihaan Kakkar",
+      "b": "Bhagya Popat"
+    },
+    "Q4": {
+      "a": "Nikita",
+      "b": "Reyaan"
+    },
+    "Q5": {
+      "a": "Idhant Katoch",
+      "b": "Aliqyaan"
+    },
+    "Q6": {
+      "a": "Adhya",
+      "b": "Om Muslunkar"
+    },
+    "Q7": {
+      "a": "Darsh Agarwal",
+      "b": "Bhagya Popat"
+    },
+    "Q8": {
+      "a": "Rushil",
+      "b": "Virat Shah"
+    },
+    "Q9": {
+      "a": "Aman",
+      "b": "Pragya"
+    },
+    "QF1": {
+      "a": "Priyaan Thakker",
+      "b": "Siraj Singh"
+    },
+    "QF2": {
+      "a": "Japmann",
+      "b": "Maanvir"
+    },
+    "QF3": {
+      "a": "Moksh",
+      "b": "Dhwani"
+    },
+    "QF4": {
+      "a": "Rudra Krishna",
+      "b": "Huzaifa"
+    },
+    "QFIN": {
+      "a": "Aman",
+      "b": "Om Muslunkar"
+    },
+    "SF1": {
+      "a": "Priyaan Thakker",
+      "b": "Maanvir"
+    },
+    "SF2": {
+      "a": "Moksh",
+      "b": "Rudra Krishna"
+    }
+  }
+}

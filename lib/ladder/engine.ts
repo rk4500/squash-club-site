@@ -159,9 +159,12 @@ export function backfillSnapshots(results: Results, snaps: Snapshots, matches: M
 /** Final placings decided so far, in rank order. */
 export type Placing = { rank: number; name: string; provisional: boolean }
 
-export function standings(results: Results, snaps: Snapshots, taint: Set<string>, matches: Matches): Placing[] {
+export function standings(
+  results: Results, snaps: Snapshots, taint: Set<string>, matches: Matches,
+  rankPairs: readonly (readonly [string, number])[] = RANK_PAIRS,
+): Placing[] {
   const out: Placing[] = []
-  for (const [mid, rank] of RANK_PAIRS) {
+  for (const [mid, rank] of rankPairs) {
     if (!matches[mid] || matchState(mid, results, snaps, matches) !== 'done') continue
     const [a, b] = participants(mid, results, matches)
     const won = results[mid] === 'a' ? a : b

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import events from '@/data/events.json'
+import Link from 'next/link'
 import { ArrowRight, Calendar } from 'lucide-react'
 import SeasonTimeline from '@/components/events/SeasonTimeline'
 
@@ -19,6 +20,10 @@ function fmt(d: string) {
 }
 
 const cats = ['Intra-College', 'Inter-College', 'Collaboration'] as const
+
+// The headline event, pinned above the timeline. Mark one entry in
+// events.json with "featured": true (and an "href" to send people to).
+const latest = events.find(e => e.featured)
 
 export default function EventsPage() {
   return (
@@ -55,6 +60,35 @@ export default function EventsPage() {
           </div>
         </div>
       </section>
+
+      {latest && (
+        <section className="max-w-7xl mx-auto px-6 lg:px-10 pb-16">
+          <p className="section-label mb-6">Latest Event</p>
+          <Link
+            href={latest.href ?? '/events'}
+            className="group block border border-[#f5a800]/30 bg-[#f5a800]/[0.04] p-7 md:p-10 hover:border-[#f5a800] transition-colors duration-300"
+          >
+            <div className="flex flex-wrap items-center gap-3 mb-5">
+              <span className={`font-condensed text-xs tracking-[0.15em] uppercase px-2.5 py-1 border ${categoryStyle[latest.category]}`}>
+                {latest.category}
+              </span>
+              <span className="flex items-center gap-1.5 text-white/40">
+                <Calendar size={12} />
+                <span className="font-condensed text-xs tracking-wider">21–22 Nov 2026</span>
+              </span>
+            </div>
+            <h2 className="font-bebas text-4xl md:text-6xl tracking-wider leading-none text-white group-hover:text-[#f5a800] transition-colors duration-300 mb-4">
+              {latest.name}
+            </h2>
+            <p className="font-barlow text-white/45 text-base leading-relaxed font-light max-w-2xl mb-6">
+              {latest.description}
+            </p>
+            <span className="inline-flex items-center gap-3 bg-[#f5a800] text-[#05080f] font-condensed tracking-[0.15em] text-sm uppercase px-7 py-3.5 group-hover:bg-[#ffbe33] transition-colors">
+              View Draws <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </span>
+          </Link>
+        </section>
+      )}
 
       <SeasonTimeline />
 
@@ -101,6 +135,11 @@ export default function EventsPage() {
                       <div className="flex items-center gap-2 border-t border-white/5 pt-4">
                         <span className="w-1 h-1 rounded-full bg-[#f5a800] flex-shrink-0" />
                         <span className="font-condensed text-xs tracking-wider text-[#f5a800]/70">{ev.highlight}</span>
+                        {ev.href && (
+                          <Link href={ev.href} className="ml-auto inline-flex items-center gap-1.5 font-condensed text-xs tracking-[0.15em] uppercase text-[#f5a800] hover:text-[#ffbe33]">
+                            View draws <ArrowRight size={12} />
+                          </Link>
+                        )}
                       </div>
                     )}
                   </div>

@@ -1,60 +1,62 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { BRACKETS, DRAW_ID, type DrawData } from '@/data/ladder/draw'
+import { useMemo, useRef, useState } from 'react'
+import { BRACKETS, LADDER_DRAW_ID, type BracketSpec, type DrawData } from '@/data/ladder/draw'
 import { useLadder } from '@/lib/ladder/useLadder'
-import type { LadderStore } from '@/lib/ladder/store'
+import { frozenStore, type LadderStore } from '@/lib/ladder/store'
+import { standings, type Results, type Snapshots } from '@/lib/ladder/engine'
 import { createSupabaseStore } from '@/lib/ladder/supabaseStore'
 import { BracketTree, Schedule, Standings } from './Bracket'
 import { useDrawEdit } from '@/lib/ladder/useDrawEdit'
 
-const ZOOM_KEY = `${DRAW_ID}-zoom`
-const ZOOM_MIN = 0.6
-const ZOOM_MAX = 1.6
-const BASE_COL = 210
-const BASE_STUB = 18
+// Stable identity, so useLadder's memo is not rebuilt every render.
+const NO_PAIRS: readonly (readonly [string, number])[] = []
 
 export default function BracketBoard(
-  { draw, admin = false, store }: { draw: DrawData; admin?: boolean; store?: LadderStore },
+  {
+    draw, admin: adminProp = false, store, frozen,
+    drawId = LADDER_DRAW_ID, brackets = BRACKETS,
+  }: {
+    draw: DrawData
+    /** Which draw this is, in ladder_matches / ladder_results. */
+    drawId?: string
+    /** How to lay the draw out. Defaults to the ladder's. */
+    brackets?: readonly BracketSpec[]
+    admin?: boolean
+    store?: LadderStore
+    /**
+     * A finished draw's final results. The board renders them read-only and
+     * never touches Supabase: no load, no realtime channel, no admin controls.
+     */
+    frozen?: { results: Results; snaps: Snapshots }
+  },
 ) {
+  const admin = adminProp && !frozen
+  // A multi-event draw ranks each event on its own; the ladder ranks the whole
+  // draw through RANK_PAIRS, which is what passing undefined keeps.
+  const perEvent = brackets.some(b => b.places)
   // One store for the lifetime of the board: it owns a realtime subscription,
   // so rebuilding it on every render would tear the channel down and back up.
-  const supabaseStore = useMemo(() => store ?? createSupabaseStore(), [store])
-  const ladder = useLadder(draw.matches, supabaseStore)
+  const boardStore = useMemo(
+    () => store ?? (frozen ? frozenStore(frozen.results, frozen.snaps) : createSupabaseStore(drawId)),
+    [store, frozen, drawId],
+  )
+  const ladder = useLadder(draw.matches, boardStore, frozen, drawId, perEvent ? NO_PAIRS : undefined)
   const { broken, taint, placings, champ, decided, total } = ladder
 
   // Recording a winner and correcting the draw are different jobs on the same
   // boxes, so the board is in one mode or the other rather than trying to read
   // intent out of a single click.
-  const edit = useDrawEdit(draw)
+  const edit = useDrawEdit(draw, drawId)
 
-  const rootRef = useRef<HTMLDivElement>(null)
   const fileRef = useRef<HTMLInputElement>(null)
   const [pasted, setPasted] = useState('')
-
-  // Zoom is a per-viewer display preference, so it stays in localStorage even
-  // once results live server-side.
-  const [zoom, setZoom] = useState(1)
-  useEffect(() => {
-    const saved = parseFloat(window.localStorage.getItem(ZOOM_KEY) ?? '1')
-    if (Number.isFinite(saved)) setZoom(Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, saved)))
-  }, [])
-  useEffect(() => {
-    const el = rootRef.current
-    if (!el) return
-    el.style.setProperty('--colw', `${Math.round(BASE_COL * zoom)}px`)
-    el.style.setProperty('--stub', `${Math.round(BASE_STUB * zoom)}px`)
-    try { window.localStorage.setItem(ZOOM_KEY, String(zoom)) } catch { /* storage blocked */ }
-  }, [zoom])
-
-  const zoomBy = (dir: number) =>
-    setZoom(z => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round((z + dir * 0.15) * 100) / 100)))
 
   function exportResults() {
     const data = ladder.payload()
     const now = new Date()
     const p = (n: number) => String(n).padStart(2, '0')
-    const name = `${DRAW_ID}-results-${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}`
+    const name = `${drawId}-results-${now.getFullYear()}-${p(now.getMonth() + 1)}-${p(now.getDate())}`
       + `-${p(now.getHours())}${p(now.getMinutes())}.json`
 
     const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }))
@@ -73,7 +75,7 @@ export default function BracketBoard(
 
   const confirmForeign = (draw: string) =>
     window.confirm(
-      `That file was saved from draw "${draw}", not ${DRAW_ID}. The match IDs may not line up. Load it anyway?`,
+      `That file was saved from draw "${draw}", not ${drawId}. The match IDs may not line up. Load it anyway?`,
     )
   const confirmOverwrite = (existing: number, incoming: number) =>
     window.confirm(
@@ -99,7 +101,9 @@ export default function BracketBoard(
   }
 
   return (
-    <div className="ladder" ref={rootRef}>
+    // is-editing switches off the small-screen scale-down (ladder.css): edit
+    // fields need their full 16px or a phone zooms the page on focus.
+    <div className={`ladder${edit.editing ? ' is-editing' : ''}`}>
       {admin && (
         <>
           <div className="lc-controls">
@@ -203,8 +207,6 @@ export default function BracketBoard(
       )}
 
       <div className="lc-controls">
-        <button type="button" className="lc-btn" onClick={() => zoomBy(-1)} aria-label="Zoom the bracket out">Zoom out</button>
-        <button type="button" className="lc-btn" onClick={() => zoomBy(1)} aria-label="Zoom the bracket in">Zoom in</button>
         <span className="self-center font-condensed text-xs tracking-widest text-white/25 uppercase">
           {decided} of {total} matches decided
         </span>
@@ -228,8 +230,8 @@ export default function BracketBoard(
         </div>
       )}
 
-      {BRACKETS.map(spec => (
-        <section key={spec.id} id={spec.id}>
+      {brackets.map(spec => (
+        <section key={spec.id} id={spec.id} className="scroll-mt-24">
           <h3 className="font-condensed text-xs tracking-[0.25em] uppercase text-[#f5a800] mt-10 mb-3 flex items-center gap-2.5 before:content-[''] before:w-8 before:h-px before:bg-[#f5a800] before:shrink-0">
             {spec.title}
           </h3>
@@ -248,12 +250,25 @@ export default function BracketBoard(
         </section>
       ))}
 
-      <h3 className="font-condensed text-xs tracking-[0.25em] uppercase text-[#f5a800] mt-10 mb-3 flex items-center gap-2.5 before:content-[''] before:w-8 before:h-px before:bg-[#f5a800] before:shrink-0">
-        Final Standings
-      </h3>
-      <Standings placings={placings} />
+      {perEvent ? (
+        brackets.filter(b => b.places).map(spec => (
+          <div key={spec.id}>
+            <h3 className="font-condensed text-xs tracking-[0.25em] uppercase text-[#f5a800] mt-10 mb-3 flex items-center gap-2.5 before:content-[''] before:w-8 before:h-px before:bg-[#f5a800] before:shrink-0">
+              {spec.title}: Podium
+            </h3>
+            <Standings placings={standings(ladder.results, ladder.snaps, taint, draw.matches, spec.places)} />
+          </div>
+        ))
+      ) : (
+        <>
+          <h3 className="font-condensed text-xs tracking-[0.25em] uppercase text-[#f5a800] mt-10 mb-3 flex items-center gap-2.5 before:content-[''] before:w-8 before:h-px before:bg-[#f5a800] before:shrink-0">
+            Final Standings
+          </h3>
+          <Standings placings={placings} />
+        </>
+      )}
 
-      <h2 className="font-bebas text-4xl md:text-5xl tracking-wider uppercase mt-14 mb-2">Schedule</h2>
+      <h2 id="schedule" className="font-bebas text-4xl md:text-5xl tracking-wider uppercase mt-14 mb-2 scroll-mt-24">Schedule</h2>
       <Schedule draw={draw} />
     </div>
   )

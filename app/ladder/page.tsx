@@ -46,7 +46,7 @@ export default function LadderPage() {
               href="/ladder/bracket"
               className="group inline-flex items-center gap-3 bg-[#f5a800] text-[#05080f] font-condensed tracking-[0.15em] text-sm uppercase px-7 py-3.5 hover:bg-[#ffbe33] transition-colors"
             >
-              Tournament Bracket <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              Previous Tournament Bracket <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
 

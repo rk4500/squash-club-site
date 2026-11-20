@@ -1,5 +1,16 @@
 [
   {
+    "id": 21,
+    "name": "FLAME Squash Championship (FSC) 2.0",
+    "category": "Inter-College",
+    "date": "2026-11-21",
+    "description": "The second edition of the club's marquee open tournament, played 21–22 November. Four draws: Men's Open, Women's Open, Girls U-17 and Mixed Doubles.",
+    "budget": "N/A",
+    "highlight": "Live draws, results and court times",
+    "href": "/fsc",
+    "featured": true
+  },
+  {
     "id": 1,
     "name": "Club Fair",
     "category": "Intra-College",

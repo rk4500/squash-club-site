@@ -6,6 +6,13 @@ import { Menu, X } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
+/*
+ * The current headline event, pinned ahead of the regular links and styled
+ * apart from them. Point it at the next one when this is over, or set it to
+ * null to drop the slot.
+ */
+const featured: { label: string; href: string } | null = { label: 'FSC 2.0', href: '/fsc' }
+
 const navLinks = [
   { label: 'Events', href: '/events' },
   { label: 'Committee', href: '/committee' },
@@ -64,6 +71,23 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-1">
+            {featured && (
+              <Link
+                href={featured.href}
+                aria-current={pathname === featured.href ? 'page' : undefined}
+                className={`mr-2 inline-flex items-center gap-2 font-condensed text-xs tracking-[0.2em] uppercase px-3.5 py-1.5 border transition-colors duration-200
+                  ${pathname === featured.href
+                    ? 'border-[#f5a800] bg-[#f5a800]/10 text-[#f5a800]'
+                    : 'border-[#f5a800]/40 text-[#f5a800] hover:bg-[#f5a800] hover:text-[#05080f]'
+                  }`}
+              >
+                <span className="relative flex w-1.5 h-1.5">
+                  <span className="absolute inset-0 rounded-full bg-current opacity-60 animate-ping motion-reduce:hidden" />
+                  <span className="relative w-1.5 h-1.5 rounded-full bg-current" />
+                </span>
+                {featured.label}
+              </Link>
+            )}
             {navLinks.map((link) => {
               const active = pathname === link.href
               return (
@@ -117,6 +141,15 @@ export default function Navbar() {
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}>
         <div className="flex flex-col gap-2">
+          {featured && (
+            <Link
+              href={featured.href}
+              className="mb-4 self-start inline-flex items-center gap-3 font-bebas text-5xl tracking-wider text-[#f5a800] border-b border-[#f5a800]/40 hover:border-[#f5a800] transition-colors duration-200"
+            >
+              <span className="w-2 h-2 rounded-full bg-[#f5a800] animate-pulse motion-reduce:animate-none" />
+              {featured.label}
+            </Link>
+          )}
           {navLinks.map((link, i) => (
             <Link
               key={link.href}

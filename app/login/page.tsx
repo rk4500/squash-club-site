@@ -15,6 +15,6 @@ export const metadata: Metadata = {
 }
 
 export default async function LoginPage() {
-  if (await getUser()) redirect('/ladder/bracket')
+  if (await getUser()) redirect('/fsc')
   return <LoginForm />
 }

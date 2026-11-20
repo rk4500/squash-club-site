@@ -227,12 +227,13 @@ web3 = 30
 # secret = ""
 
 [auth.email]
-# Must stay true: the CLI maps this onto the email provider itself, so setting
-# it false disables password sign-in entirely rather than just registration
+# Must stay true: this is the email provider itself, so setting it false
+# disables password sign-in entirely rather than just registration
 # (auth/v1/settings reports "email": false and every login returns
 # email_provider_disabled). Self-registration is blocked by enable_signup
 # under [auth], which is the knob that produces disable_signup: true.
-enable_signup = true
+# Was `enable_signup = true` before CLI v3 renamed it; same setting.
+enabled = true
 # If enabled, a user will be required to confirm any email change on both the old, and new email
 # addresses. If disabled, only the new email is required to confirm.
 double_confirm_changes = true
@@ -269,8 +270,8 @@ otp_expiry = 3600
 # content_path = "./supabase/templates/password_changed_notification.html"
 
 [auth.sms]
-# Allow/disallow new user signups via SMS to your project.
-enable_signup = false
+# SMS provider off. Was `enable_signup = false` before CLI v3 renamed it.
+enabled = false
 # If enabled, users need to confirm their phone number before signing in.
 enable_confirmations = false
 # Template for sending OTP to users

@@ -132,7 +132,62 @@ never left. Don't re-add the keyframes.
 
 ---
 
-## Ladder bracket (`/ladder/bracket`) — Supabase-backed
+## Ladder bracket (`/ladder/bracket`): FROZEN since 2026-11-20
+
+The 2026–27 ladder finished (64/64 decided, nothing flagged). Its final draw
+and results were exported from Supabase into
+`data/ladder/final-2026-27.json`, and the page now reads **only that file**:
+no `getUser()`, no `loadDraw`, no realtime, no admin controls. It prerenders
+as a static page. `BracketBoard` takes a `frozen={{ results, snaps }}` prop for
+this; it forces `admin` off and uses `frozenStore` (`lib/ladder/store.ts`),
+which refuses every write. `useLadder` takes the same object as `initial` so
+the first render is already complete.
+
+Don't "tidy" the short names in that JSON (Moksh, Japmann…): the snapshots
+were recorded with them, and changing a draw name without its snapshots makes
+the engine flag the match as a conflict. Full names live in `data/ladder.json`,
+which now holds the final 1–20 from this draw.
+
+Everything below still describes the live editing machinery (Supabase store,
+edit mode, `/login`). It is unused by this page but kept for the next
+tournament's draws page. `/login` still redirects to `/ladder/bracket`, which
+no longer shows controls; repoint it when the next live draw exists.
+
+## FSC 2.0 draws (`/fsc`), live, 21–22 Nov 2026
+
+One draw, `fsc-2026`, holding all four events (Men's Open, Women's Open,
+Girls U-17, Mixed Doubles) because they share two courts and one schedule.
+Same tables, same board, same edit mode as the ladder.
+
+- **Source:** `data/FSC2.0.pdf` → `scripts/fsc_seed.py` →
+  `data/fsc/fsc-2026.json` → the seed block in
+  `supabase/migrations/20261120180000_tournaments.sql`. Match IDs are
+  positional (`MO-R32-9`, `WO-QF2`) because the sheet reuses printed numbers
+  across events; the printed number is `display`.
+- **Byes:** the bye box stays for layout but has no slot, and the next round
+  names the player directly, as the sheet does. Byes are left out of
+  "decided of total".
+- **Fallback:** if the database has no `fsc-2026` rows, `/fsc` renders the seed
+  JSON read-only. Once the migration is pushed it goes live on its own.
+- **Tournaments table:** `tournaments(id, name, starts_on, locked)`. Both
+  tables FK `draw` to it, and the write policies call
+  `tournament_is_open(draw)`, so a locked draw refuses writes in Postgres.
+  `ladder-v2` is seeded locked. To lock FSC when it is over, write a
+  migration setting `locked = true`, then freeze it into JSON the way the
+  ladder was.
+- **Bracket code is draw-agnostic now:** `drawId` and `brackets` are props on
+  `BracketBoard`; `createSupabaseStore`, `loadDraw`, `saveMatch` and
+  `useDrawEdit` take the id. `saveMatch` selects back the row it updated, since
+  an update that matches nothing (wrong id, or a locked draw filtered out by
+  RLS) otherwise reports success. `BracketSpec.places` gives each event its own
+  podium.
+- `/fsc` is in the middleware matcher (it calls `getUser()` server-side) and
+  `/login` now lands there.
+- Featured slot: `featured` in `components/Navbar.tsx`, the hero banner in
+  `app/page.tsx`, and `"featured": true` in `data/events.json`. Retire all
+  three after the event.
+
+## Ladder bracket: live editing machinery (was Supabase-backed)
 
 The tournament draw, ported from the standalone `ladder-v2.html`. Separate from
 `/ladder`, which is the season rankings table out of `data/ladder.json` and is
@@ -167,7 +222,7 @@ Two settings must stay as they are:
 
 - `[auth] enable_signup = false` — self-registration would land a stranger in
   the `authenticated` role, which the write policy accepts.
-- `[auth.email] enable_signup = **true**` — despite the name, the CLI maps this
+- `[auth.email] enabled = **true**` (was `enable_signup = true` before CLI v3) — the CLI maps this
   onto the email provider itself. Setting it false disables password login
   entirely (`email_provider_disabled`). It is not a second signup switch.
 
@@ -289,7 +344,7 @@ table can be rebuilt from something reviewable. Editing it changes nothing.
   async, so dropping it when the write returns flashes the old value back — each
   draft is retired once the draw coming down agrees with it.
 - `components/ladder/` — `Bracket.tsx` (boxes, tree, standings, schedule, and
-  the `TimeField` segments), `BracketBoard.tsx` (mode toggle, controls, zoom,
+  the `TimeField` segments), `BracketBoard.tsx` (mode toggle, controls,
   import/export).
 - `app/ladder/bracket/ladder.css` — plain CSS on purpose. The connectors depend
   on every cell being `flex: 1 1 0` so a pair's midpoint lands on the next

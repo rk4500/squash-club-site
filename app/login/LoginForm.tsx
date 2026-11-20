@@ -28,7 +28,7 @@ export default function LoginForm() {
     }
 
     // refresh() so server components pick up the new session cookie.
-    router.replace('/ladder/bracket')
+    router.replace('/fsc')
     router.refresh()
   }
 

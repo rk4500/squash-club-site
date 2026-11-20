@@ -41,7 +41,8 @@ export type Slot = {
   src: ScheduleSrc
 }
 
-export const DRAW_ID = 'ladder-v2'
+/** The 2026-27 ladder's draw id. Finished and frozen; see data/ladder/final-2026-27.json. */
+export const LADDER_DRAW_ID = 'ladder-v2'
 
 /**
  * Column layout, one array per round. Drives the drawing: each round is a flex
@@ -56,6 +57,12 @@ export type BracketSpec = {
   headings: readonly string[]
   /** Consolation matches, drawn in a trailing "Playoff" column. */
   playoffs: readonly string[]
+  /**
+   * Placing matches for this bracket alone, as [match, rank won]. Set on a
+   * multi-event draw (FSC) so each event gets its own podium; the ladder
+   * leaves it out and ranks the whole draw through RANK_PAIRS.
+   */
+  places?: readonly (readonly [string, number])[]
 }
 
 export const BRACKETS: readonly BracketSpec[] = [

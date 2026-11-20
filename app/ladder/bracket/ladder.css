@@ -22,7 +22,6 @@
   --warn: #ff6b4a;
   --warn-dim: rgba(255, 107, 74, 0.12);
 
-  /* Overridden by the zoom control. */
   --colw: 210px;
   --stub: 18px;
 }
@@ -413,6 +412,19 @@
   .ladder .lc-slotrow > * { font-size: 15px; padding: 8px 6px; }
   .ladder .lc-f-time { padding: 8px 4px; }
   .ladder .lc-f-court { flex: 1 1 100%; }
+}
+
+/* Smaller screens scale the whole tree, not just its column width.
+ * Narrowing columns alone leaves boxes and text full size, so a wide draw still
+ * spans several screens of mostly empty later-round space. `zoom` (not
+ * transform) shrinks the layout box too, so the scroll width shrinks with it
+ * and the connectors stay where the flex maths put them. Off in edit mode,
+ * where the 16px fields above must stay 16px or iOS zooms the page on focus. */
+@media (max-width: 1023px) {
+  .ladder:not(.is-editing) .lc-scroll > * { zoom: 0.85; }
+}
+@media (max-width: 639px) {
+  .ladder:not(.is-editing) .lc-scroll > * { zoom: 0.66; }
 }
 
 /* Surfaces the browser draws for us, drawn in the board's own palette. */

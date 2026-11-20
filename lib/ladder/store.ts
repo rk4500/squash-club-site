@@ -1,4 +1,4 @@
-import { DRAW_ID } from '@/data/ladder/draw'
+import { LADDER_DRAW_ID } from '@/data/ladder/draw'
 import type { Results, Snapshot, Snapshots } from './engine'
 
 /**
@@ -22,8 +22,8 @@ export type LadderStore = {
   subscribe?(onChange: () => void): () => void
 }
 
-const RESULTS_KEY = `${DRAW_ID}-results`
-const SNAPS_KEY = `${DRAW_ID}-snapshots`
+const RESULTS_KEY = `${LADDER_DRAW_ID}-results`
+const SNAPS_KEY = `${LADDER_DRAW_ID}-snapshots`
 
 /**
  * Browser-local store. Same localStorage keys the standalone ladder-v2.html
@@ -58,6 +58,21 @@ export const localStore: LadderStore = {
     write(RESULTS_KEY, results)
     write(SNAPS_KEY, snaps)
   },
+}
+
+/**
+ * A finished draw. Loads the results it was built with and refuses every
+ * write, so a locked bracket cannot change even if a control slips through.
+ * No subscribe: nothing will ever change, so there is nothing to listen for.
+ */
+export function frozenStore(results: Results, snaps: Snapshots): LadderStore {
+  const locked = () => Promise.reject(new Error('This draw is final and locked.'))
+  return {
+    async load() { return { results, snaps } },
+    setWinner: locked,
+    clearMatch: locked,
+    replaceAll: locked,
+  }
 }
 
 function read<T>(key: string): T {

@@ -1,4 +1,4 @@
-import { DRAW_ID, type DrawData, type Match, type ScheduleSrc, type SideRef, type Slot } from '@/data/ladder/draw'
+import { type DrawData, type Match, type ScheduleSrc, type SideRef, type Slot } from '@/data/ladder/draw'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 export const MATCHES_TABLE = 'ladder_matches'
@@ -56,11 +56,11 @@ export function rowsToDraw(rows: MatchRow[]): DrawData {
  * Load the draw. Works with either the server or the browser client — reading
  * is open to everyone, so no session is needed.
  */
-export async function loadDraw(supabase: SupabaseClient): Promise<DrawData> {
+export async function loadDraw(supabase: SupabaseClient, drawId: string): Promise<DrawData> {
   const { data, error } = await supabase
     .from(MATCHES_TABLE)
     .select(MATCH_COLUMNS)
-    .eq('draw', DRAW_ID)
+    .eq('draw', drawId)
 
   if (error) throw new Error(`Could not load the draw: ${error.message}`)
   return rowsToDraw((data ?? []) as MatchRow[])
@@ -70,12 +70,16 @@ export async function loadDraw(supabase: SupabaseClient): Promise<DrawData> {
  * Save edits to one match. Only the columns present are written, so a caller
  * that changed a court time cannot accidentally blank a player name.
  */
-export async function saveMatch(supabase: SupabaseClient, mid: string, edit: MatchEdit) {
-  const { error } = await supabase
+export async function saveMatch(supabase: SupabaseClient, drawId: string, mid: string, edit: MatchEdit) {
+  // .select() so a write that matched no row is caught: Postgres reports an
+  // update of zero rows as success, which would look saved and not be.
+  const { data, error } = await supabase
     .from(MATCHES_TABLE)
     .update(edit)
-    .eq('draw', DRAW_ID)
+    .eq('draw', drawId)
     .eq('match_id', mid)
+    .select('match_id')
 
   if (error) throw new Error(`Could not save ${mid}: ${error.message}`)
+  if (!data?.length) throw new Error(`Could not save ${mid}: no such match in ${drawId}, or the draw is locked`)
 }

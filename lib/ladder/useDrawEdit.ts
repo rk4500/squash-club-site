@@ -124,7 +124,7 @@ export type FocusTarget = { mid: string; field: FocusField }
 
 export type DrawEdit = ReturnType<typeof useDrawEdit>
 
-export function useDrawEdit(draw: DrawData) {
+export function useDrawEdit(draw: DrawData, drawId: string) {
   const router = useRouter()
   const [editing, setEditingState] = useState(false)
   const [drafts, setDrafts] = useState<Record<string, Draft>>({})
@@ -280,7 +280,7 @@ export function useDrawEdit(draw: DrawData) {
     setSaving(mid)
     forget(mid)
     try {
-      await saveMatch(createClient(), mid, edit)
+      await saveMatch(createClient(), drawId, mid, edit)
       setSaved(mid)
       if (pulse.current) clearTimeout(pulse.current)
       pulse.current = setTimeout(() => setSaved(null), SAVED_MS)

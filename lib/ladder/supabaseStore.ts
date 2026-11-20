@@ -1,6 +1,5 @@
 'use client'
 
-import { DRAW_ID } from '@/data/ladder/draw'
 import { createClient } from '@/lib/supabase/client'
 import type { Results, Snapshots, Winner } from './engine'
 import type { LadderStore } from './store'
@@ -24,7 +23,7 @@ type Row = {
  * refused. Hiding the controls in the UI is a matter of not showing people
  * buttons that would fail.
  */
-export function createSupabaseStore(): LadderStore {
+export function createSupabaseStore(drawId: string): LadderStore {
   const supabase = createClient()
 
   return {
@@ -32,7 +31,7 @@ export function createSupabaseStore(): LadderStore {
       const { data, error } = await supabase
         .from(TABLE)
         .select('draw, match_id, winner, snap_a, snap_b')
-        .eq('draw', DRAW_ID)
+        .eq('draw', drawId)
 
       if (error) throw new Error(`Could not load results: ${error.message}`)
 
@@ -52,7 +51,7 @@ export function createSupabaseStore(): LadderStore {
         .from(TABLE)
         .upsert(
           {
-            draw: DRAW_ID,
+            draw: drawId,
             match_id: mid,
             winner: side,
             snap_a: snap?.a ?? null,
@@ -67,7 +66,7 @@ export function createSupabaseStore(): LadderStore {
       const { error } = await supabase
         .from(TABLE)
         .delete()
-        .eq('draw', DRAW_ID)
+        .eq('draw', drawId)
         .eq('match_id', mid)
       if (error) throw new Error(`Could not clear ${mid}: ${error.message}`)
     },
@@ -77,11 +76,11 @@ export function createSupabaseStore(): LadderStore {
       // already behind a confirmation. Delete then insert rather than
       // diffing: it is one clear intent, and a partial import that left
       // stale rows behind would be worse than a brief empty table.
-      const { error: delErr } = await supabase.from(TABLE).delete().eq('draw', DRAW_ID)
+      const { error: delErr } = await supabase.from(TABLE).delete().eq('draw', drawId)
       if (delErr) throw new Error(`Could not clear results: ${delErr.message}`)
 
       const rows: Row[] = Object.entries(results).map(([mid, winner]) => ({
-        draw: DRAW_ID,
+        draw: drawId,
         match_id: mid,
         winner,
         snap_a: snaps[mid]?.a ?? null,
@@ -95,10 +94,10 @@ export function createSupabaseStore(): LadderStore {
 
     subscribe(onChange) {
       const channel = supabase
-        .channel('ladder-results')
+        .channel(`results-${drawId}`)
         .on(
           'postgres_changes',
-          { event: '*', schema: 'public', table: TABLE, filter: `draw=eq.${DRAW_ID}` },
+          { event: '*', schema: 'public', table: TABLE, filter: `draw=eq.${drawId}` },
           () => onChange(),
         )
         .subscribe()

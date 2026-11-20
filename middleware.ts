@@ -19,5 +19,5 @@ export const config = {
    * as signed out. Widening this back to a catch-all is always safe; it just
    * runs the middleware on requests that have no use for it.
    */
-  matcher: ['/ladder/bracket/:path*', '/login', '/auth/:path*'],
+  matcher: ['/fsc/:path*', '/ladder/bracket/:path*', '/login', '/auth/:path*'],
 }
