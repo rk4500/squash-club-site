@@ -28,7 +28,7 @@ const EVENTS: [string, string][] = [
 ]
 
 const LEGEND: [string, string][] = [
-  ['M01, M02…', 'Match numbers as printed on the official draw sheet'],
+  ['M01, M02…', 'Match numbers in playing order, by day, time and court'],
   ['Qualifying', 'Played first; the winner takes the open slot in the main draw'],
   ['Bye', 'No opponent; the player goes straight through to the next round'],
   ['Gold-outlined matches', 'Finals and 3rd-place matches, which decide the podium'],
